@@ -1,8 +1,4 @@
 #include "_pybstimulator.h"
-//#include "../extern/pybind11/include/pybind11/pybind11.h"
-//#include "../extern/pybind11/include/pybind11/stl.h"
-//#include "../extern/pybind11/include/pybind11/stl_bind.h"
-//#include "../BStimulator.h"
 
 PYBIND11_MAKE_OPAQUE(std::vector<UINT32>);
 //PYBIND11_MAKE_OPAQUE(std::array<INT16, NUMBER_VOLT_MEAS>);
