@@ -32,14 +32,10 @@ class stimulator(object):
 
     def _raise_if_error(self, context: str) -> None:
         """Raise last error, if any"""
-        if not self._is_success:
-            # values in range(-24,1) are software errors (or success)
-            # values in range(-132,-100) are hardware errors 
-            if self.last_result.value > -100:
-                err_type = 'software'
-            else:
-                err_type = 'hardware'
-            error_str = f"{context} {err_type} error: {self.last_result.name}"
+        if not self._is_success():
+            last_err = self.last_result
+            err_doc = get_enum_docstr(last_err)
+            error_str = f"{last_err.name.upper()} error in {context}():\n {err_doc}"
             raise RuntimeError(error_str)
 
     @classmethod
