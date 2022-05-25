@@ -279,7 +279,7 @@ PYBIND11_MODULE(_bstimulator, m) {
         .value("unknown", BResult::BUNKNOWN, "Software Error: Unknown error.")
         .value("invalid_handle", BResult::BINVALIDHANDLE, "Software Error: Invalid handle.")
         .value("null_ptr", BResult::BNULLPTR, "Software Error: Null pointer.")
-        .value("invalid_interface", BResult::BINVALIDINTERFACE, "Software Error: Invalid intrface specified or interface not supported.")
+        .value("invalid_interface", BResult::BINVALIDINTERFACE, "Software Error: Invalid interface specified or interface not supported.")
         .value("interface_timeout", BResult::BINTERFACETIMEOUT, "Software Error: Timeout in creating the interface.")
         .value("device_registered", BResult::BDEVICEREGISTERED, "Software Error: Device with that address already connected.")
         .value("invalid_params", BResult::BINVALIDPARAMS, "Software Error: Invalid parameters.")
