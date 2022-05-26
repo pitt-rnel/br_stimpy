@@ -1,5 +1,7 @@
 # stimpy: python wrapper for the Blackrock Neurotech Cerestim API
 
+![stimpy icon](assets/stimpy.png)
+
 ## Dependencies
 This package depends on the Blackrock Cerestim API (for C++),
 [pybind11](https://github.com/pybind/pybind11), and a C++ compiler.
