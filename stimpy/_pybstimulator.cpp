@@ -158,6 +158,8 @@ PYBIND11_MODULE(_bstimulator, m) {
     m.attr("max_configurations") = MAXCONFIGURATIONS;
 
     py::bind_vector<std::vector<UINT32>>(m, "vector_UINT32");
+    py::bind_vector<std::vector<UINT16>>(m, "vector_UINT16");
+    py::bind_vector<std::vector<UINT8>>(m, "vector_UINT8");
     
     py::enum_<BInterfaceType> interface_type(m, "interface_type",
         "The Stimulator was originally designed to be communicated via USB or RS232, and will be functional on multiple platforms. "
@@ -639,10 +641,10 @@ PYBIND11_MODULE(_bstimulator, m) {
         .def("get_module_firmware_version", &get_module_firmware_version_wrap, "output"_a,
             "Each current module has its own microcontroller and has a firmware version. All current modules in a single stimulator should have the same firmware version. The MSB is the Major revision "
             "number and the LSB is the minor revision number. I.e. 0x0105 would be version 1.5\n\n"
-            "output: his should be a pointer to an UINT16 array[16] so that each of the possible 16 current modules firmware is reported")
+            "output: This should be a pointer to an empty vector_UINT16 so that each of the possible 16 current modules firmware is reported")
         .def("get_module_status", &get_module_status_wrap, "output"_a,
             "This tells the status of each current module, whether it is enabled, disabled, or not available.\n\n"
-            "output: This should be a pointer to an UINT8 array[16] so that each of the possible 16 current modules status is reported")
+            "output: This should be a pointer to an empty vector_UINT8 so that each of the possible 16 current modules status is reported")
         .def("get_usb_address", &BStimulator::getUSBAddress)
         .def("get_max_hard_charge", &BStimulator::getMaxHardCharge, "This value is based on the hardware of the particuliar model of the CereStim 96. Again the micro and macro versions of the stimulator have different values")
         .def("get_min_hard_frequency", &BStimulator::getMinHardFrequency, "This value is based on the hardware of the particuliar model of the CereStim 96. Again the micro and macro versions of the stimulator have different values\n\n"
