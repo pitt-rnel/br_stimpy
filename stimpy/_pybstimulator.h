@@ -16,6 +16,8 @@ template <class T, size_t ROW, size_t COL>
 using Matrix = std::array<std::array<T, COL>, ROW>;
 
 std::vector<UINT32> scan_for_devices_wrap();
+BResult get_module_firmware_version_wrap(BStimulator *stimulator, std::vector<UINT16> *output);
+BResult get_module_status_wrap(BStimulator *stimulator, std::vector<UINT8> *output);
 std::array<INT16, NUMBER_VOLT_MEAS> get_output_measurement(BOutputMeasurement *output_measurement);
 std::array<UINT8, MAXMODULES> get_module_status(BDeviceInfo *device_info);
 std::array<UINT16, MAXMODULES> get_module_version(BDeviceInfo *device_info);
@@ -24,7 +26,7 @@ std::array<UINT32, MAXCHANNELS> get_test_electrodes_imp(BTestElectrodes *test_el
 Matrix<INT16, MAXMODULES, NUMBER_VOLT_MEAS> get_modules_mv(BTestModules *testModules);
 std::array<UINT32, MAXCHANNELS> get_test_electrodes_imp(BTestElectrodes *test_electrodes);
 Matrix<INT16, MAXMODULES, NUMBER_VOLT_MEAS> get_modules_mv(BTestModules *testModules);
-std::array<BModuleStatus, MAXMODULES> get_modules_status(BTestModules *testModules);
+std::array<BModuleStatus, MAXMODULES> get_test_modules_status(BTestModules *testModules);
 std::array<UINT8, MAXMODULES> get_group_electrodes(BGroupStimulus *group);
 void set_group_electrodes(BGroupStimulus *group, std::array<UINT8, MAXMODULES> electrode);
 std::array<UINT8, MAXMODULES> get_group_pattern(BGroupStimulus *group);

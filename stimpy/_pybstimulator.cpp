@@ -26,6 +26,20 @@ std::vector<UINT32> scan_for_devices_wrap() { // wrap this static method to retu
     return device_serial_nums;
 }
 
+BResult get_module_firmware_version_wrap(BStimulator *stimulator, std::vector<UINT16> *output) {
+    UINT16 versions[MAXMODULES];
+    BResult res = stimulator->getModuleFirmwareVersion(versions);
+    std::copy(std::begin(versions), std::end(versions), output->begin());
+    return res;
+}
+
+BResult get_module_status_wrap(BStimulator *stimulator, std::vector<UINT8> *output) {
+    UINT8 status[MAXMODULES];
+    BResult res = stimulator->getModuleStatus(status);
+    std::copy(std::begin(status), std::end(status), output->begin());
+    return res;
+}
+
 std::array<INT16, NUMBER_VOLT_MEAS> get_output_measurement(BOutputMeasurement *output_measurement){ //getter to convert int16 array to vector
     std::array<INT16, NUMBER_VOLT_MEAS>  out;
     std::copy(std::begin(output_measurement->measurement), std::end(output_measurement->measurement), out.begin());
@@ -70,7 +84,7 @@ Matrix<INT16, MAXMODULES, NUMBER_VOLT_MEAS> get_modules_mv(BTestModules *testMod
     return out;
 }
 
-std::array<BModuleStatus, MAXMODULES> get_modules_status(BTestModules *testModules){
+std::array<BModuleStatus, MAXMODULES> get_test_modules_status(BTestModules *testModules){
     std::array<BModuleStatus, MAXMODULES> out;
     std::copy(std::begin(testModules->modulesStatus), std::end(testModules->modulesStatus), out.begin());
     return out;
@@ -423,7 +437,7 @@ PYBIND11_MODULE(_bstimulator, m) {
     py::class_<BTestModules> test_modules(m, "test_modules");
     test_modules.def(py::init<>(), "Module Diagnostics.")
         .def_property_readonly("modules_mv", &get_modules_mv, "5 voltage measurements for all current modules reported in millivolts")
-        .def_property_readonly("modules_status", &get_modules_status, "Status of each current module.");
+        .def_property_readonly("modules_status", &get_test_modules_status, "Status of each current module.");
     test_modules.doc() = "The stimulator uses current modules to deliver stimulus through electrodes. These modules may become damaged and so the stimulator uses a known load "
         "and stimulus parameter to determine if the voltage levels on the current module are as they should be.";
 
@@ -622,11 +636,11 @@ PYBIND11_MODULE(_bstimulator, m) {
         .def("get_min_max_amplitude", &BStimulator::getMinMaxAmplitude, "Since there are different models and version of the stimulator, such as the micro and macro versions, this will allow the user "
             "to get the min and max amplitudes that are allowed for stimulation. The upper two MSB are the maximum amplitude while the lower two LSB are the minimum amplitude.\n\n"
             "Returns: Min and Max Amplitude.")
-        .def("get_module_firmware_version", &BStimulator::getModuleFirmwareVersion, "output"_a,
+        .def("get_module_firmware_version", &get_module_firmware_version_wrap, "output"_a,
             "Each current module has its own microcontroller and has a firmware version. All current modules in a single stimulator should have the same firmware version. The MSB is the Major revision "
             "number and the LSB is the minor revision number. I.e. 0x0105 would be version 1.5\n\n"
             "output: his should be a pointer to an UINT16 array[16] so that each of the possible 16 current modules firmware is reported")
-        .def("get_module_status", &BStimulator::getModuleStatus, "output"_a,
+        .def("get_module_status", &get_module_status_wrap, "output"_a,
             "This tells the status of each current module, whether it is enabled, disabled, or not available.\n\n"
             "output: This should be a pointer to an UINT8 array[16] so that each of the possible 16 current modules status is reported")
         .def("get_usb_address", &BStimulator::getUSBAddress)
