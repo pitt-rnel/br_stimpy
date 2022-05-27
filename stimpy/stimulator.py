@@ -203,6 +203,22 @@ class stimulator(object):
             err_doc = get_enum_docstr(last_err)
             error_str = f"{last_err.name.upper()} error in {context}():\n {err_doc}"
             raise RuntimeError(error_str)
+    
+    @staticmethod
+    def _convert_raw_version(raw_version: int) -> dict:
+        version = {
+            "major": (raw_version >> 8) & 0xFF,
+            "minor": raw_version & 0xFF
+        }
+        return version
+
+    @staticmethod
+    def _convert_raw_serial_num(raw_serial: int) -> dict:
+        serial = {
+            "part": part_numbers((raw_serial >> 24) & 0xFF),
+            "serial_no": raw_serial & 0xFFFF
+        }
+        return serial
 
     @classmethod
     def scan_for_devices(cls) -> List[int]:
@@ -473,12 +489,15 @@ class stimulator(object):
         dev_info = _bstimulator.device_info()
         self.last_result = self._bstimulator_obj.read_device_info(dev_info)
         self._raise_if_error("read_device_info")
+        
+
+
         output = dict = {
-            "serial_no": hex(dev_info.serial_no),
-            "mainboard_version": hex(dev_info.mainboard_version),
-            "protocol_version": hex(dev_info.protocol_version),
+            "serial_no": self._convert_raw_serial_num(dev_info.serial_no),
+            "mainboard_version": self._convert_raw_version(dev_info.mainboard_version),
+            "protocol_version": self._convert_raw_version(dev_info.protocol_version),
             "module_status": [module_status(x) for x in dev_info.module_status],
-            "module_version": [hex(x) for x in dev_info.module_version],
+            "module_version": [self._convert_raw_version(x) for x in dev_info.module_version],
         }
         return output
 
@@ -784,61 +803,60 @@ class stimulator(object):
         """
         return bool(self._bstimulator_obj.is_connected())
 
-    def get_serial_number(self) -> str:
+    def get_serial_number(self) -> dict:
         """Get device serial number
 
         Retrieves the serial number that is programmed into the
-        CereStim 96 device that is attached. The format of the 32 bit
-        serial number is as follows 0xPPXXSSSS, where PP is the part
-        number, XX is ignored, and SSSS is the serial number. The part
-        number is a part_numbers enumeration.
+        CereStim 96 device that is attached.
 
         Returns:
-            str: Part Number and Serial number of the CereStim 96 as hex string
+            dict: Part Number and Serial number of the CereStim 96
         """
-        # hex string from serial number TODO do something better to handle part number and serial number
-        return hex(self._bstimulator_obj.get_serial_number())
+        return self._convert_raw_version(self._bstimulator_obj.get_serial_number())
 
-    def get_motherboard_firmware_version(self) -> str:
+    def get_motherboard_firmware_version(self) -> dict:
         """Get main firmware version
 
         Retrieves the firmware revision of the microcontroller on the
-        motherboard. The MSB is the Major revision number and the LSB
-        is the minor revision number. I.e. 0x0500 would be version 5.0
+        motherboard.
 
         Returns:
-            str: Firmware Version of the Motherboard as a hex string
+            dict: Firmware Version of the Motherboard
         """
-        return hex(self._bstimulator_obj.get_motherboard_firmware_version())
+        return self._convert_raw_version(self._bstimulator_obj.get_motherboard_firmware_version())
 
-    def get_protocol_version(self) -> str:
+    def get_protocol_version(self) -> dict:
         """Get motherboard protocol version
 
         The protocol version that the motherboard uses to send and
-        receive data from the current modules. The MSB is the Major
-        revision number and the LSB is the minor revision number. I.e.
-        0x0105 would be version 1.5
+        receive data from the current modules.
 
         Returns:
-            str: Protocol Version of the Motherboard as a hex string
+            dict: Protocol Version of the Motherboard
         """
-        return hex(self._bstimulator_obj.get_protocol_version())
+        return self._convert_raw_version(self._bstimulator_obj.get_protocol_version())
 
-    def get_min_max_amplitude(self) -> str:
+    def get_min_max_amplitude(self) -> dict:
         """Get hardware min and max amplitudes
 
         Since there are different models and version of the stimulator,
         such as the micro and macro versions, this will allow the user
         to get the min and max amplitudes that are allowed for
-        stimulation. The upper two MSB are the maximum amplitude while
-        the lower two LSB are the minimum amplitude.
+        stimulation.
 
         Returns:
-            str: Min and Max Amplitude in hex string
+            dict: Min and Max Amplitude
         """
-        return hex(self._bstimulator_obj.get_min_max_amplitude())
+        # convert raw values to separate bytes (same process as 16bit versions)
+        vals = self._convert_raw_version(self._bstimulator_obj.get_min_max_amplitude())
+        # build new dict with proper keynames
+        out = {
+            "max_amp": vals["major"],
+            "min_amp": vals["minor"]
+        }
+        return out
 
-    def get_module_firmware_version(self) -> List[str]:
+    def get_module_firmware_version(self) -> List[dict]:
         """Get firmware versions of current modules
 
         Each current module has its own microcontroller and has a
@@ -848,13 +866,12 @@ class stimulator(object):
         0x0105 would be version 1.5
 
         Returns:
-            List[str]: List of module firmware versions as hex strings
+            List[dict]: List of dicts with module firmware versions
         """
-        # TODO this will certainly require testing
         output = _bstimulator.vector_UINT16([])
         self.last_result = self._bstimulator_obj.get_module_firmware_version(output)
         self._raise_if_error("get_module_firmware_version")
-        return [hex(x) for x in output]
+        return [self._convert_raw_version(x) for x in output]
 
     def get_module_status(self) -> List[module_status]:
         """Get status of each current module
