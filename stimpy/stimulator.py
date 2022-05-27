@@ -453,7 +453,7 @@ class stimulator(object):
         v = _bstimulator.ocvolt_invalid
         self.last_result = self._bstimulator_obj.max_output_voltage(output, rw, v)
         self._raise_if_error("max_output_voltage")
-        return output.miliVolts
+        return output.milivolts
 
     def set_max_output_voltage(self, oc_voltage: oc_volt) -> int:
         """Set compliance voltage
@@ -479,7 +479,7 @@ class stimulator(object):
             output, rw, oc_voltage
         )
         self._raise_if_error("max_output_voltage")
-        return output.miliVolts
+        return output.milivolts
 
     def read_device_info(self) -> dict:
         """Read device hardware and firmware info
@@ -498,8 +498,6 @@ class stimulator(object):
         self.last_result = self._bstimulator_obj.read_device_info(dev_info)
         self._raise_if_error("read_device_info")
         
-
-
         output = dict = {
             "serial_no": self._convert_raw_serial_num(dev_info.serial_no),
             "mainboard_version": self._convert_raw_version(dev_info.mainboard_version),
@@ -624,7 +622,7 @@ class stimulator(object):
         """
         validation_fcns.validate_configID(configID)
         output = _bstimulator.stimulus_configuration()
-        self.last_result = self._bstimulator_obj.read_stimulus_pattern(output, configID)
+        self.last_result = self._bstimulator_obj.read_stimulus_pattern(output, _bstimulator.config(configID))
         self._raise_if_error("read_stimulus_pattern")
         return output
 
@@ -820,7 +818,7 @@ class stimulator(object):
         Returns:
             dict: Part Number and Serial number of the CereStim 96
         """
-        return self._convert_raw_version(self._bstimulator_obj.get_serial_number())
+        return self._convert_raw_serial_num(self._bstimulator_obj.get_serial_number())
 
     def get_motherboard_firmware_version(self) -> dict:
         """Get main firmware version
@@ -869,10 +867,9 @@ class stimulator(object):
         Returns:
             List[dict]: List of dicts with module firmware versions
         """
-        output = _bstimulator.vector_UINT16([])
-        self.last_result = self._bstimulator_obj.get_module_firmware_version(output)
-        self._raise_if_error("get_module_firmware_version")
-        return [self._convert_raw_version(x) for x in output]
+        fv = self._bstimulator_obj.get_module_firmware_version()
+        output = [self._convert_raw_version(x) for x in fv]
+        return output[:self.get_number_modules()]
 
     def get_module_status(self) -> List[module_status]:
         """Get status of each current module
@@ -883,10 +880,9 @@ class stimulator(object):
         Returns:
             List[module_status]: List of the possible 16 current modules status
         """
-        output = _bstimulator.vector_UINT8([])
-        self.last_result = self._bstimulator_obj.get_module_status(output)
-        self._raise_if_error("get_module_status")
-        return [module_status(x) for x in output]
+        ms = self._bstimulator_obj.get_module_status()
+        output = [module_status(x) for x in ms]
+        return output[:self.get_number_modules()]
 
     def get_usb_address(self) -> int:
         """Gets the USB address of the connected stimulator
@@ -989,4 +985,4 @@ class stimulator(object):
         Returns:
             bool: True if locked False otherwise
         """
-        return bool(self._bstimulator_obj.is_device_lcoked())
+        return bool(self._bstimulator_obj.is_device_locked())

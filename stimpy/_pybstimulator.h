@@ -16,8 +16,8 @@ template <class T, size_t ROW, size_t COL>
 using Matrix = std::array<std::array<T, COL>, ROW>;
 
 std::vector<UINT32> scan_for_devices_wrap();
-BResult get_module_firmware_version_wrap(BStimulator *stimulator, std::vector<UINT16> *output);
-BResult get_module_status_wrap(BStimulator *stimulator, std::vector<UINT8> *output);
+std::array<UINT16, MAXMODULES> get_module_firmware_version_wrap(BStimulator *stimulator);
+std::array<UINT8, MAXMODULES> get_module_status_wrap(BStimulator *stimulator);
 std::array<INT16, NUMBER_VOLT_MEAS> get_output_measurement(BOutputMeasurement *output_measurement);
 std::array<UINT8, MAXMODULES> get_module_status(BDeviceInfo *device_info);
 std::array<UINT16, MAXMODULES> get_module_version(BDeviceInfo *device_info);

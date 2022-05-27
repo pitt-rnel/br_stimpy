@@ -1,16 +1,8 @@
 #include "_pybstimulator.h"
 
 PYBIND11_MAKE_OPAQUE(std::vector<UINT32>);
-//PYBIND11_MAKE_OPAQUE(std::array<INT16, NUMBER_VOLT_MEAS>);
-//PYBIND11_MAKE_OPAQUE(std::array<UINT8, MAXMODULES>);
-//PYBIND11_MAKE_OPAQUE(std::array<UINT16, MAXMODULES>);
-//PYBIND11_MAKE_OPAQUE(Matrix<INT16, MAXCHANNELS, NUMBER_VOLT_MEAS>);
-//PYBIND11_MAKE_OPAQUE(std::array<UINT32, MAXCHANNELS>);
-//PYBIND11_MAKE_OPAQUE(Matrix<INT16, MAXMODULES, NUMBER_VOLT_MEAS>);
-//PYBIND11_MAKE_OPAQUE(std::array<BModuleStatus, MAXMODULES>);
-//PYBIND11_MAKE_OPAQUE(std::array<UINT8, EEPROM_SIZE>);
-//PYBIND11_MAKE_OPAQUE(std::array<UINT8, BANKSIZE>);
-
+//PYBIND11_MAKE_OPAQUE(std::vector<UINT16>);
+//PYBIND11_MAKE_OPAQUE(std::vector<UINT8>);
 
 namespace py = pybind11;
 using namespace pybind11::literals;
@@ -26,18 +18,20 @@ std::vector<UINT32> scan_for_devices_wrap() { // wrap this static method to retu
     return device_serial_nums;
 }
 
-BResult get_module_firmware_version_wrap(BStimulator *stimulator, std::vector<UINT16> *output) {
+std::array<UINT16, MAXMODULES> get_module_firmware_version_wrap(BStimulator *stimulator) {
     UINT16 versions[MAXMODULES];
     BResult res = stimulator->getModuleFirmwareVersion(versions);
-    std::copy(std::begin(versions), std::end(versions), output->begin());
-    return res;
+    std::array<UINT16, MAXMODULES> output;
+    std::copy(std::begin(versions), std::end(versions), output.begin());
+    return output;
 }
 
-BResult get_module_status_wrap(BStimulator *stimulator, std::vector<UINT8> *output) {
+std::array<UINT8, MAXMODULES> get_module_status_wrap(BStimulator *stimulator) {
     UINT8 status[MAXMODULES];
     BResult res = stimulator->getModuleStatus(status);
-    std::copy(std::begin(status), std::end(status), output->begin());
-    return res;
+    std::array<UINT8, MAXMODULES> output;
+    std::copy(std::begin(status), std::end(status), output.begin());
+    return output;
 }
 
 std::array<INT16, NUMBER_VOLT_MEAS> get_output_measurement(BOutputMeasurement *output_measurement){ //getter to convert int16 array to vector
@@ -158,8 +152,8 @@ PYBIND11_MODULE(_bstimulator, m) {
     m.attr("max_configurations") = MAXCONFIGURATIONS;
 
     py::bind_vector<std::vector<UINT32>>(m, "vector_UINT32");
-    py::bind_vector<std::vector<UINT16>>(m, "vector_UINT16");
-    py::bind_vector<std::vector<UINT8>>(m, "vector_UINT8");
+    //py::bind_vector<std::vector<UINT16>>(m, "vector_UINT16");
+    //py::bind_vector<std::vector<UINT8>>(m, "vector_UINT8");
     
     py::enum_<BInterfaceType> interface_type(m, "interface_type",
         "The Stimulator was originally designed to be communicated via USB or RS232, and will be functional on multiple platforms. "
@@ -638,14 +632,11 @@ PYBIND11_MODULE(_bstimulator, m) {
         .def("get_min_max_amplitude", &BStimulator::getMinMaxAmplitude, "Since there are different models and version of the stimulator, such as the micro and macro versions, this will allow the user "
             "to get the min and max amplitudes that are allowed for stimulation. The upper two MSB are the maximum amplitude while the lower two LSB are the minimum amplitude.\n\n"
             "Returns: Min and Max Amplitude.")
-        .def("get_module_firmware_version", &get_module_firmware_version_wrap, "output"_a,
+        .def("get_module_firmware_version", &get_module_firmware_version_wrap,
             "Each current module has its own microcontroller and has a firmware version. All current modules in a single stimulator should have the same firmware version. The MSB is the Major revision "
-            "number and the LSB is the minor revision number. I.e. 0x0105 would be version 1.5\n\n"
-            "output: This should be a pointer to an empty vector_UINT16 so that each of the possible 16 current modules firmware is reported")
-        .def("get_module_status", &get_module_status_wrap, "output"_a,
-            "This tells the status of each current module, whether it is enabled, disabled, or not available.\n\n"
-            "output: This should be a pointer to an empty vector_UINT8 so that each of the possible 16 current modules status is reported")
-        .def("get_usb_address", &BStimulator::getUSBAddress)
+            "number and the LSB is the minor revision number. I.e. 0x0105 would be version 1.5")
+        .def("get_module_status", &get_module_status_wrap,
+            "This tells the status of each current module, whether it is enabled, disabled, or not available.")        .def("get_usb_address", &BStimulator::getUSBAddress)
         .def("get_max_hard_charge", &BStimulator::getMaxHardCharge, "This value is based on the hardware of the particuliar model of the CereStim 96. Again the micro and macro versions of the stimulator have different values")
         .def("get_min_hard_frequency", &BStimulator::getMinHardFrequency, "This value is based on the hardware of the particuliar model of the CereStim 96. Again the micro and macro versions of the stimulator have different values\n\n"
             "Returns: Minimum Stimulating Frequency in Hz")
