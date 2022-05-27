@@ -47,14 +47,18 @@ ext_modules = [
         ),
 ]
 
+with open("README.md", "r", encoding="utf-8") as fh:
+    long_description = fh.read()
+
 setup(
     name="br_stimpy",
     version=__version__,
     author="Jeff Weiss",
     author_email="jeff.weiss@pitt.edu",
-    #url="https://github.com/pybind/python_example",
-    description="Python bindings to Cerestim API",
-    long_description="",
+    url="https://github.com/pitt-rnel/br_stimpy",
+    description="br_stimpy: python bindings to Blackrock Neurotech Cerestim API",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
     ext_modules=ext_modules,
     #extras_require={"test": "pytest"},
     # Currently, build_ext only provides an optional "highest supported C++
