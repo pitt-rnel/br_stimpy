@@ -1,12 +1,12 @@
 # Author: Jeff Weiss <jeff.weiss@pitt.edu>
 # May 2022
 
-"""stimpy: a python package to interface with Blackrock cerestim API.
+"""br_stimpy: a python package to interface with Blackrock Neurotech Cerestim API.
 
 Example:
 
 ```
-from stimpy import stimulator
+from br_stimpy import stimulator
 
 stim_obj = stimulator.stimulator()
 print(stim_obj.lib_version())

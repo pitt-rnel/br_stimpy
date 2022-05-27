@@ -1,4 +1,4 @@
-# stimpy: python wrapper for the Blackrock Neurotech Cerestim API
+# br_stimpy: python wrapper for the Blackrock Neurotech Cerestim API
 
 ![stimpy icon](assets/stimpy.png)
 
@@ -17,9 +17,9 @@ tree by running `git submodule update --init`.
 Once these dependencies are met, the package can be built and installed with
 pip from the package directory by running `pip install .`
 
-## Example:
+## Quick Example:
 ```python
-from stimpy import stimulator
+from br_stimpy import stimulator
 
 stim_obj = stimulator.stimulator()
 print(stim_obj.lib_version())
@@ -38,3 +38,13 @@ stim_obj.configure_stimulus_pattern(
 stim_obj.manual_stimulus(electrode=1, configID=1)
 stim_obj.disconnect()
 ```
+See additional examples in the examples directory.
+
+## Maintainer
+Maintained by [Jeff Weiss](https://github.com/jmw182) and 
+[RNEL](https://github.com/pitt-rnel) at the University of Pittsburgh.
+
+### Disclaimer
+The stimpy graphic included in this README is not intended to be an
+official logo or mascot for this package. The maintainers of this
+package do not claim any ownership over the copyright of this image.

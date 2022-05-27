@@ -39,7 +39,7 @@ else: # linux or mac
 
 ext_modules = [
     Pybind11Extension("_bstimulator",
-        ["stimpy/_pybstimulator.cpp"],
+        ["br_stimpy/_pybstimulator.cpp"],
         # Example: passing in the version to the compiled code
         define_macros = [('VERSION_INFO', __version__)],
         libraries = [lib_name],
@@ -48,7 +48,7 @@ ext_modules = [
 ]
 
 setup(
-    name="stimpy",
+    name="br_stimpy",
     version=__version__,
     author="Jeff Weiss",
     author_email="jeff.weiss@pitt.edu",

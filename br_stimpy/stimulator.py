@@ -1,10 +1,9 @@
 # Author: Jeff Weiss <jeff.weiss@pitt.edu>
 # May 2022
 
-"""stimpy: a python package to interface with Blackrock Cerestim API."""
+"""br_stimpy: a python package to interface with Blackrock Cerestim API."""
 
-from __future__ import annotations
-from tokenize import group  # ensure forward compatibility
+from __future__ import annotations # ensure forward compatibility
 import _bstimulator
 from typing import List, Optional, Any
 

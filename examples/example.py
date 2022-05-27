@@ -1,4 +1,4 @@
-from stimpy import stimulator
+from br_stimpy import stimulator
 
 stim_obj = stimulator.stimulator()
 print(stim_obj.lib_version())

@@ -1,4 +1,4 @@
-from stimpy import stimulator
+from br_stimpy import stimulator
 import time
 
 # create cerestim API object
