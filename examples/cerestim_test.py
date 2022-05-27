@@ -35,7 +35,6 @@ else:
     raise RuntimeError
 
 device_info = cerestim.read_device_info()
-breakpoint()
 sn = device_info['serial_no']
 mv = device_info['mainboard_version']
 pv = device_info['protocol_version']
@@ -113,18 +112,39 @@ time.sleep(0.2)
 print("Programming sequence")
 cerestim.begin_sequence()
 for i in range(1,10):
-    cerestim.auto_stimulus(electrode=i, configID=i)
+    cerestim.auto_stimulus(electrode=i, configID=1) # single pulse
+    cerestim.auto_stimulus(electrode=i, configID=2)
+    cerestim.auto_stimulus(electrode=i, configID=3)
+    cerestim.wait(100) # wait 100 ms between each channel
 cerestim.end_sequence()
 cerestim.play(times=5)
 print("playing")
 status = stimulator.seq_type.playing
 while status == stimulator.seq_type.playing:
     status = cerestim.read_sequence_status()
-    print('.',end=None, flush=True)
+    print('.', end="", flush=True)
     time.sleep(0.05)
+print("")
+
+# Groups of electrodes can also be commanded this way
+print("Programming group sequence")
+cerestim.begin_sequence()
+cerestim.begin_group()
+for i in range(1,3):
+    cerestim.auto_stimulus(electrode=i, configID=i)
+cerestim.end_group()
+cerestim.end_sequence()
+cerestim.play(times=5)
+print("playing")
+status = stimulator.seq_type.playing
+while status == stimulator.seq_type.playing:
+    status = cerestim.read_sequence_status()
+    print('.', end="", flush=True)
+    time.sleep(0.05)
+print("")
 time.sleep(0.1)
 
-
+breakpoint()
 print('disconnect ')
 cerestim.disconnect()
 print('done')
