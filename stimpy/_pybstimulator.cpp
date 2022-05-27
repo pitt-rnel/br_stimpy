@@ -181,7 +181,7 @@ PYBIND11_MODULE(_bstimulator, m) {
 
     py::enum_<BSeqType> seq_type(m, "seq_type", 
         "The Stimulator has internal states, and based on those states the stimulator is allowed to perform different functions. The SeqType enumerator lists all the valid states.");
-    seq_type.value("seq_stop", BSeqType::BSEQ_STOP, "The stimulator is stopped.")
+    seq_type.value("stop", BSeqType::BSEQ_STOP, "The stimulator is stopped.")
         .value("pause"  , BSeqType::BSEQ_PAUSE, "The stimulator is paused.")
         .value("playing", BSeqType::BSEQ_PLAYING, "The stimulator is actively delivering a stimulus.")
         .value("writing", BSeqType::BSEQ_WRITING, "A stimulus sequence is being written to the stimulator.")
