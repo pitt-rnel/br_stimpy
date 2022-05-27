@@ -1,6 +1,3 @@
-from tokenize import group
-
-from boto import config
 from stimpy import stimulator
 import time
 
@@ -38,23 +35,20 @@ else:
     raise RuntimeError
 
 device_info = cerestim.read_device_info()
-sn_hex = device_info['serial_no'] # hex string
-part = stimulator.part_numbers(int(sn_hex[2])) # first digit after 0x in hex string is part enum
-sn = int(sn_hex[-4:],16) # last 4 hex digits are SN
-mv_hex = device_info['mainboard_version']
-pv_hex = device_info['protocol_version']
+breakpoint()
+sn = device_info['serial_no']
+mv = device_info['mainboard_version']
+pv = device_info['protocol_version']
 
-mv_hex = mv_hex[2:] # strip 0x
-pv_hex = pv_hex[2:]
-
-print(f"Device Serial #:          {part}-{sn}")
-print(f"Device Mainboard Version: {mv_hex}")
-print(f"Device Protocol Version:  {pv_hex}")
+print(f"Device Serial #:          {sn['part'].name}-{sn['serial_no']}")
+print(f"Device Mainboard Version: {mv['major']}.{mv['minor']}")
+print(f"Device Protocol Version:  {pv['major']}.{pv['minor']}")
 
 print("Device Module Status:")
 for (i, ms) in enumerate(device_info['module_status']):
     if ms == True:
-        print(f"Module {i + 1}: {ms.name} - Version {device_info['module_version'][i]}")
+        mv = device_info['module_version'][i]
+        print(f"Module {i + 1}: {ms.name} - Version {mv['major']}.{mv['minor']}")
     else:
         print(f"Module {i + 1}: {ms.name}")
 print(f"{cerestim.get_number_modules()} modules installed.")
