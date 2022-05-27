@@ -220,6 +220,14 @@ class stimulator(object):
         }
         return serial
 
+    @staticmethod
+    def _convert_raw_min_max_amp(raw_amp: int) -> dict:
+        amp_limits = {
+            "min_amp": raw_amp & 0xFFFF,
+            "max_amp": (raw_amp >> 16) & 0xFFFF
+        }
+        return amp_limits
+
     @classmethod
     def scan_for_devices(cls) -> List[int]:
         """Scan for connected Cerestim devices
@@ -847,14 +855,7 @@ class stimulator(object):
         Returns:
             dict: Min and Max Amplitude
         """
-        # convert raw values to separate bytes (same process as 16bit versions)
-        vals = self._convert_raw_version(self._bstimulator_obj.get_min_max_amplitude())
-        # build new dict with proper keynames
-        out = {
-            "max_amp": vals["major"],
-            "min_amp": vals["minor"]
-        }
-        return out
+        return self._convert_raw_min_max_amp(self._bstimulator_obj.get_min_max_amplitude())
 
     def get_module_firmware_version(self) -> List[dict]:
         """Get firmware versions of current modules
