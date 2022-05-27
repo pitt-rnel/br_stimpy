@@ -3,7 +3,8 @@
 
 """stimpy: a python package to interface with Blackrock Cerestim API."""
 
-from __future__ import annotations  # ensure forward compatibility
+from __future__ import annotations
+from tokenize import group  # ensure forward compatibility
 import _bstimulator
 from typing import List, Optional, Any
 
@@ -48,49 +49,49 @@ class validation_fcns:
     """Validation functions for internal use within this module"""
 
     @staticmethod
-    def _validate_electrode(electrode: int) -> None:
+    def validate_electrode(electrode: int) -> None:
         if electrode < 1 or electrode > MAX_CHANNELS:
             raise ValueError("Invalid electrode")
 
     @staticmethod
-    def _validate_configID(configID: int) -> None:
+    def validate_configID(configID: int) -> None:
         if configID < 1 or configID > MAX_CONFIGURATIONS:
             raise ValueError("Invalid pattern config ID")
 
     @staticmethod
-    def _validate_module(module: int) -> None:
+    def validate_module(module: int) -> None:
         if module < 0 or module > MAX_MODULES:
             raise ValueError("Invalid module index")
 
     @staticmethod
-    def _validate_pulses(pulses: int) -> None:
+    def validate_pulses(pulses: int) -> None:
         if pulses < 1 or pulses > 255:
             raise ValueError("Invalid pulse number")
 
     @staticmethod
-    def _validate_amp(amp: int) -> None:
+    def validate_amp(amp: int) -> None:
         # TODO determine if micro or macro, for now assume micro
-        if amp < 1 or amp > 215:  # micro
+        if amp < 0 or amp > 215:  # micro
             # if amp < 100 or amp > 10000:
             raise ValueError("Invalid pulse amplitude")
 
     @staticmethod
-    def _validate_width(width: int) -> None:
+    def validate_width(width: int) -> None:
         if width < 1 or width > 65535:
             raise ValueError("Invalid pulse width")
 
     @staticmethod
-    def _validate_frequency(freq: int) -> None:
+    def validate_frequency(freq: int) -> None:
         if freq < 4 or freq > 5000:
             raise ValueError("Invalid frequency")
 
     @staticmethod
-    def _validate_interphase(interphase: int) -> None:
+    def validate_interphase(interphase: int) -> None:
         if interphase < 53 or interphase > 65535:
             raise ValueError("Invalid interphase")
 
 
-class group_stimlus_struct(object):
+class group_stimulus_struct(object):
     """Group Stimulus Structure
 
     Structure to input to stimulator.group_stimulus() function.
@@ -138,8 +139,8 @@ class group_stimlus_struct(object):
             raise ValueError(f"Electrode and Pattern lists must be the same length")
 
         for idx in range(0, num_elec):
-            self.validate_electrode(electrode[idx])
-            self.validate_pattern(pattern[idx])
+            validation_fcns.validate_electrode(electrode[idx])
+            validation_fcns.validate_configID(pattern[idx])
 
         if num_elec:
             self.electrode = electrode
@@ -147,7 +148,7 @@ class group_stimlus_struct(object):
             if num_elec < MAX_MODULES:
                 ext_len = MAX_MODULES - num_elec
                 self.electrode.extend([0] * ext_len)
-                self.pattern.extend([0] * num_elec)
+                self.pattern.extend([0] * ext_len)
         else:
             self.electrode = [0] * MAX_MODULES
             self.pattern = [0] * MAX_MODULES
@@ -275,8 +276,8 @@ class stimulator(object):
             configID (int): The stimulation waveform to use.
                 Valid values are from 1 - 15.
         """
-        validation_fcns._validate_electrode(electrode)
-        validation_fcns._validate_configID(configID)
+        validation_fcns.validate_electrode(electrode)
+        validation_fcns.validate_configID(configID)
 
         self.last_result = self._bstimulator_obj.manual_stimulus(
             electrode, _bstimulator.config(configID)
@@ -344,8 +345,8 @@ class stimulator(object):
             configID (int): One of the fifteen stimulation waveforms that should be used.
                 Valid values are from 1-15
         """
-        validation_fcns._validate_electrode(electrode)
-        validation_fcns._validate_configID(configID)
+        validation_fcns.validate_electrode(electrode)
+        validation_fcns.validate_configID(configID)
         self.last_result = self._bstimulator_obj.auto_stimulus(
             electrode, _bstimulator.config(configID)
         )
@@ -384,7 +385,7 @@ class stimulator(object):
         Raises:
             ValueError: times must be between 0 and 65535.
         """
-        if times < 0 or 65535:
+        if times < 0 or times > 65535:
             raise ValueError("times out of range (0,65535)")
         self.last_result = self._bstimulator_obj.play(times)
         self._raise_if_error("play")
@@ -471,13 +472,13 @@ class stimulator(object):
         """
         dev_info = _bstimulator.device_info()
         self.last_result = self._bstimulator_obj.read_device_info(dev_info)
-        self.raise_if_error("read_device_info")
+        self._raise_if_error("read_device_info")
         output = dict = {
-            "serial_no": hex(dev_info.serialNo),
-            "mainboard_version": hex(dev_info.mainboardVersion),
-            "protcol_version": hex(dev_info.protocol_version),
-            "module_status": [module_status(x) for x in dev_info.moduleStatus],
-            "module_version": [hex(x) for x in dev_info.moduleVersion],
+            "serial_no": hex(dev_info.serial_no),
+            "mainboard_version": hex(dev_info.mainboard_version),
+            "protocol_version": hex(dev_info.protocol_version),
+            "module_status": [module_status(x) for x in dev_info.module_status],
+            "module_version": [hex(x) for x in dev_info.module_version],
         }
         return output
 
@@ -491,9 +492,9 @@ class stimulator(object):
         Args:
             module (int): The current module to be enabled from 0 to 15
         """
-        validation_fcns._validate_module(module)
+        validation_fcns.validate_module(module)
         self.last_result = self._bstimulator_obj.enable_module(module)
-        self.raise_if_error("enable_module")
+        self._raise_if_error("enable_module")
 
     def disable_module(self, module: int) -> None:
         """Disable current module
@@ -506,9 +507,9 @@ class stimulator(object):
         Args:
             module (int):The current module to be disabled from 0 to 15
         """
-        validation_fcns._validate_module(module)
+        validation_fcns.validate_module(module)
         self.last_result = self._bstimulator_obj.disable_module(module)
-        self.raise_if_error("enable_module")
+        self._raise_if_error("enable_module")
 
     def configure_stimulus_pattern(
         self,
@@ -557,14 +558,14 @@ class stimulator(object):
             interphase (int): The period of time between the first and
                 second phases 53 - 65,535 uS
         """
-        validation_fcns._validate_configID(configID)
-        validation_fcns._validate_pulses(pulses)
-        validation_fcns._validate_amp(amp1)
-        validation_fcns._validate_amp(amp2)
-        validation_fcns._validate_width(width1)
-        validation_fcns._validate_width(width2)
-        validation_fcns._validate_frequency(frequency)
-        validation_fcns._validate_interphase(interphase)
+        validation_fcns.validate_configID(configID)
+        validation_fcns.validate_pulses(pulses)
+        validation_fcns.validate_amp(amp1)
+        validation_fcns.validate_amp(amp2)
+        validation_fcns.validate_width(width1)
+        validation_fcns.validate_width(width2)
+        validation_fcns.validate_frequency(frequency)
+        validation_fcns.validate_interphase(interphase)
         self.last_result = self._bstimulator_obj.configure_stimulus_pattern(
             _bstimulator.config(configID),
             afcf,
@@ -594,7 +595,7 @@ class stimulator(object):
             _bstimulator.stimulus_configuration: structure which contains
                 all the parameters that consist in a stimulation waveform
         """
-        validation_fcns._validate_configID(configID)
+        validation_fcns.validate_configID(configID)
         output = _bstimulator.stimulus_configuration()
         self.last_result = self._bstimulator_obj.read_stimulus_pattern(output, configID)
         self._raise_if_error("read_stimulus_pattern")
@@ -664,11 +665,11 @@ class stimulator(object):
 
     def group_stimulus(
         self,
-        begin_seq: int,
-        play: int,
+        begin_seq: bool,
+        play: bool,
         times: int,
         number: int,
-        group_stim_struct: group_stimlus_struct,
+        group_stim_struct: group_stimulus_struct,
     ) -> None:
         """Send group stimulus command
 
@@ -679,19 +680,22 @@ class stimulator(object):
         based on different electrodes and configured waveforms.
 
         Args:
-            begin_seq (int): Boolean expression to tell the function
+            begin_seq (bool): Boolean expression to tell the function
                 that it is the beginning of a sequence
-            play (int): Boolean expression to tell if the stimulator
+            play (bool): Boolean expression to tell if the stimulator
                 should begin stimulating immedieatly after this call
             times (int): The number of times to play the stimulation,
                 is ignored if play = false
             number (int): The number of stimulus that will occur
                 simultaneously.
-            group_stim_struct (group_stimlus_struct): structure which
+            group_stim_struct (group_stimulus_struct): structure which
                 has a pair of arrays with electrodes and waveforms
         """
+        bgroup_stim_struct = _bstimulator.group_stimulus()
+        bgroup_stim_struct.electrode = group_stim_struct.electrode
+        bgroup_stim_struct.pattern = group_stim_struct.pattern
         self.last_result = self._bstimulator_obj.group_stimulus(
-            begin_seq, play, times, number, group_stim_struct
+            int(begin_seq), int(play), times, number, bgroup_stim_struct
         )
         self._raise_if_error("group_stimulus")
 
@@ -753,7 +757,7 @@ class stimulator(object):
         Args:
             configID (int): The configuration to disable
         """
-        validation_fcns._validate_configID(configID)
+        validation_fcns.validate_configID(configID)
         self.last_result = self._bstimulator_obj.disable_stimulus_configuration(
             configID
         )
@@ -769,7 +773,7 @@ class stimulator(object):
         self.last_result = self._bstimulator_obj.reset_stimulator()
         self._raise_if_error("reset_stimulator")
 
-    def is_conected(self) -> bool:
+    def is_connected(self) -> bool:
         """Check if stimulator is connected
 
         Lets the user know that the stimulator object is connected to a
@@ -896,7 +900,7 @@ class stimulator(object):
         Returns:
             int: Minimum Stimulating Frequency in Hz
         """
-        return self._bstimulator_obj.get_max_hard_charge()
+        return self._bstimulator_obj.get_min_hard_frequency()
 
     def get_max_hard_frequency(self) -> int:
         """Get hardware maximum frequency
@@ -908,7 +912,7 @@ class stimulator(object):
         Returns:
             int: Maximum Stimulating Frequency in Hz
         """
-        return self._bstimulator_obj.get_max_hard_charge()
+        return self._bstimulator_obj.get_max_hard_frequency()
 
     def get_number_modules(self) -> int:
         """Get number of current modules installed
@@ -920,7 +924,7 @@ class stimulator(object):
         Returns:
             int: Number of Modules installed
         """
-        return self._bstimulator_obj.get_max_hard_charge()
+        return self._bstimulator_obj.get_number_modules()
 
     def get_max_hard_width(self) -> int:
         """Get hardware maximum pulse width
@@ -931,7 +935,7 @@ class stimulator(object):
         Returns:
             int: Maximum width of each phase in us
         """
-        return self._bstimulator_obj.get_max_hard_charge()
+        return self._bstimulator_obj.get_max_hard_width()
 
     def get_max_hard_interphase(self) -> int:
         """Get hardware maximum interphase width
@@ -942,7 +946,7 @@ class stimulator(object):
         Returns:
             int: Maximum interphase width in us
         """
-        return self._bstimulator_obj.get_max_hard_charge()
+        return self._bstimulator_obj.get_max_hard_interphase()
 
     def is_safety_disabled(self) -> bool:
         """Check if safety limits are disabled
@@ -954,7 +958,7 @@ class stimulator(object):
         Returns:
             bool: True if disabled False otherwise
         """
-        return bool(self._bstimulator_obj.get_max_hard_charge())
+        return bool(self._bstimulator_obj.is_safety_disabled())
 
     def is_device_locked(self) -> bool:
         """Check if stimulator is locked
@@ -967,4 +971,4 @@ class stimulator(object):
         Returns:
             bool: True if locked False otherwise
         """
-        return bool(self._bstimulator_obj.get_max_hard_charge())
+        return bool(self._bstimulator_obj.is_device_lcoked())
