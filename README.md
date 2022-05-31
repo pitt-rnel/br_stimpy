@@ -45,6 +45,7 @@ Maintained by [Jeff Weiss](https://github.com/jmw182) and
 [RNEL](https://github.com/pitt-rnel) at the University of Pittsburgh.
 
 ### Disclaimer
-The stimpy graphic included in this README is not intended to be an
+The graphic included in this README is not intended to be an
 official logo or mascot for this package. The maintainers of this
-package do not claim any ownership over the copyright of this image.
+package do not claim any ownership over the copyright of this image
+or the character depicted within it.
