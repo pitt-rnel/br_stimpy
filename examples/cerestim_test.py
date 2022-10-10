@@ -144,7 +144,6 @@ while status == stimulator.seq_type.playing:
 print("")
 time.sleep(0.1)
 
-breakpoint()
 print('disconnect ')
 cerestim.disconnect()
 print('done')
