@@ -41,4 +41,4 @@ void set_bankC(BElectrodeChannelMap *map, std::array<UINT8, BANKSIZE> bank);
 
 
 
-#endif _PYBSTIMULATOR_H_INCLUDED
+#endif

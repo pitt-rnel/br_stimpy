@@ -21,6 +21,8 @@ std::vector<UINT32> scan_for_devices_wrap() { // wrap this static method to retu
 std::array<UINT16, MAXMODULES> get_module_firmware_version_wrap(BStimulator *stimulator) {
     UINT16 versions[MAXMODULES];
     BResult res = stimulator->getModuleFirmwareVersion(versions);
+    if (res)
+        std::cerr << "Error from BStimulator::getModuleFirmwareVersion: " << res << std::endl;
     std::array<UINT16, MAXMODULES> output;
     std::copy(std::begin(versions), std::end(versions), output.begin());
     return output;
@@ -29,6 +31,8 @@ std::array<UINT16, MAXMODULES> get_module_firmware_version_wrap(BStimulator *sti
 std::array<UINT8, MAXMODULES> get_module_status_wrap(BStimulator *stimulator) {
     UINT8 status[MAXMODULES];
     BResult res = stimulator->getModuleStatus(status);
+    if (res)
+        std::cerr << "Error from BStimulator::getModuleStatus: " << res << std::endl;
     std::array<UINT8, MAXMODULES> output;
     std::copy(std::begin(status), std::end(status), output.begin());
     return output;
