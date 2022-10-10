@@ -60,10 +60,11 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     ext_modules=ext_modules,
+    packages=['br_stimpy'],
     #extras_require={"test": "pytest"},
     # Currently, build_ext only provides an optional "highest supported C++
     # level" feature, but in the future it may provide more features.
     cmdclass={"build_ext": build_ext},
     zip_safe=False,
-    python_requires=">=3.6",
+    python_requires=">=3.6"
 )
