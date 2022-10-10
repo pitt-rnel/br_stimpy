@@ -160,9 +160,13 @@ PYBIND11_MODULE(_bstimulator, m) {
         "The RS232 interface no longer exists. Default type should generally be used.");
     interface_type.value("interface_default", BInterfaceType::BINTERFACE_DEFAULT, "Default interface (windows USB)")
         .value("interface_wusb",  BInterfaceType::BINTERFACE_WUSB, "Windows USB interface.");
+#ifdef _WIN32 // __if_exists keyword is in windows but is not standard c++, not in gcc
     __if_exists(BInterfaceType::BINTERFACE_CPUSB) { // experimental cross-platform USB interface, not in standard header
         interface_type.value("interface_cpusb",  BInterfaceType::BINTERFACE_CPUSB, "Experimental cross-platform USB interface."); 
-    };    
+    };
+#else
+    interface_type.value("interface_cpusb",  BInterfaceType::BINTERFACE_CPUSB, "Experimental cross-platform USB interface.");
+#endif    
     interface_type.value("interface_count",  BInterfaceType::BINTERFACE_COUNT, "Number of Interfaces, always the last one.")
         .export_values();
 
