@@ -10,7 +10,7 @@ if lib_version.beta:
     beta = ' beta'
 else:
     beta = ''
-print(f"API version: {lib_version.major}.{lib_version}.minor{beta}")
+print(f"API version: {lib_version.major}.{lib_version.minor}{beta}")
 
 # scan for devices
 device_serial_nums = cerestim.scan_for_devices()
