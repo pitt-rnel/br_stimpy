@@ -21,7 +21,7 @@ pip from the package directory by running `pip install .`
 ```python
 from br_stimpy import stimulator
 
-stim_obj = stimulator.stimulator()
+stim_obj = stimulator.Stimulator()
 print(stim_obj.lib_version())
 stim_obj.connect()
 stim_obj.configure_stimulus_pattern(
