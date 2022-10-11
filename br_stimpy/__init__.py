@@ -27,4 +27,4 @@ stim_obj.disconnect()
 ```
 """
 
-__all__ = ['stimulator','_bstimulator']
+__all__ = ["stimulator", "_bstimulator"]

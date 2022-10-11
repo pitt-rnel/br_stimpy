@@ -3,7 +3,7 @@
 
 """br_stimpy: a python package to interface with Blackrock Cerestim API."""
 
-from __future__ import annotations # ensure forward compatibility
+from __future__ import annotations  # ensure forward compatibility
 import _bstimulator
 from typing import List, Optional, Any
 
@@ -44,7 +44,7 @@ def get_enum_docstr(enum_val: Any) -> str:
     return doc_str
 
 
-class validation_fcns:
+class ValidationFcns:
     """Validation functions for internal use within this module"""
 
     @staticmethod
@@ -90,23 +90,23 @@ class validation_fcns:
             raise ValueError("Invalid interphase")
 
 
-class group_stimulus_struct(object):
+class GroupStimulusStruct(object):
     """Group Stimulus Structure
 
-    Structure to input to stimulator.group_stimulus() function.
+    Structure to input to Stimulator.group_stimulus() function.
 
     Optionally accepts electrode and pattern ID lists as input.
     Constructor will check that electrode and pattern IDs are valid and
     not longer than MAX_MODULES. Will zero-pad lists to length
     MAX_MODULES. User must not modify these lengths before calling
-    stimulator.group_stimulus()
+    Stimulator.group_stimulus()
     """
 
     def __init__(
         self, electrode: Optional[List[int]] = None, pattern: Optional[List[int]] = None
     ) -> None:
         """
-        group_stimulus_struct constructor
+        GroupStimulusStruct constructor
 
         Args:
             electrode (Optional[List[int]], optional):
@@ -138,8 +138,8 @@ class group_stimulus_struct(object):
             raise ValueError(f"Electrode and Pattern lists must be the same length")
 
         for idx in range(0, num_elec):
-            validation_fcns.validate_electrode(electrode[idx])
-            validation_fcns.validate_configID(pattern[idx])
+            ValidationFcns.validate_electrode(electrode[idx])
+            ValidationFcns.validate_configID(pattern[idx])
 
         if num_elec:
             self.electrode = electrode
@@ -153,7 +153,7 @@ class group_stimulus_struct(object):
             self.pattern = [0] * MAX_MODULES
 
 
-class stimulator(object):
+class Stimulator(object):
     """Simple python interface to Blackrock Cerestim 96"""
 
     device_vector: Optional[List[int]] = None
@@ -174,8 +174,8 @@ class stimulator(object):
         Raises:
             RuntimeError: Only 12 stimulator objects can be created at a time
         """
-        stimulator._stimulator_count += 1
-        if stimulator._stimulator_count > MAX_STIMULATORS:
+        Stimulator._stimulator_count += 1
+        if Stimulator._stimulator_count > MAX_STIMULATORS:
             raise RuntimeError("Max stimulator error")
 
         self._bstimulator_obj: _bstimulator.stimulator = (
@@ -189,7 +189,7 @@ class stimulator(object):
 
         Decrements _stimulator_count
         """
-        stimulator._stimulator_count -= 1
+        Stimulator._stimulator_count -= 1
 
     def _is_success(self) -> bool:
         """Evaluate if last stim API result was successful"""
@@ -202,29 +202,23 @@ class stimulator(object):
             err_doc = get_enum_docstr(last_err)
             error_str = f"{last_err.name.upper()} error in {context}():\n {err_doc}"
             raise RuntimeError(error_str)
-    
+
     @staticmethod
     def _convert_raw_version(raw_version: int) -> dict:
-        version = {
-            "major": (raw_version >> 8) & 0xFF,
-            "minor": raw_version & 0xFF
-        }
+        version = {"major": (raw_version >> 8) & 0xFF, "minor": raw_version & 0xFF}
         return version
 
     @staticmethod
     def _convert_raw_serial_num(raw_serial: int) -> dict:
         serial = {
             "part": part_numbers((raw_serial >> 24) & 0xFF),
-            "serial_no": raw_serial & 0xFFFF
+            "serial_no": raw_serial & 0xFFFF,
         }
         return serial
 
     @staticmethod
     def _convert_raw_min_max_amp(raw_amp: int) -> dict:
-        amp_limits = {
-            "min_amp": raw_amp & 0xFFFF,
-            "max_amp": (raw_amp >> 16) & 0xFFFF
-        }
+        amp_limits = {"min_amp": raw_amp & 0xFFFF, "max_amp": (raw_amp >> 16) & 0xFFFF}
         return amp_limits
 
     @classmethod
@@ -299,8 +293,8 @@ class stimulator(object):
             configID (int): The stimulation waveform to use.
                 Valid values are from 1 - 15.
         """
-        validation_fcns.validate_electrode(electrode)
-        validation_fcns.validate_configID(configID)
+        ValidationFcns.validate_electrode(electrode)
+        ValidationFcns.validate_configID(configID)
 
         self.last_result = self._bstimulator_obj.manual_stimulus(
             electrode, _bstimulator.config(configID)
@@ -368,8 +362,8 @@ class stimulator(object):
             configID (int): One of the fifteen stimulation waveforms that should be used.
                 Valid values are from 1-15
         """
-        validation_fcns.validate_electrode(electrode)
-        validation_fcns.validate_configID(configID)
+        ValidationFcns.validate_electrode(electrode)
+        ValidationFcns.validate_configID(configID)
         self.last_result = self._bstimulator_obj.auto_stimulus(
             electrode, _bstimulator.config(configID)
         )
@@ -466,7 +460,7 @@ class stimulator(object):
         more current.
 
         Args:
-            oc_voltage (stimulator.oc_volt): The voltage level that is
+            oc_voltage (Stimulator.oc_volt): The voltage level that is
                 being set. Must be an oc_volt enum value.
 
         Returns:
@@ -496,13 +490,15 @@ class stimulator(object):
         dev_info = _bstimulator.device_info()
         self.last_result = self._bstimulator_obj.read_device_info(dev_info)
         self._raise_if_error("read_device_info")
-        
+
         output = dict = {
             "serial_no": self._convert_raw_serial_num(dev_info.serial_no),
             "mainboard_version": self._convert_raw_version(dev_info.mainboard_version),
             "protocol_version": self._convert_raw_version(dev_info.protocol_version),
             "module_status": [module_status(x) for x in dev_info.module_status],
-            "module_version": [self._convert_raw_version(x) for x in dev_info.module_version],
+            "module_version": [
+                self._convert_raw_version(x) for x in dev_info.module_version
+            ],
         }
         return output
 
@@ -516,7 +512,7 @@ class stimulator(object):
         Args:
             module (int): The current module to be enabled from 0 to 15
         """
-        validation_fcns.validate_module(module)
+        ValidationFcns.validate_module(module)
         self.last_result = self._bstimulator_obj.enable_module(module)
         self._raise_if_error("enable_module")
 
@@ -531,7 +527,7 @@ class stimulator(object):
         Args:
             module (int):The current module to be disabled from 0 to 15
         """
-        validation_fcns.validate_module(module)
+        ValidationFcns.validate_module(module)
         self.last_result = self._bstimulator_obj.disable_module(module)
         self._raise_if_error("enable_module")
 
@@ -565,7 +561,7 @@ class stimulator(object):
         Args:
             configID (int): The stimulation waveform that is being
                 configured 1 - 15
-            afcf (stimulator.wf_types): What polarity should the first
+            afcf (Stimulator.wf_types): What polarity should the first
                 phase be, Anodic or Cathodic first
             pulses (int): The number of stimulation pulses in waveform
                 from 1 - 255
@@ -582,14 +578,14 @@ class stimulator(object):
             interphase (int): The period of time between the first and
                 second phases 53 - 65,535 uS
         """
-        validation_fcns.validate_configID(configID)
-        validation_fcns.validate_pulses(pulses)
-        validation_fcns.validate_amp(amp1)
-        validation_fcns.validate_amp(amp2)
-        validation_fcns.validate_width(width1)
-        validation_fcns.validate_width(width2)
-        validation_fcns.validate_frequency(frequency)
-        validation_fcns.validate_interphase(interphase)
+        ValidationFcns.validate_configID(configID)
+        ValidationFcns.validate_pulses(pulses)
+        ValidationFcns.validate_amp(amp1)
+        ValidationFcns.validate_amp(amp2)
+        ValidationFcns.validate_width(width1)
+        ValidationFcns.validate_width(width2)
+        ValidationFcns.validate_frequency(frequency)
+        ValidationFcns.validate_interphase(interphase)
         self.last_result = self._bstimulator_obj.configure_stimulus_pattern(
             _bstimulator.config(configID),
             afcf,
@@ -619,9 +615,11 @@ class stimulator(object):
             _bstimulator.stimulus_configuration: structure which contains
                 all the parameters that consist in a stimulation waveform
         """
-        validation_fcns.validate_configID(configID)
+        ValidationFcns.validate_configID(configID)
         output = _bstimulator.stimulus_configuration()
-        self.last_result = self._bstimulator_obj.read_stimulus_pattern(output, _bstimulator.config(configID))
+        self.last_result = self._bstimulator_obj.read_stimulus_pattern(
+            output, _bstimulator.config(configID)
+        )
         self._raise_if_error("read_stimulus_pattern")
         return output
 
@@ -693,7 +691,7 @@ class stimulator(object):
         play: bool,
         times: int,
         number: int,
-        group_stim_struct: group_stimulus_struct,
+        group_stim_struct: GroupStimulusStruct,
     ) -> None:
         """Send group stimulus command
 
@@ -712,7 +710,7 @@ class stimulator(object):
                 is ignored if play = false
             number (int): The number of stimulus that will occur
                 simultaneously.
-            group_stim_struct (group_stimulus_struct): structure which
+            group_stim_struct (GroupStimulusStruct): structure which
                 has a pair of arrays with electrodes and waveforms
         """
         bgroup_stim_struct = _bstimulator.group_stimulus()
@@ -781,7 +779,7 @@ class stimulator(object):
         Args:
             configID (int): The configuration to disable
         """
-        validation_fcns.validate_configID(configID)
+        ValidationFcns.validate_configID(configID)
         self.last_result = self._bstimulator_obj.disable_stimulus_configuration(
             configID
         )
@@ -800,7 +798,7 @@ class stimulator(object):
     def is_connected(self) -> bool:
         """Check if stimulator is connected
 
-        Lets the user know that the stimulator object is connected to a
+        Lets the user know that the Stimulator object is connected to a
         physical CereStim 96 device.
 
         Returns:
@@ -828,7 +826,9 @@ class stimulator(object):
         Returns:
             dict: Firmware Version of the Motherboard
         """
-        return self._convert_raw_version(self._bstimulator_obj.get_motherboard_firmware_version())
+        return self._convert_raw_version(
+            self._bstimulator_obj.get_motherboard_firmware_version()
+        )
 
     def get_protocol_version(self) -> dict:
         """Get motherboard protocol version
@@ -852,7 +852,9 @@ class stimulator(object):
         Returns:
             dict: Min and Max Amplitude
         """
-        return self._convert_raw_min_max_amp(self._bstimulator_obj.get_min_max_amplitude())
+        return self._convert_raw_min_max_amp(
+            self._bstimulator_obj.get_min_max_amplitude()
+        )
 
     def get_module_firmware_version(self) -> List[dict]:
         """Get firmware versions of current modules
@@ -868,7 +870,7 @@ class stimulator(object):
         """
         fv = self._bstimulator_obj.get_module_firmware_version()
         output = [self._convert_raw_version(x) for x in fv]
-        return output[:self.get_number_modules()]
+        return output[: self.get_number_modules()]
 
     def get_module_status(self) -> List[module_status]:
         """Get status of each current module
@@ -881,7 +883,7 @@ class stimulator(object):
         """
         ms = self._bstimulator_obj.get_module_status()
         output = [module_status(x) for x in ms]
-        return output[:self.get_number_modules()]
+        return output[: self.get_number_modules()]
 
     def get_usb_address(self) -> int:
         """Gets the USB address of the connected stimulator

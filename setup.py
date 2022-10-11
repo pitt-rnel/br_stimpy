@@ -1,6 +1,6 @@
 import sys, struct, shutil
 
-#from pybind11 import get_cmake_dir
+# from pybind11 import get_cmake_dir
 # Available at setup time due to pyproject.toml
 from pybind11.setup_helpers import Pybind11Extension, build_ext
 from setuptools import setup
@@ -16,35 +16,36 @@ __version__ = "0.0.1"
 #   Sort input source files if you glob sources to ensure bit-for-bit
 #   reproducible builds (https://github.com/pybind/python_example/pull/53)
 
-lib_dir = './extern/CereStim-API/Binaries/'
-if sys.platform == 'win32': # windows
-    bitness = struct.calcsize("P")*8 # determine if 32-bit or 64-bit python
-    if bitness == 64: # 64-bit
-        #lib_dir = '../x64/Release/'
-        lib_name = 'BStimAPIx64'
-    else: # 32-bit
-        #lib_dir = '../Win32/Release/'
-        lib_name = 'BStimAPIx86'
-    shutil.copy2(lib_dir+lib_name+'.dll','.')
-    shutil.copy2(lib_dir+lib_name+'.lib','.')
-else: # linux or mac
-    #lib_dir = '../'
-    lib_name = 'BStimAPI'
-    if sys.platform == 'darwin': # mac
-        lib_ext = '.dylib'
+lib_dir = "./extern/CereStim-API/Binaries/"
+if sys.platform == "win32":  # windows
+    bitness = struct.calcsize("P") * 8  # determine if 32-bit or 64-bit python
+    if bitness == 64:  # 64-bit
+        # lib_dir = '../x64/Release/'
+        lib_name = "BStimAPIx64"
+    else:  # 32-bit
+        # lib_dir = '../Win32/Release/'
+        lib_name = "BStimAPIx86"
+    shutil.copy2(lib_dir + lib_name + ".dll", ".")
+    shutil.copy2(lib_dir + lib_name + ".lib", ".")
+else:  # linux or mac
+    # lib_dir = '../'
+    lib_name = "BStimAPI"
+    if sys.platform == "darwin":  # mac
+        lib_ext = ".dylib"
     else:
-        lib_ext = '.so'
-    shutil.copy2(lib_dir+'lib'+lib_name+lib_ext,'.')
+        lib_ext = ".so"
+    shutil.copy2(lib_dir + "lib" + lib_name + lib_ext, ".")
 
 
 ext_modules = [
-    Pybind11Extension("_bstimulator",
+    Pybind11Extension(
+        "_bstimulator",
         ["br_stimpy/_pybstimulator.cpp"],
         # Example: passing in the version to the compiled code
-        define_macros = [('VERSION_INFO', __version__)],
-        libraries = [lib_name],
-        language='c++'
-        ),
+        define_macros=[("VERSION_INFO", __version__)],
+        libraries=[lib_name],
+        language="c++",
+    )
 ]
 
 with open("README.md", "r", encoding="utf-8") as fh:
@@ -60,11 +61,11 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     ext_modules=ext_modules,
-    packages=['br_stimpy'],
-    #extras_require={"test": "pytest"},
+    packages=["br_stimpy"],
+    # extras_require={"test": "pytest"},
     # Currently, build_ext only provides an optional "highest supported C++
     # level" feature, but in the future it may provide more features.
     cmdclass={"build_ext": build_ext},
     zip_safe=False,
-    python_requires=">=3.6"
+    python_requires=">=3.6",
 )
