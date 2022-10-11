@@ -68,14 +68,14 @@ print(f"Maximum Hardware Width: {max_hard_width}")
 max_values = cerestim.read_stimulus_max_values()
 print("Read Maximum Values:  ")
 print(
-    f"Maximum Voltage:      {stimulator.get_enum_docstr(stimulator.oc_volt(max_values.voltage))}"
+    f"Maximum Voltage:      {stimulator.get_enum_docstr(stimulator.OCVolt(max_values.voltage))}"
 )
 print(f"Maximum Amplitude:    {max_values.amplitude}")
 print(f"Maximum Phase Charge: {max_values.phase_charge}")
 print(f"Maximum Frequency:    {max_values.frequency}")
 
 # Set up additional configurations to a default value
-cath = stimulator.wf_types.wf_cathodic_first
+cath = stimulator.WFTypes.wf_cathodic_first
 for i in range(1, 16):
     cerestim.configure_stimulus_pattern(
         configID=i,
@@ -143,8 +143,8 @@ for i in range(1, 10):
 cerestim.end_sequence()
 cerestim.play(times=5)
 print("playing")
-status = stimulator.seq_type.playing
-while status == stimulator.seq_type.playing:
+status = stimulator.SeqType.playing
+while status == stimulator.SeqType.playing:
     status = cerestim.read_sequence_status()
     print(".", end="", flush=True)
     time.sleep(0.05)
@@ -160,8 +160,8 @@ cerestim.end_group()
 cerestim.end_sequence()
 cerestim.play(times=5)
 print("playing")
-status = stimulator.seq_type.playing
-while status == stimulator.seq_type.playing:
+status = stimulator.SeqType.playing
+while status == stimulator.SeqType.playing:
     status = cerestim.read_sequence_status()
     print(".", end="", flush=True)
     time.sleep(0.05)

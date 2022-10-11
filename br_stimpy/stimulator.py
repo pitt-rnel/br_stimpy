@@ -7,27 +7,26 @@ from __future__ import annotations  # ensure forward compatibility
 import _bstimulator
 from typing import List, Optional, Any
 
-SUCCESS: _bstimulator.result = _bstimulator.success
+SUCCESS: _bstimulator.Result = _bstimulator.success
 MAX_CHANNELS: int = (
-    _bstimulator.max_channels - 1
+    _bstimulator.MAX_CHANNELS - 1
 )  # the API constant also includes internal channel 0
-MAX_CONFIGURATIONS: int = _bstimulator.max_configurations
-MAX_MODULES: int = _bstimulator.max_modules
-BANK_SIZE: int = _bstimulator.bank_size
+MAX_CONFIGURATIONS: int = _bstimulator.MAX_CONFIGURATIONS
+MAX_MODULES: int = _bstimulator.MAX_MODULES
+BANK_SIZE: int = _bstimulator.BANK_SIZE
 MAX_STIMULATORS: int = (
     12  # subject to change, this is not from public BStimulator.h header
 )
 
 # add references to enums and other classes from _bstimulator
-oc_volt = _bstimulator.oc_volt  # enum class for compliance voltage
-wf_types = _bstimulator.wf_type  # enum class for anodal or cathodal first
-trigger_type = _bstimulator.trigger_type
-electrode_channel_map = _bstimulator.electrode_channel_map
-part_numbers = _bstimulator.part_numbers
-module_status = _bstimulator.module_status
-seq_type = _bstimulator.seq_type
-module_status = _bstimulator.module_status
-result_types = _bstimulator.result
+OCVolt = _bstimulator.OCVolt  # enum class for compliance voltage
+WFTypes = _bstimulator.WFType  # enum class for anodal or cathodal first
+TriggerType = _bstimulator.TriggerType
+ElectrodeChannelMap = _bstimulator.ElectrodeChannelMap
+PartNumbers = _bstimulator.PartNumbers
+ModuleStatus = _bstimulator.ModuleStatus
+SeqType = _bstimulator.SeqType
+ResultTypes = _bstimulator.Result
 
 
 def get_enum_docstr(enum_val: Any) -> str:
@@ -160,13 +159,13 @@ class Stimulator(object):
     _stimulator_count: int = 0
 
     # repeat _bstimulator references here (user can access from either module or class)
-    oc_volt = oc_volt  # enum class for compliance voltage
-    wf_types = wf_types  # enum class for anodal or cathodal first
-    trigger_type = trigger_type
-    electrode_channel_map = electrode_channel_map
-    part_numbers = part_numbers
-    module_status = module_status
-    seq_type = seq_type
+    OCVolt = OCVolt  # enum class for compliance voltage
+    WFTypes = WFTypes  # enum class for anodal or cathodal first
+    TriggerType = TriggerType
+    ElectrodeChannelMap = ElectrodeChannelMap
+    PartNumbers = PartNumbers
+    ModuleStatus = ModuleStatus
+    SeqType = SeqType
 
     def __init__(self) -> None:
         """Stimulator constructor
@@ -178,11 +177,11 @@ class Stimulator(object):
         if Stimulator._stimulator_count > MAX_STIMULATORS:
             raise RuntimeError("Max stimulator error")
 
-        self._bstimulator_obj: _bstimulator.stimulator = (
-            _bstimulator.stimulator()
+        self._bstimulator_obj: _bstimulator.Stimulator = (
+            _bstimulator.Stimulator()
         )  # raw stimulator object
         self.device_index: Optional[List[int]] = None
-        self.last_result: result_types = SUCCESS
+        self.last_result: ResultTypes = SUCCESS
 
     def __del__(self) -> None:
         """Stimulator destructor
@@ -211,7 +210,7 @@ class Stimulator(object):
     @staticmethod
     def _convert_raw_serial_num(raw_serial: int) -> dict:
         serial = {
-            "part": part_numbers((raw_serial >> 24) & 0xFF),
+            "part": PartNumbers((raw_serial >> 24) & 0xFF),
             "serial_no": raw_serial & 0xFFFF,
         }
         return serial
@@ -231,7 +230,7 @@ class Stimulator(object):
         Returns:
             List[int]: list of serial numbers of the connected Cerestims
         """
-        cls.device_vector = list(_bstimulator.stimulator.scan_for_devices())
+        cls.device_vector = list(_bstimulator.Stimulator.scan_for_devices())
         return cls.device_vector
 
     def connect(self, device_index: int = 0) -> None:
@@ -270,13 +269,13 @@ class Stimulator(object):
         self.last_result = self._bstimulator_obj.disconnect()
         self._raise_if_error("disconnect")
 
-    def lib_version(self) -> _bstimulator.version:
+    def lib_version(self) -> _bstimulator.Version:
         """Get API library version
 
         Returns:
-            _bstimulator.version: structure containing version
+            _bstimulator.Version: structure containing version
         """
-        version_struct = _bstimulator.version()
+        version_struct = _bstimulator.Version()
         self.last_result = self._bstimulator_obj.lib_version(version_struct)
         self._raise_if_error("lib_version")
         return version_struct
@@ -297,7 +296,7 @@ class Stimulator(object):
         ValidationFcns.validate_configID(configID)
 
         self.last_result = self._bstimulator_obj.manual_stimulus(
-            electrode, _bstimulator.config(configID)
+            electrode, _bstimulator.Config(configID)
         )
         self._raise_if_error("manual_stimulus")
 
@@ -365,7 +364,7 @@ class Stimulator(object):
         ValidationFcns.validate_electrode(electrode)
         ValidationFcns.validate_configID(configID)
         self.last_result = self._bstimulator_obj.auto_stimulus(
-            electrode, _bstimulator.config(configID)
+            electrode, _bstimulator.Config(configID)
         )
         self._raise_if_error("auto_stimulus")
 
@@ -441,14 +440,14 @@ class Stimulator(object):
         Returns:
             int: the max output voltage in millivolts
         """
-        output = _bstimulator.max_output_voltage()
+        output = _bstimulator.MaxOutputVoltage()
         rw = 0  # read
         v = _bstimulator.ocvolt_invalid
         self.last_result = self._bstimulator_obj.max_output_voltage(output, rw, v)
         self._raise_if_error("max_output_voltage")
         return output.milivolts
 
-    def set_max_output_voltage(self, oc_voltage: oc_volt) -> int:
+    def set_max_output_voltage(self, oc_voltage: OCVolt) -> int:
         """Set compliance voltage
 
         This will set the values of +VDD and -VSS on the stimulator
@@ -466,7 +465,7 @@ class Stimulator(object):
         Returns:
             int: the max output voltage in millivolts.
         """
-        output = _bstimulator.max_output_voltage()
+        output = _bstimulator.MaxOutputVoltage()
         rw = 1  # write
         self.last_result = self._bstimulator_obj.max_output_voltage(
             output, rw, oc_voltage
@@ -487,7 +486,7 @@ class Stimulator(object):
         Returns:
             dict: a dictionary populated with the CereStim's information
         """
-        dev_info = _bstimulator.device_info()
+        dev_info = _bstimulator.DeviceInfo()
         self.last_result = self._bstimulator_obj.read_device_info(dev_info)
         self._raise_if_error("read_device_info")
 
@@ -495,7 +494,7 @@ class Stimulator(object):
             "serial_no": self._convert_raw_serial_num(dev_info.serial_no),
             "mainboard_version": self._convert_raw_version(dev_info.mainboard_version),
             "protocol_version": self._convert_raw_version(dev_info.protocol_version),
-            "module_status": [module_status(x) for x in dev_info.module_status],
+            "module_status": [ModuleStatus(x) for x in dev_info.module_status],
             "module_version": [
                 self._convert_raw_version(x) for x in dev_info.module_version
             ],
@@ -534,7 +533,7 @@ class Stimulator(object):
     def configure_stimulus_pattern(
         self,
         configID: int,
-        afcf: wf_types,
+        afcf: WFTypes,
         pulses: int,
         amp1: int,
         amp2: int,
@@ -561,7 +560,7 @@ class Stimulator(object):
         Args:
             configID (int): The stimulation waveform that is being
                 configured 1 - 15
-            afcf (Stimulator.wf_types): What polarity should the first
+            afcf (Stimulator.WFTypes): What polarity should the first
                 phase be, Anodic or Cathodic first
             pulses (int): The number of stimulation pulses in waveform
                 from 1 - 255
@@ -587,7 +586,7 @@ class Stimulator(object):
         ValidationFcns.validate_frequency(frequency)
         ValidationFcns.validate_interphase(interphase)
         self.last_result = self._bstimulator_obj.configure_stimulus_pattern(
-            _bstimulator.config(configID),
+            _bstimulator.Config(configID),
             afcf,
             pulses,
             amp1,
@@ -601,7 +600,7 @@ class Stimulator(object):
 
     def read_stimulus_pattern(
         self, configID: int
-    ) -> _bstimulator.stimulus_configuration:
+    ) -> _bstimulator.StimulusConfiguration:
         """Read stim config pattern
 
         Reads back all of the parameters associated with a specific
@@ -612,38 +611,38 @@ class Stimulator(object):
             configID (int): The stimulation waveform that is being read back
 
         Returns:
-            _bstimulator.stimulus_configuration: structure which contains
+            _bstimulator.StimulusConfiguration: structure which contains
                 all the parameters that consist in a stimulation waveform
         """
         ValidationFcns.validate_configID(configID)
-        output = _bstimulator.stimulus_configuration()
+        output = _bstimulator.StimulusConfiguration()
         self.last_result = self._bstimulator_obj.read_stimulus_pattern(
-            output, _bstimulator.config(configID)
+            output, _bstimulator.Config(configID)
         )
         self._raise_if_error("read_stimulus_pattern")
         return output
 
-    def read_sequence_status(self) -> seq_type:
+    def read_sequence_status(self) -> SeqType:
         """Get stim sequence status
 
         Can be called anytime as it does not interrupt other functions
         from executing, but simply reads what state the stimulator is in.
 
         Returns:
-            seq_type: Enum containing the sequence state
+            SeqType: Enum containing the sequence state
         """
-        output = _bstimulator.sequence_status()
+        output = _bstimulator.SequenceStatus()
         self.last_result = self._bstimulator_obj.read_sequence_status(output)
         self._raise_if_error("read_sequence_status")
-        return seq_type(output.status)
+        return SeqType(output.status)
 
-    def read_stimulus_max_values(self) -> _bstimulator.maximum_values:
+    def read_stimulus_max_values(self) -> _bstimulator.MaximumValues:
         """Read maximum stimulus values set using set_stimulus_max_values()
 
         Returns:
-            _bstimulator.maximum_values: structure that will contain the current max values that are set
+            _bstimulator.MaximumValues: structure that will contain the current max values that are set
         """
-        output = _bstimulator.maximum_values()
+        output = _bstimulator.MaximumValues()
         rw = 0
         v = _bstimulator.ocvolt_invalid
         amp = 0
@@ -656,8 +655,8 @@ class Stimulator(object):
         return output
 
     def set_stimulus_max_values(
-        self, voltage: oc_volt, amplitude: int, phaseCharge: int, frequency: int
-    ) -> _bstimulator.maximum_values:
+        self, voltage: OCVolt, amplitude: int, phaseCharge: int, frequency: int
+    ) -> _bstimulator.MaximumValues:
         """Set max limits
 
         Intended to be an administrative interface that can be password
@@ -669,15 +668,15 @@ class Stimulator(object):
         ranges each are able to achieve.
 
         Args:
-            voltage (oc_volt): The Max Compliance Voltage that can be set
+            voltage (OCVolt): The Max Compliance Voltage that can be set
             amplitude (int): The Max amplitude that can be used in a stimulation
             phaseCharge (int): The Max charge per phase that will be allowed (Charge = Amplitude * Width)
             frequency (int): The Max frequency at which the stimulations can take place
 
         Returns:
-            _bstimulator.maximum_values: structure that will contain the current max values that are set
+            _bstimulator.MaximumValues: structure that will contain the current max values that are set
         """
-        output = _bstimulator.maximum_values()
+        output = _bstimulator.MaximumValues()
         rw = 1
         self.last_result = self._bstimulator_obj.stimulus_max_values(
             output, rw, voltage, amplitude, phaseCharge, frequency
@@ -713,7 +712,7 @@ class Stimulator(object):
             group_stim_struct (GroupStimulusStruct): structure which
                 has a pair of arrays with electrodes and waveforms
         """
-        bgroup_stim_struct = _bstimulator.group_stimulus()
+        bgroup_stim_struct = _bstimulator.GroupStimulus()
         bgroup_stim_struct.electrode = group_stim_struct.electrode
         bgroup_stim_struct.pattern = group_stim_struct.pattern
         self.last_result = self._bstimulator_obj.group_stimulus(
@@ -721,7 +720,7 @@ class Stimulator(object):
         )
         self._raise_if_error("group_stimulus")
 
-    def trigger_stimulus(self, edge: trigger_type) -> None:
+    def trigger_stimulus(self, edge: TriggerType) -> None:
         """Start trigger mode
 
         Allows the stimulator to wait for a trigger event before
@@ -733,7 +732,7 @@ class Stimulator(object):
         function calls except for stop_trigger_stimulus()
 
         Args:
-            edge (trigger_type): The type of digital event to trigger the stimulation on
+            edge (TriggerType): The type of digital event to trigger the stimulation on
         """
         self.last_result = self._bstimulator_obj.trigger_stimulus(edge)
         self._raise_if_error("trigger_stimulus")
@@ -748,7 +747,7 @@ class Stimulator(object):
         self.last_result = self._bstimulator_obj.stop_trigger_stimulus()
         self._raise_if_error("stop_trigger_stimulus")
 
-    def update_electrode_channel_map(self, map: electrode_channel_map) -> None:
+    def update_electrode_channel_map(self, map: ElectrodeChannelMap) -> None:
         """Set electrode map
 
         Since not all electrodes are found on channel 1 this function
@@ -757,18 +756,18 @@ class Stimulator(object):
         at that channel.
 
         Args:
-            map (electrode_channel_map):channel map structure
+            map (ElectrodeChannelMap):channel map structure
         """
         self.last_result = self._bstimulator_obj.update_electrode_channel_map(map)
         self._raise_if_error("update_electrode_channel_map")
 
-    def read_hardware_values(self) -> _bstimulator.read_hardware_values_output:
+    def read_hardware_values(self) -> _bstimulator.ReadHardwareValuesOutput:
         """Reads the hardware values that are set based on the part number
 
         Returns:
-            _bstimulator.read_hardware_values_output: Structure containing the hardware values
+            _bstimulator.ReadHardwareValuesOutput: Structure containing the hardware values
         """
-        output = _bstimulator.read_hardware_values_output()
+        output = _bstimulator.ReadHardwareValuesOutput()
         self.last_result = self._bstimulator_obj.read_hardware_values(output)
         self._raise_if_error("read_hardware_values")
         return output
@@ -872,17 +871,17 @@ class Stimulator(object):
         output = [self._convert_raw_version(x) for x in fv]
         return output[: self.get_number_modules()]
 
-    def get_module_status(self) -> List[module_status]:
+    def get_module_status(self) -> List[ModuleStatus]:
         """Get status of each current module
 
         This tells the status of each current module, whether it is
         enabled, disabled, or not available.
 
         Returns:
-            List[module_status]: List of the possible 16 current modules status
+            List[ModuleStatus]: List of the possible 16 current modules status
         """
         ms = self._bstimulator_obj.get_module_status()
-        output = [module_status(x) for x in ms]
+        output = [ModuleStatus(x) for x in ms]
         return output[: self.get_number_modules()]
 
     def get_usb_address(self) -> int:

@@ -148,12 +148,12 @@ void set_bankC(BElectrodeChannelMap *map, std::array<UINT8, BANKSIZE> bank){
 PYBIND11_MODULE(_bstimulator, m) {
     m.doc() = "bstimulator: CereStim Python SDK. Wrap of BStimulator.h using pybind11.";
 
-    m.attr("max_modules") = MAXMODULES;
-    m.attr("max_channels") = MAXCHANNELS;
-    m.attr("bank_size") = BANKSIZE;
-    m.attr("eeprom_size") = EEPROM_SIZE;
-    m.attr("number_volt_meas") = NUMBER_VOLT_MEAS;
-    m.attr("max_configurations") = MAXCONFIGURATIONS;
+    m.attr("MAX_MODULES") = MAXMODULES;
+    m.attr("MAX_CHANNELS") = MAXCHANNELS;
+    m.attr("BANK_SIZE") = BANKSIZE;
+    m.attr("EEPROM_SIZE") = EEPROM_SIZE;
+    m.attr("NUMBER_VOLT_MEAS") = NUMBER_VOLT_MEAS;
+    m.attr("MAX_CONFIGURATIONS") = MAXCONFIGURATIONS;
 
     py::bind_vector<std::vector<UINT32>>(m, "vector_UINT32");
     //py::bind_vector<std::vector<UINT16>>(m, "vector_UINT16");
@@ -174,14 +174,14 @@ PYBIND11_MODULE(_bstimulator, m) {
     interface_type.value("interface_count",  BInterfaceType::BINTERFACE_COUNT, "Number of Interfaces, always the last one.")
         .export_values();
 
-    py::enum_<BWFType> wf_type(m, "wf_type", 
+    py::enum_<BWFType> wf_type(m, "WFType", 
         "The Stimulator is capable of outputting a biphasic current pulse. the BWFType enumerator allows the user to determine what the polarity is of the first phase of the biphasic pulse.");
     wf_type.value("wf_anodic_first", BWFType::BWF_ANODIC_FIRST, "The first phase is anodic.")
         .value("wf_cathodic_first", BWFType::BWF_CATHODIC_FIRST, "The first phase is cathodic.")
         .value("wf_invalid", BWFType::BWF_INVALID, "Invalid Selection, always the last one.")
         .export_values();
 
-    py::enum_<BSeqType> seq_type(m, "seq_type", 
+    py::enum_<BSeqType> seq_type(m, "SeqType", 
         "The Stimulator has internal states, and based on those states the stimulator is allowed to perform different functions. The SeqType enumerator lists all the valid states.");
     seq_type.value("stop", BSeqType::BSEQ_STOP, "The stimulator is stopped.")
         .value("pause"  , BSeqType::BSEQ_PAUSE, "The stimulator is paused.")
@@ -191,7 +191,7 @@ PYBIND11_MODULE(_bstimulator, m) {
         .value("invalid", BSeqType::BSEQ_INVALID, "Invalid Sequence, Always the last value.")
         .export_values();
 
-    py::enum_<BTriggerType>(m, "trigger_type", 
+    py::enum_<BTriggerType>(m, "TriggerType", 
         "The stimulator is able to begin stimulating based on an external TTL logic. The Trigger type defines the possible trigger methods. It can be set to trigger on a "
         "low to high transistion, a high to low transistion, or any transistion.")
         .value("trigger_disabled", BTriggerType::BTRIGGER_DISABLED, "Trigger mode is currently turned off.")
@@ -201,7 +201,7 @@ PYBIND11_MODULE(_bstimulator, m) {
         .value("trigger_invalid", BTriggerType::BTRIGGER_INVALID, "Invalid Trigger, Always the last value")
         .export_values();
 
-    py::enum_<BModuleStatus>(m, "module_status",
+    py::enum_<BModuleStatus>(m, "ModuleStatus",
         "The stimulator is capable of housing up to 16 current modules. Each current module can have several states based on how the user has configured the stimulator. "
         "The current modules are also capable of returning problem statuses based on the hardware.")
         .value("module_unavailable", BModuleStatus::BMODULE_UNAVAILABLE, "No current module in the specified position.")
@@ -212,7 +212,7 @@ PYBIND11_MODULE(_bstimulator, m) {
         .value("module_count", BModuleStatus::BMODULE_COUNT, "Number of Statuses, Always the Last one.")
         .export_values();
 
-    py::enum_<BConfig>(m, "config",
+    py::enum_<BConfig>(m, "Config",
         "The stimulator is capable of storing up to 16 stimulus waveforms that can then be used in any stimulus. Each waveform is indepently configured by the user. "
         "The user can use different stimulus waveforms based on some predetermined signal based on feedback from the neural signals.")
         .value("config_0", BConfig::BCONFIG_0,   "Stimulation waveform configuration 0.")
@@ -234,7 +234,7 @@ PYBIND11_MODULE(_bstimulator, m) {
         .value("config_count", BConfig::BCONFIG_COUNT, "Total Configurations, Always the Last one.")
         .export_values();
 
-    py::enum_<BOCVolt>(m, "oc_volt",
+    py::enum_<BOCVolt>(m, "OCVolt",
         "The Stimulator is capable of setting different output compliance voltage levels based on the users needs and safety considerations.")
         .value("ocvolt4_7", BOCVolt::BOCVOLT4_7, "Output Voltage Level 4.7V.")
         .value("ocvolt5_3", BOCVolt::BOCVOLT5_3, "Output Voltage Level 5.3V.")
@@ -248,7 +248,7 @@ PYBIND11_MODULE(_bstimulator, m) {
         .value("ocvolt_invalid", BOCVolt::BOCVOLT_INVALID, "Invalid Compliance Voltage, Always the Last One.")
         .export_values();
 
-    py::enum_<BPartNumbers>(m, "part_numbers",
+    py::enum_<BPartNumbers>(m, "PartNumbers",
         "There are many versions of the stimulator. There are research versions of micro and macro stimulators, each with varying number of installed current modules; "
         "and there is a clinical version of the macro stimulator with a single current module. The part number of the device sets internal safety levels of what "
         "stimulation parameters are allowed.")
@@ -264,20 +264,20 @@ PYBIND11_MODULE(_bstimulator, m) {
         .value("PN_invalid", BPartNumbers::PN_INVALID, "Invalid part number.")
         .export_values();
 
-    py::enum_<BStimulatorType>(m, "stimulator_type")
+    py::enum_<BStimulatorType>(m, "StimulatorType")
         .value("micro_stim", BStimulatorType::MICRO_STIM, "Micro Stimulator")
         .value("macro_stim", BStimulatorType::MACRO_STIM, "Macro Stimulator")
         .value("invalid_stim", BStimulatorType::INVALID_STIM, "Invalid.")
         .export_values();
 
-    py::enum_<BEventType>(m, "event_type", 
+    py::enum_<BEventType>(m, "EventType", 
         "Since the stimulator is a HID, it can be plugged in and unplugged from the Host PC at will. The USB events capture the status of whether the device is attached or not.")
         .value("event_device_attached", BEventType::BEVENT_DEVICE_ATTACHED, "CereStim 96 is Attached to Host PC.")
         .value("event_device_detached", BEventType::BEVENT_DEVICE_DETACHED, "CereStim 96 is Detached from Host PC.")
         .value("event_count", BEventType::BEVENT_COUNT, "Number of Events, Always the last value")
         .export_values();
 
-    py::enum_<BCallbackType>(m, "callback_type", 
+    py::enum_<BCallbackType>(m, "CallbackType", 
         "Once a connection with the stimulator has been made over the USB and a stimulator object is created, that object needs to be notified of any events that take place. "
         "This is handled through a callback function.")
         .value("callback_all", BCallbackType::BCALLBACK_ALL, "Monitor all events.")
@@ -288,7 +288,7 @@ PYBIND11_MODULE(_bstimulator, m) {
     // include callback function??
     // typedef void (* BCallback)(BEventType type, void* pCallbackData);
 
-    py::enum_<BResult>(m, "result",
+    py::enum_<BResult>(m, "Result",
         "A stimulator object creates a USB connection with the actual CereStim 96 and calls are made to it through the stimulator object. The stimulator object can return an "
         "error message (Software Error) or the CereStim 96 can return an error message (Hardware Error).")
         .value("return", BResult::BRETURN, "Software Error: Early returned warning.")
@@ -351,7 +351,7 @@ PYBIND11_MODULE(_bstimulator, m) {
         .value("echo_error", BResult::BECHOERROR, "Hardware Error: Command returned was not the same command sent.")
         .export_values();
 
-    py::class_<BUsbParams> usb_params(m, "usb_params");
+    py::class_<BUsbParams> usb_params(m, "USBParams");
     usb_params.doc() = "The USB parameters that need to be configured in order to have the stimulator object actually connect with the CereStim 96 over usb.";   
     usb_params.def(py::init<>(), "USB Parameters")
         .def_readwrite("size", &BUsbParams::size, "sizeof(BStimUsbParams)")
@@ -360,7 +360,7 @@ PYBIND11_MODULE(_bstimulator, m) {
         .def_readwrite("pid", &BUsbParams::pid, "product ID");
     
 
-    py::class_<BVersion> version(m, "version");
+    py::class_<BVersion> version(m, "Version");
     version.doc() = "Gives the current version of the API that is being used.";
     version.def(py::init<>(), "API Version.")
         .def_readwrite("major", &BVersion::major, "Major Version.")
@@ -381,18 +381,18 @@ PYBIND11_MODULE(_bstimulator, m) {
         );
 
 
-    py::class_<BOutputMeasurement> output_measurement(m, "output_measurement");
+    py::class_<BOutputMeasurement> output_measurement(m, "OutputMeasurement");
     output_measurement.def(py::init<>(), "Measured Stimulus Voltage.")
         .def_property_readonly("measurement", &get_output_measurement, "Voltages are returned in millivolts.");
     output_measurement.doc() = "The stimulator is capable of sending out a stimulus using known values and measure the voltage that is returned at five locations during the course "
     "of that stimulation. The five values in order are as follows: Just before the first phase, during the first phase, in between phases, during the second phase, and just after the second phase.";
 
-    py::class_<BMaxOutputVoltage> max_output_voltage(m, "max_output_voltage");
+    py::class_<BMaxOutputVoltage> max_output_voltage(m, "MaxOutputVoltage");
     max_output_voltage.def(py::init<>(), "Measured Output Voltage.")
         .def_readwrite("milivolts", &BMaxOutputVoltage::miliVolts, "Voltages are returned in millivolts.");
     max_output_voltage.doc() = "The Stimulator is capable of measuring what its current output compliance voltage level is using a known impedance and stimulus parameters.";
 
-    py::class_<BDeviceInfo> device_info(m, "device_info");
+    py::class_<BDeviceInfo> device_info(m, "DeviceInfo");
     device_info.def(py::init<>(), "CereStim 96 Device Specific Information.")
         .def_readwrite("serial_no", &BDeviceInfo::serialNo, "Hardware part number, type, and serial number 0xPN TY SN SN.")
         .def_readwrite("mainboard_version", &BDeviceInfo::mainboardVersion, "MSB = version , LSB = subversion (i.e. 0x020A = version 2.10)")
@@ -404,7 +404,7 @@ PYBIND11_MODULE(_bstimulator, m) {
         "are installed and what communication protocol is being used.";
 
 
-    py::class_<BStimulusConfiguration> stimulus_configuration(m, "stimulus_configuration");
+    py::class_<BStimulusConfiguration> stimulus_configuration(m, "StimulusConfiguration");
     stimulus_configuration.def(py::init<>(), "Components of the Stimulus Configurations.")
         .def_readwrite("anodicFirst", &BStimulusConfiguration::anodicFirst, "0x01 = anodic first, 0x00 = cathodic first")
         .def_readwrite("pulses", &BStimulusConfiguration::pulses, "Number of biphasic pulses (from 1 to 255)")
@@ -417,12 +417,12 @@ PYBIND11_MODULE(_bstimulator, m) {
     stimulus_configuration.doc() = "The stimulator is capable of custom configuring a biphasic stimulus. The amplitudes and widths and frequency are all a part of the components "
         "that can be configured. The main restriction is that the two phases are balanced, i.e. width * amp of phase 1 is equal to width * amp of phase 2.";
 
-    py::class_<BSequenceStatus> sequence_status(m, "sequence_status");
+    py::class_<BSequenceStatus> sequence_status(m, "SequenceStatus");
     sequence_status.def(py::init<>(), "Status of the Stimulator.")
         .def_readwrite("status", &BSequenceStatus::status, "Contains status of the stimulator.");
     sequence_status.doc() = "The stimulator can always be queried to determine what state it is in.";
 
-    py::class_<BMaximumValues> maximum_values(m, "maximum_values");
+    py::class_<BMaximumValues> maximum_values(m, "MaximumValues");
     maximum_values.def(py::init<>(), "Admin Max Values.")
         .def_readwrite("voltage", &BMaximumValues::voltage, "Max voltage value.")
         .def_readwrite("amplitude", &BMaximumValues::amplitude, "Amplitude (uA)")
@@ -430,7 +430,7 @@ PYBIND11_MODULE(_bstimulator, m) {
         .def_readwrite("frequency", &BMaximumValues::frequency, "Frequency (Hz)");
     maximum_values.doc() = "The stimulator has an administrative interface that allows the primary researcher to set additional safety levels depending on there stimulation protocols and parameters.";
 
-    py::class_<BTestElectrodes> test_electrodes(m, "test_electrodes");
+    py::class_<BTestElectrodes> test_electrodes(m, "TestElectrodes");
     test_electrodes.def(py::init<>(), "Electrode Diagnostics.")
         .def_property_readonly("electrodes", &get_test_electrodes_meas, "5 voltage measurements for all 96 channels reported in millivolts")
         .def_property_readonly("impedance", &get_test_electrodes_imp, "Real part of Impedance of each electrode reported in Ohms.");
@@ -438,28 +438,28 @@ PYBIND11_MODULE(_bstimulator, m) {
         "is recorded for the five data points during a stimulation, i.e. before the first phase, during the first phase, between the two phases, during the second phase and "
         "after the second phase. These voltage levels are then used along with the known stimulation to calculate the impedance of each electrode. A 1 kHz frequency is used for the stimulation.";
 
-    py::class_<BTestModules> test_modules(m, "test_modules");
+    py::class_<BTestModules> test_modules(m, "TestModules");
     test_modules.def(py::init<>(), "Module Diagnostics.")
         .def_property_readonly("modules_mv", &get_modules_mv, "5 voltage measurements for all current modules reported in millivolts")
         .def_property_readonly("modules_status", &get_test_modules_status, "Status of each current module.");
     test_modules.doc() = "The stimulator uses current modules to deliver stimulus through electrodes. These modules may become damaged and so the stimulator uses a known load "
         "and stimulus parameter to determine if the voltage levels on the current module are as they should be.";
 
-    py::class_<BGroupStimulus> group_stimulus(m, "group_stimulus");
+    py::class_<BGroupStimulus> group_stimulus(m, "GroupStimulus");
     group_stimulus.def(py::init<>(), "Group Stimulus.")
         .def_property("electrode", &get_group_electrodes, &set_group_electrodes, "electrodes to stimulate") // TODO need to wrap this to make it writeable
         .def_property("pattern", &get_group_pattern, &set_group_pattern, "Configuration Pattern to use with coresponding channel.");
     group_stimulus.doc() = "The stimulator allows for a group of simultaneous stimulations to occur. Two methods exist for doing this, first is creating a program script and "
         "issueing several different calls. The second method saves on the USB overhead by allowing a single call to set up the simultaneous stimulations.";
 
-    py::class_<BReadEEpromOutput> read_eeprom_output(m, "read_eeprom_output");
+    py::class_<BReadEEpromOutput> read_eeprom_output(m, "ReadEEPROMOutput");
     read_eeprom_output.def(py::init<>(), "CereStim 96 Motherboard EEprom.")
         .def_property_readonly("eeprom", &get_eeprom, "eeprom values");
     read_eeprom_output.doc() = "The EEprom on the microcontroller stores the information that should be preserved over time even when the device is off or unplugged. These "
         "values can be read in order to debug or know the status of different components within the device.";
 
 
-    py::class_<BReadHardwareValuesOutput> read_hardware_values_output(m, "read_hardware_values_output");
+    py::class_<BReadHardwareValuesOutput> read_hardware_values_output(m, "ReadHardwareValuesOutput");
     read_hardware_values_output.def(py::init<>(), "Hardware Values of the CereStim 96.")
         .def_readwrite("amp", &BReadHardwareValuesOutput::amp, "Max phase amplitude based on hardware in uA.")
         .def_readwrite("max_comp_voltage", &BReadHardwareValuesOutput::maxCompVoltage, "Max output compliance voltage.")
@@ -472,7 +472,7 @@ PYBIND11_MODULE(_bstimulator, m) {
         .def_readwrite("modules", &BReadHardwareValuesOutput::modules, "Number of modules installed in device.");
     read_hardware_values_output.doc() = "The stimulators various models have some different hardware configurations, so it is beneficial to get those hardware values of that particuliar CereStim 96.";
 
-    py::class_<BElectrodeChannelMap> electrode_channel_map(m, "electrode_channel_map");
+    py::class_<BElectrodeChannelMap> electrode_channel_map(m, "ElectrodeChannelMap");
     electrode_channel_map.def(py::init<>(), "Map Channels to Electrodes.")
         .def_property("bankA", &get_bankA, &set_bankA, "UINT8 Array, the pin on bank A is the index, and the value is the acutal electrode number.")
         .def_property("bankB", &get_bankB, &set_bankB, "UINT8 Array, the pin on bank B is the index, and the value is the acutal electrode number.")
@@ -481,7 +481,7 @@ PYBIND11_MODULE(_bstimulator, m) {
         "not a straight channel 1 to electrode 1, such as in a Blackrock .CMP file. This struct allows the user to specify a mapping for there electrodes so that they do not need to "
         "worry about what channel they need to stimulate if they want electrode 20 to be stimulated.";
 
-    py::class_<BStimulator> stimulator(m, "stimulator");
+    py::class_<BStimulator> stimulator(m, "Stimulator");
     stimulator.doc() = "The stimulator class encapsulates all the functionallity of the stimulator and allows the user the ability to interface directly with Blackrock Microsystems CereStim 96 device. "
         "By encapsulating it in an object, multiple stimulators can be connected to a single Host PC and be used simultaneously.";
 
@@ -663,7 +663,7 @@ PYBIND11_MODULE(_bstimulator, m) {
             " setup, the device will be locked down preventing any stimulation from occuring.\n\n"
             "Returns: true if locked false otherwise");
 
-    py::class_<BStimulator::maxStimulatorError>(stimulator, "max_stimulator_error")
+    py::class_<BStimulator::maxStimulatorError>(stimulator, "MaxStimulatorError")
         .def(py::init<>(), "Error If there are more stimulator objects created than allowed which is MAX_STIMULATORS");
 
 }

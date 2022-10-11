@@ -26,7 +26,7 @@ print(stim_obj.lib_version())
 stim_obj.connect()
 stim_obj.configure_stimulus_pattern(
     configID=1,
-    afcf=stimulator.wf_types.wf_cathodic_first,
+    afcf=stimulator.WFTypes.wf_cathodic_first,
     pulses=1,
     amp1=10,
     amp2=10,
