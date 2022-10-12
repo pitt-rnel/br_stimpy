@@ -160,7 +160,7 @@ PYBIND11_MODULE(_bstimulator, m) {
     //py::bind_vector<std::vector<UINT16>>(m, "vector_UINT16");
     //py::bind_vector<std::vector<UINT8>>(m, "vector_UINT8");
     
-    py::enum_<BInterfaceType> interface_type(m, "interface_type",
+    py::enum_<BInterfaceType> interface_type(m, "InterfaceType",
         "The Stimulator was originally designed to be communicated via USB or RS232, and will be functional on multiple platforms. "
         "The RS232 interface no longer exists. Default type should generally be used.");
     interface_type.value("interface_default", BInterfaceType::BINTERFACE_DEFAULT, "Default interface (windows USB)")
