@@ -1,6 +1,7 @@
 import sys
 import struct
-#import shutil
+import shutil
+import glob
 
 # from pybind11 import get_cmake_dir
 # Available at setup time due to pyproject.toml
@@ -29,8 +30,6 @@ if sys.platform == "win32":  # windows
         lib_name = "BStimAPIx86"
     lib_ext = ".dll"
     lib_fname = lib_dir + lib_name + lib_ext
-    #shutil.copy2(lib_dir + lib_fname, "br_stimpy")
-    #shutil.copy2(lib_dir + lib_name + ".lib", "br_stimpy")
     
 else:  # linux or mac
     # lib_dir = '../'
@@ -40,8 +39,10 @@ else:  # linux or mac
     else:
         lib_ext = ".so"
     lib_fname = lib_dir + "lib" + lib_name + lib_ext
-#shutil.copy2(lib_fname, "br_stimpy")
-
+lib_glob_str = '*' + lib_ext
+for file in glob.glob(lib_dir + lib_glob_str):
+    # copy libs to module dir
+    shutil.copy2(file, "br_stimpy")
 
 ext_modules = [
     Pybind11Extension(
@@ -52,7 +53,7 @@ ext_modules = [
         libraries=[lib_name],
         library_dirs=[lib_dir],
         include_dirs=["br_stimpy"],
-        depends=[lib_fname],
+        depends=["_pybstimulator.h"],
         language="c++",
     )
 ]
@@ -71,7 +72,7 @@ setup(
     long_description_content_type="text/markdown",
     ext_modules=ext_modules,
     packages=["br_stimpy"],
-    package_data={"br_stimpy":[lib_fname]},
+    package_data={"br_stimpy":[lib_glob_str, "*.h"]},
     # extras_require={"test": "pytest"},
     # Currently, build_ext only provides an optional "highest supported C++
     # level" feature, but in the future it may provide more features.
