@@ -1,4 +1,6 @@
-import sys, struct, shutil
+import sys
+import struct
+#import shutil
 
 # from pybind11 import get_cmake_dir
 # Available at setup time due to pyproject.toml
@@ -16,7 +18,7 @@ __version__ = "0.0.1"
 #   Sort input source files if you glob sources to ensure bit-for-bit
 #   reproducible builds (https://github.com/pybind/python_example/pull/53)
 
-lib_dir = "./extern/CereStim-API/Binaries/"
+lib_dir = "extern/CereStim-API/Binaries/"
 if sys.platform == "win32":  # windows
     bitness = struct.calcsize("P") * 8  # determine if 32-bit or 64-bit python
     if bitness == 64:  # 64-bit
@@ -25,8 +27,11 @@ if sys.platform == "win32":  # windows
     else:  # 32-bit
         # lib_dir = '../Win32/Release/'
         lib_name = "BStimAPIx86"
-    shutil.copy2(lib_dir + lib_name + ".dll", ".")
-    shutil.copy2(lib_dir + lib_name + ".lib", ".")
+    lib_ext = ".dll"
+    lib_fname = lib_dir + lib_name + lib_ext
+    #shutil.copy2(lib_dir + lib_fname, "br_stimpy")
+    #shutil.copy2(lib_dir + lib_name + ".lib", "br_stimpy")
+    
 else:  # linux or mac
     # lib_dir = '../'
     lib_name = "BStimAPI"
@@ -34,16 +39,20 @@ else:  # linux or mac
         lib_ext = ".dylib"
     else:
         lib_ext = ".so"
-    shutil.copy2(lib_dir + "lib" + lib_name + lib_ext, ".")
+    lib_fname = lib_dir + "lib" + lib_name + lib_ext
+#shutil.copy2(lib_fname, "br_stimpy")
 
 
 ext_modules = [
     Pybind11Extension(
-        "_bstimulator",
+        "br_stimpy._bstimulator",
         ["br_stimpy/_pybstimulator.cpp"],
         # Example: passing in the version to the compiled code
         define_macros=[("VERSION_INFO", __version__)],
         libraries=[lib_name],
+        library_dirs=[lib_dir],
+        include_dirs=["br_stimpy"],
+        depends=[lib_fname],
         language="c++",
     )
 ]
@@ -62,10 +71,11 @@ setup(
     long_description_content_type="text/markdown",
     ext_modules=ext_modules,
     packages=["br_stimpy"],
+    package_data={"br_stimpy":[lib_fname]},
     # extras_require={"test": "pytest"},
     # Currently, build_ext only provides an optional "highest supported C++
     # level" feature, but in the future it may provide more features.
     cmdclass={"build_ext": build_ext},
     zip_safe=False,
-    python_requires=">=3.6",
+    python_requires=">=3.7",
 )

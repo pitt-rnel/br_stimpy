@@ -146,7 +146,8 @@ void set_bankC(BElectrodeChannelMap *map, std::array<UINT8, BANKSIZE> bank){
 }
 
 PYBIND11_MODULE(_bstimulator, m) {
-    m.doc() = "bstimulator: CereStim Python SDK. Wrap of BStimulator.h using pybind11.";
+    m.attr("__name__") = "br_stimpy._bstimulator";
+    m.doc() = "br_stimpy._bstimulator: CereStim Python SDK. Wrap of BStimulator.h using pybind11.";
 
     m.attr("MAX_MODULES") = MAXMODULES;
     m.attr("MAX_CHANNELS") = MAXCHANNELS;

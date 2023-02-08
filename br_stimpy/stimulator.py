@@ -4,7 +4,7 @@
 """br_stimpy: a python package to interface with Blackrock Cerestim API."""
 
 from __future__ import annotations  # ensure forward compatibility
-import _bstimulator
+from br_stimpy import _bstimulator
 from typing import List, Optional, Any
 
 SUCCESS: _bstimulator.Result = _bstimulator.success
