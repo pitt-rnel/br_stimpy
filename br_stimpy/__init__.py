@@ -6,14 +6,14 @@
 Example:
 
 ```
-from br_stimpy import stimulator
+from br_stimpy import stimpy
 
-stim_obj = stimulator.stimulator()
+stim_obj = stimpy.stimulator()
 print(stim_obj.lib_version())
 stim_obj.connect()
 stim_obj.configure_stimulus_pattern(
     configID=1,
-    afcf=stimulator.wf_types.wf_cathodic_first,
+    afcf=stimpy.wf_types.wf_cathodic_first,
     pulses=1,
     amp1=10,
     amp2=10,
@@ -27,4 +27,16 @@ stim_obj.disconnect()
 ```
 """
 
-__all__ = ["stimulator", "_bstimulator"]
+__all__ = ["stimpy"]
+__private__ = ["_bstimulator"]
+
+from .__version__ import (
+    __author__,
+    __author_email__,
+    __copyright__,
+    __description__,
+    __license__,
+    __title__,
+    __url__,
+    __version__,
+)

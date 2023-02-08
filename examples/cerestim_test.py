@@ -1,8 +1,8 @@
-from br_stimpy import stimulator
+from br_stimpy import stimpy
 import time
 
 # create cerestim API object
-cerestim = stimulator.Stimulator()
+cerestim = stimpy.Stimulator()
 
 # check API versoin
 lib_version = cerestim.lib_version()
@@ -68,14 +68,14 @@ print(f"Maximum Hardware Width: {max_hard_width}")
 max_values = cerestim.read_stimulus_max_values()
 print("Read Maximum Values:  ")
 print(
-    f"Maximum Voltage:      {stimulator.get_enum_docstr(stimulator.OCVolt(max_values.voltage))}"
+    f"Maximum Voltage:      {stimpy.get_enum_docstr(stimpy.OCVolt(max_values.voltage))}"
 )
 print(f"Maximum Amplitude:    {max_values.amplitude}")
 print(f"Maximum Phase Charge: {max_values.phase_charge}")
 print(f"Maximum Frequency:    {max_values.frequency}")
 
 # Set up additional configurations to a default value
-cath = stimulator.WFTypes.wf_cathodic_first
+cath = stimpy.WFTypes.wf_cathodic_first
 for i in range(1, 16):
     cerestim.configure_stimulus_pattern(
         configID=i,
@@ -116,7 +116,7 @@ time.sleep(0.2)
 
 # There is a way to write a program that contains a group fo stimulus commands in one call
 # This does a group of two simultaneous stimulations with one configuration
-group_stim_input = stimulator.GroupStimulusStruct(electrode=[1, 45], pattern=[1, 1])
+group_stim_input = stimpy.GroupStimulusStruct(electrode=[1, 45], pattern=[1, 1])
 # groupStimulus(beginSeq, play, times, number, group_stimlus_struct);
 # beginSeq should be True if this is first part of a new program
 # play should be True if you want to stimulate immedietaly after.
@@ -143,8 +143,8 @@ for i in range(1, 10):
 cerestim.end_sequence()
 cerestim.play(times=5)
 print("playing")
-status = stimulator.SeqType.playing
-while status == stimulator.SeqType.playing:
+status = stimpy.SeqType.playing
+while status == stimpy.SeqType.playing:
     status = cerestim.read_sequence_status()
     print(".", end="", flush=True)
     time.sleep(0.05)
@@ -160,8 +160,8 @@ cerestim.end_group()
 cerestim.end_sequence()
 cerestim.play(times=5)
 print("playing")
-status = stimulator.SeqType.playing
-while status == stimulator.SeqType.playing:
+status = stimpy.SeqType.playing
+while status == stimpy.SeqType.playing:
     status = cerestim.read_sequence_status()
     print(".", end="", flush=True)
     time.sleep(0.05)

@@ -2,6 +2,8 @@ import sys
 import struct
 import shutil
 import glob
+import os
+from codecs import open
 
 # from pybind11 import get_cmake_dir
 # Available at setup time due to pyproject.toml
@@ -30,7 +32,7 @@ if sys.platform == "win32":  # windows
         lib_name = "BStimAPIx86"
     lib_ext = ".dll"
     lib_fname = lib_dir + lib_name + lib_ext
-    
+
 else:  # linux or mac
     # lib_dir = '../'
     lib_name = "BStimAPI"
@@ -39,7 +41,7 @@ else:  # linux or mac
     else:
         lib_ext = ".so"
     lib_fname = lib_dir + "lib" + lib_name + lib_ext
-lib_glob_str = '*' + lib_ext
+lib_glob_str = "*" + lib_ext
 for file in glob.glob(lib_dir + lib_glob_str):
     # copy libs to module dir
     shutil.copy2(file, "br_stimpy")
@@ -58,21 +60,27 @@ ext_modules = [
     )
 ]
 
+about = {}
+here = os.path.abspath(os.path.dirname(__file__))
+with open(os.path.join(here, "br_stimpy", "__version__.py"), "r", "utf-8") as f:
+    exec(f.read(), about)
+
 with open("README.md", "r", encoding="utf-8") as fh:
-    long_description = fh.read()
+    readme = fh.read()
 
 setup(
-    name="br_stimpy",
-    version=__version__,
-    author="Jeff Weiss",
-    author_email="jeff.weiss@pitt.edu",
-    url="https://github.com/pitt-rnel/br_stimpy",
-    description="br_stimpy: python bindings to Blackrock Neurotech Cerestim API",
-    long_description=long_description,
+    name=about["__title__"],
+    version=about["__version__"],
+    description=about["__description__"],
+    long_description=readme,
     long_description_content_type="text/markdown",
+    author=about["__author__"],
+    author_email=about["__author_email__"],
+    url=about["__url__"],
     ext_modules=ext_modules,
     packages=["br_stimpy"],
-    package_data={"br_stimpy":[lib_glob_str, "*.h"]},
+    package_data={"br_stimpy": [lib_glob_str, "*.h"]},
+    license=about["__license__"],
     # extras_require={"test": "pytest"},
     # Currently, build_ext only provides an optional "highest supported C++
     # level" feature, but in the future it may provide more features.
