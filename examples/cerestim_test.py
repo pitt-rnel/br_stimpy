@@ -1,11 +1,11 @@
 from br_stimpy import stimpy
 import time
 
+# check API version
+print(f"API version: {stimpy.get_api_version()}")
+
 # create cerestim API object
 cerestim = stimpy.Stimulator()
-
-# check API version
-print(f"API version: {cerestim.api_version}")
 
 # scan for devices
 device_serial_nums = cerestim.scan_for_devices()
