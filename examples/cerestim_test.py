@@ -62,7 +62,12 @@ print(f"Minimum Hardware Frequency: {min_hard_frequency}")
 print(f"Maximum Hardware Frequency: {max_hard_frequency}")
 print(f"Maximum Hardware Width: {max_hard_width}")
 
-# TODO set max values
+# set max values
+v_max = stimpy.OCVolt.ocvolt9_5
+amp_max = 100
+charge_max = 20000
+freq_max = 300
+cerestim.set_stimulus_max_values(v_max, amp_max, charge_max, freq_max)
 
 # Read the maximum settings to make sure that everything is OK
 max_values = cerestim.read_stimulus_max_values()
