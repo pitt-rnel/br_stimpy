@@ -68,10 +68,10 @@ class GroupStimulusStruct(object):
             self._electrode = [0] * MAX_MODULES
             self._pattern = [0] * MAX_MODULES
 
-        @property
-        def electrode(self) -> List[int]:
-            return self._electrode
+    @property
+    def electrode(self) -> List[int]:
+        return self._electrode
 
-        @property 
-        def pattern(self) -> List[int]:
-            return self._pattern
+    @property 
+    def pattern(self) -> List[int]:
+        return self._pattern
