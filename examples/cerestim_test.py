@@ -4,13 +4,8 @@ import time
 # create cerestim API object
 cerestim = stimpy.Stimulator()
 
-# check API versoin
-api_version = cerestim.api_version
-if api_version.beta:
-    beta = " beta"
-else:
-    beta = ""
-print(f"API version: {api_version.major}.{api_version.minor}{beta}")
+# check API version
+print(f"API version: {cerestim.api_version}")
 
 # scan for devices
 device_serial_nums = cerestim.scan_for_devices()
@@ -26,10 +21,8 @@ cerestim.connect(device_index=dev_idx)
 # note that 0 is default and will automatically call scan_for_devices
 
 # Check the connection
-connect_result = cerestim.is_connected
-USB_address = cerestim.usb_address
-if connect_result:
-    print(f"Stimulator connected on USB address {USB_address}")
+if cerestim.is_connected:
+    print(f"Stimulator connected on USB address {cerestim.usb_address}")
 else:
     print(f"Stimulator not connected....this should never happen...")
     raise RuntimeError
@@ -52,15 +45,10 @@ for (i, ms) in enumerate(device_info["module_status"]):
         print(f"Module {i + 1}: {ms.name}")
 print(f"{cerestim.number_modules} modules installed.")
 
-max_hard_charge = cerestim.max_hard_charge
-min_hard_frequency = cerestim.min_hard_frequency
-max_hard_frequency = cerestim.max_hard_frequency
-max_hard_width = cerestim.max_hard_width
-
-print(f"Maximum Hardware Charge: {max_hard_charge}")
-print(f"Minimum Hardware Frequency: {min_hard_frequency}")
-print(f"Maximum Hardware Frequency: {max_hard_frequency}")
-print(f"Maximum Hardware Width: {max_hard_width}")
+print(f"Maximum Hardware Charge: {cerestim.max_hard_charge}")
+print(f"Minimum Hardware Frequency: {cerestim.min_hard_frequency}")
+print(f"Maximum Hardware Frequency: {cerestim.max_hard_frequency}")
+print(f"Maximum Hardware Width: {cerestim.max_hard_width}")
 
 # set max values
 v_max = stimpy.OCVolt.ocvolt9_5
@@ -148,9 +136,7 @@ for i in range(1, 10):
 cerestim.end_sequence()
 cerestim.play(times=5)
 print("playing")
-status = stimpy.SeqType.playing
-while status == stimpy.SeqType.playing:
-    status = cerestim.sequence_status
+while cerestim.sequence_status == stimpy.SeqType.playing:
     print(".", end="", flush=True)
     time.sleep(0.05)
 print("")
@@ -165,9 +151,7 @@ cerestim.end_group()
 cerestim.end_sequence()
 cerestim.play(times=5)
 print("playing")
-status = stimpy.SeqType.playing
-while status == stimpy.SeqType.playing:
-    status = cerestim.sequence_status
+while cerestim.sequence_status == stimpy.SeqType.playing:
     print(".", end="", flush=True)
     time.sleep(0.05)
 print("")

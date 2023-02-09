@@ -12,6 +12,7 @@ from br_stimpy._validation import ValidationFcns
 from br_stimpy.group_stim_struct import GroupStimulusStruct
 from typing import List, Optional, Any
 
+
 def get_enum_docstr(enum_val: Any) -> str:
     """Lookup docstr for a pybind11 enum value and output as string
 
@@ -25,6 +26,7 @@ def get_enum_docstr(enum_val: Any) -> str:
     doc_str = enum_entries[enum_val.name][1]
     return doc_str
 
+
 def get_api_version() -> _bstimulator.Version:
     """Get Cerestim API library version
 
@@ -33,11 +35,12 @@ def get_api_version() -> _bstimulator.Version:
     """
     version_struct = _bstimulator.Version()
     result = _bstimulator.Stimulator().lib_version(version_struct)
-    if result !=  _bstimulator.success:
+    if result != _bstimulator.success:
         err_doc = get_enum_docstr(result)
         error_str = f"{result.name.upper()} error in get_api_version():\n {err_doc}"
         raise RuntimeError(error_str)
     return version_struct
+
 
 class Stimulator(object):
     """Simple python interface to Blackrock Cerestim 96"""
@@ -68,7 +71,7 @@ class Stimulator(object):
             _bstimulator.Stimulator()
         )  # raw stimulator object
         self.device_index: Optional[List[int]] = None
-        self.last_result: ResultTypes =  _bstimulator.success
+        self.last_result: ResultTypes = _bstimulator.success
 
     # Properties
 
@@ -165,7 +168,7 @@ class Stimulator(object):
         return self._convert_raw_version(
             self._bstimulator_obj.get_motherboard_firmware_version()
         )
-    
+
     @property
     def protocol_version(self) -> dict:
         """Get motherboard protocol version
@@ -893,4 +896,6 @@ class Stimulator(object):
         Decrements _stimulator_count
         """
         Stimulator._stimulator_count -= 1
+
+
 # end class Stimulator

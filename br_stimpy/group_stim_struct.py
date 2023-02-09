@@ -7,6 +7,7 @@ from br_stimpy.constants import *
 from br_stimpy._validation import ValidationFcns
 from typing import List, Optional, Any
 
+
 class GroupStimulusStruct(object):
     """Group Stimulus Structure
 
@@ -72,6 +73,6 @@ class GroupStimulusStruct(object):
     def electrode(self) -> List[int]:
         return self._electrode
 
-    @property 
+    @property
     def pattern(self) -> List[int]:
         return self._pattern
