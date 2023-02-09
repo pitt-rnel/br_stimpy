@@ -368,6 +368,18 @@ PYBIND11_MODULE(_bstimulator, m) {
         .def_readwrite("minor", &BVersion::minor, "Minor Version.")
         .def_readwrite("release", &BVersion::release, "Wether the Version is Released.")
         .def_readwrite("beta", &BVersion::beta, "Whether the Version is Beta.")
+        .def("__str__", 
+            [](const BVersion &v) {
+                //std::string major = std::string(v.major);
+                //std::string minor = std::string(v.minor);
+                std::string dev = v.release ? "" : " dev";
+                std::string beta = v.beta ? " beta" : "";
+                std::ostringstream vstr;
+                vstr << std::to_string(v.major) << "." << std::to_string(v.minor) << beta << dev;
+                //return std::string("<bversion ") + major + "." + std::string(v.minor) + release + beta + ">";
+                return vstr.str();
+            }
+        )
         .def("__repr__", 
             [](const BVersion &v) {
                 //std::string major = std::string(v.major);

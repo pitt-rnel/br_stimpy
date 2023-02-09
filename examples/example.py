@@ -1,7 +1,7 @@
 from br_stimpy.stimpy import Stimulator
 
 stim_obj = Stimulator()
-print(stim_obj.lib_version())
+print(stim_obj.api_version)
 stim_obj.connect()
 stim_obj.configure_stimulus_pattern(
     configID=1,

@@ -1,3 +1,4 @@
+# br_stimpy.stimpy
 # Author: Jeff Weiss <jeff.weiss@pitt.edu>
 # May 2022
 
@@ -5,29 +6,11 @@
 
 from __future__ import annotations  # ensure forward compatibility
 from br_stimpy import _bstimulator
+from br_stimpy.constants import *
+from br_stimpy.enums import *
+from br_stimpy._validation import ValidationFcns
+from br_stimpy.group_stim_struct import GroupStimulusStruct
 from typing import List, Optional, Any
-
-SUCCESS: _bstimulator.Result = _bstimulator.success
-MAX_CHANNELS: int = (
-    _bstimulator.MAX_CHANNELS - 1
-)  # the API constant also includes internal channel 0
-MAX_CONFIGURATIONS: int = _bstimulator.MAX_CONFIGURATIONS
-MAX_MODULES: int = _bstimulator.MAX_MODULES
-BANK_SIZE: int = _bstimulator.BANK_SIZE
-MAX_STIMULATORS: int = (
-    12  # subject to change, this is not from public BStimulator.h header
-)
-
-# add references to enums and other classes from _bstimulator
-OCVolt = _bstimulator.OCVolt  # enum class for compliance voltage
-WFTypes = _bstimulator.WFType  # enum class for anodal or cathodal first
-TriggerType = _bstimulator.TriggerType
-ElectrodeChannelMap = _bstimulator.ElectrodeChannelMap
-PartNumbers = _bstimulator.PartNumbers
-ModuleStatus = _bstimulator.ModuleStatus
-SeqType = _bstimulator.SeqType
-ResultTypes = _bstimulator.Result
-
 
 def get_enum_docstr(enum_val: Any) -> str:
     """Lookup docstr for a pybind11 enum value and output as string
@@ -42,115 +25,19 @@ def get_enum_docstr(enum_val: Any) -> str:
     doc_str = enum_entries[enum_val.name][1]
     return doc_str
 
+def get_api_version() -> _bstimulator.Version:
+    """Get Cerestim API library version
 
-class ValidationFcns:
-    """Validation functions for internal use within this module"""
-
-    @staticmethod
-    def validate_electrode(electrode: int) -> None:
-        if electrode < 1 or electrode > MAX_CHANNELS:
-            raise ValueError("Invalid electrode")
-
-    @staticmethod
-    def validate_configID(configID: int) -> None:
-        if configID < 1 or configID > MAX_CONFIGURATIONS:
-            raise ValueError("Invalid pattern config ID")
-
-    @staticmethod
-    def validate_module(module: int) -> None:
-        if module < 0 or module > MAX_MODULES:
-            raise ValueError("Invalid module index")
-
-    @staticmethod
-    def validate_pulses(pulses: int) -> None:
-        if pulses < 1 or pulses > 255:
-            raise ValueError("Invalid pulse number")
-
-    @staticmethod
-    def validate_amp(amp: int) -> None:
-        # TODO determine if micro or macro, for now assume micro
-        if amp < 0 or amp > 215:  # micro
-            # if amp < 100 or amp > 10000:
-            raise ValueError("Invalid pulse amplitude")
-
-    @staticmethod
-    def validate_width(width: int) -> None:
-        if width < 1 or width > 65535:
-            raise ValueError("Invalid pulse width")
-
-    @staticmethod
-    def validate_frequency(freq: int) -> None:
-        if freq < 4 or freq > 5000:
-            raise ValueError("Invalid frequency")
-
-    @staticmethod
-    def validate_interphase(interphase: int) -> None:
-        if interphase < 53 or interphase > 65535:
-            raise ValueError("Invalid interphase")
-
-
-class GroupStimulusStruct(object):
-    """Group Stimulus Structure
-
-    Structure to input to Stimulator.group_stimulus() function.
-
-    Optionally accepts electrode and pattern ID lists as input.
-    Constructor will check that electrode and pattern IDs are valid and
-    not longer than MAX_MODULES. Will zero-pad lists to length
-    MAX_MODULES. User must not modify these lengths before calling
-    Stimulator.group_stimulus()
+    Returns:
+        _bstimulator.Version: structure containing version
     """
-
-    def __init__(
-        self, electrode: Optional[List[int]] = None, pattern: Optional[List[int]] = None
-    ) -> None:
-        """
-        GroupStimulusStruct constructor
-
-        Args:
-            electrode (Optional[List[int]], optional):
-                List of electrodes to stimulate on, up to length
-                MAX_MODULES. Defaults to None.
-            pattern (Optional[List[int]], optional):
-                List of pattern config IDs to match to electrodes above.
-                Must be same length as electrode list. Defaults to None.
-
-        Raises:
-            ValueError: Electrode and Pattern lists must be the same length and cannot be longer than MAX_MODULES.
-        """
-        if electrode:
-            num_elec = len(electrode)
-        else:
-            num_elec = 0
-
-        if pattern:
-            num_pat = len(pattern)
-        else:
-            num_pat = 0
-
-        if num_elec > MAX_MODULES or num_pat > MAX_MODULES:
-            raise ValueError(
-                f"Cannot simultaneously stimulate on more than {MAX_MODULES} electrodes."
-            )
-
-        if num_elec != num_pat:
-            raise ValueError(f"Electrode and Pattern lists must be the same length")
-
-        for idx in range(0, num_elec):
-            ValidationFcns.validate_electrode(electrode[idx])
-            ValidationFcns.validate_configID(pattern[idx])
-
-        if num_elec:
-            self.electrode = electrode
-            self.pattern = pattern
-            if num_elec < MAX_MODULES:
-                ext_len = MAX_MODULES - num_elec
-                self.electrode.extend([0] * ext_len)
-                self.pattern.extend([0] * ext_len)
-        else:
-            self.electrode = [0] * MAX_MODULES
-            self.pattern = [0] * MAX_MODULES
-
+    version_struct = _bstimulator.Version()
+    result = _bstimulator.Stimulator().lib_version(version_struct)
+    if result !=  _bstimulator.success:
+        err_doc = get_enum_docstr(result)
+        error_str = f"{result.name.upper()} error in get_api_version():\n {err_doc}"
+        raise RuntimeError(error_str)
+    return version_struct
 
 class Stimulator(object):
     """Simple python interface to Blackrock Cerestim 96"""
@@ -181,45 +68,276 @@ class Stimulator(object):
             _bstimulator.Stimulator()
         )  # raw stimulator object
         self.device_index: Optional[List[int]] = None
-        self.last_result: ResultTypes = SUCCESS
+        self.last_result: ResultTypes =  _bstimulator.success
 
-    def __del__(self) -> None:
-        """Stimulator destructor
+    # Properties
 
-        Decrements _stimulator_count
+    @property
+    def api_version(self) -> _bstimulator.Version:
+        """Get Cerestim API library version
+
+        Returns:
+            _bstimulator.Version: structure containing version
         """
-        Stimulator._stimulator_count -= 1
+        version_struct = _bstimulator.Version()
+        self.last_result = self._bstimulator_obj.lib_version(version_struct)
+        self._raise_if_error("api_lib_version")
+        return version_struct
 
-    def _is_success(self) -> bool:
-        """Evaluate if last stim API result was successful"""
-        return self.last_result == SUCCESS
+    @property
+    def device_info(self) -> dict:
+        """Read device hardware and firmware info
 
-    def _raise_if_error(self, context: str) -> None:
-        """Raise last error, if any"""
-        if not self._is_success():
-            last_err = self.last_result
-            err_doc = get_enum_docstr(last_err)
-            error_str = f"{last_err.name.upper()} error in {context}():\n {err_doc}"
-            raise RuntimeError(error_str)
+        This returns all the information about the CereStim 96 that is
+        connected to. It will tell its part number, serial number,
+        firmware versions for both the motherboard and for the current
+        modules. It will also tell you the protocol that the motherboard
+        is using with the current modules and the number of installed
+        current modules.
 
-    @staticmethod
-    def _convert_raw_version(raw_version: int) -> dict:
-        version = {"major": (raw_version >> 8) & 0xFF, "minor": raw_version & 0xFF}
-        return version
+        Returns:
+            dict: a dictionary populated with the CereStim's information
+        """
+        dev_info = _bstimulator.DeviceInfo()
+        self.last_result = self._bstimulator_obj.read_device_info(dev_info)
+        self._raise_if_error("read_device_info")
 
-    @staticmethod
-    def _convert_raw_serial_num(raw_serial: int) -> dict:
-        serial = {
-            "part": PartNumbers((raw_serial >> 24) & 0xFF),
-            "serial_no": raw_serial & 0xFFFF,
+        output = dict = {
+            "serial_no": self._convert_raw_serial_num(dev_info.serial_no),
+            "mainboard_version": self._convert_raw_version(dev_info.mainboard_version),
+            "protocol_version": self._convert_raw_version(dev_info.protocol_version),
+            "module_status": [ModuleStatus(x) for x in dev_info.module_status],
+            "module_version": [
+                self._convert_raw_version(x) for x in dev_info.module_version
+            ],
         }
-        return serial
+        return output
 
-    @staticmethod
-    def _convert_raw_min_max_amp(raw_amp: int) -> dict:
-        amp_limits = {"min_amp": raw_amp & 0xFFFF, "max_amp": (raw_amp >> 16) & 0xFFFF}
-        return amp_limits
+    @property
+    def sequence_status(self) -> SeqType:
+        """Get stim sequence status
 
+        Can be called anytime as it does not interrupt other functions
+        from executing, but simply reads what state the stimulator is in.
+
+        Returns:
+            SeqType: Enum containing the sequence state
+        """
+        output = _bstimulator.SequenceStatus()
+        self.last_result = self._bstimulator_obj.read_sequence_status(output)
+        self._raise_if_error("read_sequence_status")
+        return SeqType(output.status)
+
+    @property
+    def is_connected(self) -> bool:
+        """Check if stimulator is connected
+
+        Lets the user know that the Stimulator object is connected to a
+        physical CereStim 96 device.
+
+        Returns:
+            bool: True if stimulator is connected
+        """
+        return bool(self._bstimulator_obj.is_connected())
+
+    @property
+    def serial_number(self) -> dict:
+        """Get device serial number
+
+        Retrieves the serial number that is programmed into the
+        CereStim 96 device that is attached.
+
+        Returns:
+            dict: Part Number and Serial number of the CereStim 96
+        """
+        return self._convert_raw_serial_num(self._bstimulator_obj.get_serial_number())
+
+    @property
+    def motherboard_firmware_version(self) -> dict:
+        """Get main firmware version
+
+        Retrieves the firmware revision of the microcontroller on the
+        motherboard.
+
+        Returns:
+            dict: Firmware Version of the Motherboard
+        """
+        return self._convert_raw_version(
+            self._bstimulator_obj.get_motherboard_firmware_version()
+        )
+    
+    @property
+    def protocol_version(self) -> dict:
+        """Get motherboard protocol version
+
+        The protocol version that the motherboard uses to send and
+        receive data from the current modules.
+
+        Returns:
+            dict: Protocol Version of the Motherboard
+        """
+        return self._convert_raw_version(self._bstimulator_obj.get_protocol_version())
+
+    @property
+    def min_max_amplitude(self) -> dict:
+        """Get hardware min and max amplitudes
+
+        Since there are different models and version of the stimulator,
+        such as the micro and macro versions, this will allow the user
+        to get the min and max amplitudes that are allowed for
+        stimulation.
+
+        Returns:
+            dict: Min and Max Amplitude
+        """
+        return self._convert_raw_min_max_amp(
+            self._bstimulator_obj.get_min_max_amplitude()
+        )
+
+    @property
+    def module_firmware_version(self) -> List[dict]:
+        """Get firmware versions of current modules
+
+        Each current module has its own microcontroller and has a
+        firmware version. All current modules in a single stimulator
+        should have the same firmware version. The MSB is the Major
+        revision number and the LSB is the minor revision number. I.e.
+        0x0105 would be version 1.5
+
+        Returns:
+            List[dict]: List of dicts with module firmware versions
+        """
+        fv = self._bstimulator_obj.get_module_firmware_version()
+        output = [self._convert_raw_version(x) for x in fv]
+        return output[: self.get_number_modules()]
+
+    @property
+    def module_status(self) -> List[ModuleStatus]:
+        """Get status of each current module
+
+        This tells the status of each current module, whether it is
+        enabled, disabled, or not available.
+
+        Returns:
+            List[ModuleStatus]: List of the possible 16 current modules status
+        """
+        ms = self._bstimulator_obj.get_module_status()
+        output = [ModuleStatus(x) for x in ms]
+        return output[: self.get_number_modules()]
+
+    @property
+    def usb_address(self) -> int:
+        """Gets the USB address of the connected stimulator
+
+        Returns:
+            int: USB address
+        """
+        return self._bstimulator_obj.get_usb_address()
+
+    @property
+    def max_hard_charge(self) -> int:
+        """Get hardware max charge per phase
+
+        This value is based on the hardware of the particuliar model of
+        the CereStim 96. Again the micro and macro versions of the
+        stimulator have different values
+
+        Returns:
+            int: Max charge per phase
+        """
+        return self._bstimulator_obj.get_max_hard_charge()
+
+    @property
+    def min_hard_frequency(self) -> int:
+        """Get hardware minimum frequency
+
+        This value is based on the hardware of the particuliar model of
+        the CereStim 96. Again the micro and macro versions of the
+        stimulator have different values
+
+        Returns:
+            int: Minimum Stimulating Frequency in Hz
+        """
+        return self._bstimulator_obj.get_min_hard_frequency()
+
+    @property
+    def max_hard_frequency(self) -> int:
+        """Get hardware maximum frequency
+
+        This value is based on the hardware of the particuliar model of
+        the CereStim 96. Again the micro and macro versions of the
+        stimulator have different values
+
+        Returns:
+            int: Maximum Stimulating Frequency in Hz
+        """
+        return self._bstimulator_obj.get_max_hard_frequency()
+
+    @property
+    def number_modules(self) -> int:
+        """Get number of current modules installed
+
+        This value is based on the hardware of the particuliar model of
+        the CereStim 96. Again the micro and macro versions of the
+        stimulator have different values
+
+        Returns:
+            int: Number of Modules installed
+        """
+        return self._bstimulator_obj.get_number_modules()
+
+    @property
+    def max_hard_width(self) -> int:
+        """Get hardware maximum pulse width
+
+        This value is based on the hardware of the particuliar model of
+        the CereStim 96.
+
+        Returns:
+            int: Maximum width of each phase in us
+        """
+        return self._bstimulator_obj.get_max_hard_width()
+
+    @property
+    def max_hard_interphase(self) -> int:
+        """Get hardware maximum interphase width
+
+        This value is based on the hardware of the particuliar model of
+        the CereStim 96
+
+        Returns:
+            int: Maximum interphase width in us
+        """
+        return self._bstimulator_obj.get_max_hard_interphase()
+
+    @property
+    def is_safety_disabled(self) -> bool:
+        """Check if safety limits are disabled
+
+        For Internal validation and testing it is required to disable
+        the safety limits in the firmware and API so that hardware
+        limits can be observed and tested.
+
+        Returns:
+            bool: True if disabled False otherwise
+        """
+        return bool(self._bstimulator_obj.is_safety_disabled())
+
+    @property
+    def is_device_locked(self) -> bool:
+        """Check if stimulator is locked
+
+        If the detected number of current modules doesn't match the
+        hardware configuration or if the hardware configuration is not
+        setup, the device will be locked down preventing any stimulation
+        from occuring.
+
+        Returns:
+            bool: True if locked False otherwise
+        """
+        return bool(self._bstimulator_obj.is_device_locked())
+
+    # public class method
     @classmethod
     def scan_for_devices(cls) -> List[int]:
         """Scan for connected Cerestim devices
@@ -233,6 +351,7 @@ class Stimulator(object):
         cls.device_vector = list(_bstimulator.Stimulator.scan_for_devices())
         return cls.device_vector
 
+    # public instance methods
     def connect(self, device_index: int = 0) -> None:
         """Connect to Cerestim.
 
@@ -268,17 +387,6 @@ class Stimulator(object):
         """Disconnect from Cerestim"""
         self.last_result = self._bstimulator_obj.disconnect()
         self._raise_if_error("disconnect")
-
-    def lib_version(self) -> _bstimulator.Version:
-        """Get API library version
-
-        Returns:
-            _bstimulator.Version: structure containing version
-        """
-        version_struct = _bstimulator.Version()
-        self.last_result = self._bstimulator_obj.lib_version(version_struct)
-        self._raise_if_error("lib_version")
-        return version_struct
 
     def manual_stimulus(self, electrode: int, configID: int) -> None:
         """Manually stimulate on one electrode
@@ -473,34 +581,6 @@ class Stimulator(object):
         self._raise_if_error("max_output_voltage")
         return output.milivolts
 
-    def read_device_info(self) -> dict:
-        """Read device hardware and firmware info
-
-        This returns all the information about the CereStim 96 that is
-        connected to. It will tell its part number, serial number,
-        firmware versions for both the motherboard and for the current
-        modules. It will also tell you the protocol that the motherboard
-        is using with the current modules and the number of installed
-        current modules.
-
-        Returns:
-            dict: a dictionary populated with the CereStim's information
-        """
-        dev_info = _bstimulator.DeviceInfo()
-        self.last_result = self._bstimulator_obj.read_device_info(dev_info)
-        self._raise_if_error("read_device_info")
-
-        output = dict = {
-            "serial_no": self._convert_raw_serial_num(dev_info.serial_no),
-            "mainboard_version": self._convert_raw_version(dev_info.mainboard_version),
-            "protocol_version": self._convert_raw_version(dev_info.protocol_version),
-            "module_status": [ModuleStatus(x) for x in dev_info.module_status],
-            "module_version": [
-                self._convert_raw_version(x) for x in dev_info.module_version
-            ],
-        }
-        return output
-
     def enable_module(self, module: int) -> None:
         """Enable current module
 
@@ -621,20 +701,6 @@ class Stimulator(object):
         )
         self._raise_if_error("read_stimulus_pattern")
         return output
-
-    def read_sequence_status(self) -> SeqType:
-        """Get stim sequence status
-
-        Can be called anytime as it does not interrupt other functions
-        from executing, but simply reads what state the stimulator is in.
-
-        Returns:
-            SeqType: Enum containing the sequence state
-        """
-        output = _bstimulator.SequenceStatus()
-        self.last_result = self._bstimulator_obj.read_sequence_status(output)
-        self._raise_if_error("read_sequence_status")
-        return SeqType(output.status)
 
     def read_stimulus_max_values(self) -> _bstimulator.MaximumValues:
         """Read maximum stimulus values set using set_stimulus_max_values()
@@ -794,195 +860,37 @@ class Stimulator(object):
         self.last_result = self._bstimulator_obj.reset_stimulator()
         self._raise_if_error("reset_stimulator")
 
-    def is_connected(self) -> bool:
-        """Check if stimulator is connected
+    # protected methods
+    def _raise_if_error(self, context: str) -> None:
+        """Raise last error, if any"""
+        if self.last_result != _bstimulator.success:
+            last_err = self.last_result
+            err_doc = get_enum_docstr(last_err)
+            error_str = f"{last_err.name.upper()} error in {context}():\n {err_doc}"
+            raise RuntimeError(error_str)
 
-        Lets the user know that the Stimulator object is connected to a
-        physical CereStim 96 device.
+    @staticmethod
+    def _convert_raw_version(raw_version: int) -> dict:
+        version = {"major": (raw_version >> 8) & 0xFF, "minor": raw_version & 0xFF}
+        return version
 
-        Returns:
-            bool: True if stimulator is connected
+    @staticmethod
+    def _convert_raw_serial_num(raw_serial: int) -> dict:
+        serial = {
+            "part": PartNumbers((raw_serial >> 24) & 0xFF),
+            "serial_no": raw_serial & 0xFFFF,
+        }
+        return serial
+
+    @staticmethod
+    def _convert_raw_min_max_amp(raw_amp: int) -> dict:
+        amp_limits = {"min_amp": raw_amp & 0xFFFF, "max_amp": (raw_amp >> 16) & 0xFFFF}
+        return amp_limits
+
+    def __del__(self) -> None:
+        """Stimulator destructor
+
+        Decrements _stimulator_count
         """
-        return bool(self._bstimulator_obj.is_connected())
-
-    def get_serial_number(self) -> dict:
-        """Get device serial number
-
-        Retrieves the serial number that is programmed into the
-        CereStim 96 device that is attached.
-
-        Returns:
-            dict: Part Number and Serial number of the CereStim 96
-        """
-        return self._convert_raw_serial_num(self._bstimulator_obj.get_serial_number())
-
-    def get_motherboard_firmware_version(self) -> dict:
-        """Get main firmware version
-
-        Retrieves the firmware revision of the microcontroller on the
-        motherboard.
-
-        Returns:
-            dict: Firmware Version of the Motherboard
-        """
-        return self._convert_raw_version(
-            self._bstimulator_obj.get_motherboard_firmware_version()
-        )
-
-    def get_protocol_version(self) -> dict:
-        """Get motherboard protocol version
-
-        The protocol version that the motherboard uses to send and
-        receive data from the current modules.
-
-        Returns:
-            dict: Protocol Version of the Motherboard
-        """
-        return self._convert_raw_version(self._bstimulator_obj.get_protocol_version())
-
-    def get_min_max_amplitude(self) -> dict:
-        """Get hardware min and max amplitudes
-
-        Since there are different models and version of the stimulator,
-        such as the micro and macro versions, this will allow the user
-        to get the min and max amplitudes that are allowed for
-        stimulation.
-
-        Returns:
-            dict: Min and Max Amplitude
-        """
-        return self._convert_raw_min_max_amp(
-            self._bstimulator_obj.get_min_max_amplitude()
-        )
-
-    def get_module_firmware_version(self) -> List[dict]:
-        """Get firmware versions of current modules
-
-        Each current module has its own microcontroller and has a
-        firmware version. All current modules in a single stimulator
-        should have the same firmware version. The MSB is the Major
-        revision number and the LSB is the minor revision number. I.e.
-        0x0105 would be version 1.5
-
-        Returns:
-            List[dict]: List of dicts with module firmware versions
-        """
-        fv = self._bstimulator_obj.get_module_firmware_version()
-        output = [self._convert_raw_version(x) for x in fv]
-        return output[: self.get_number_modules()]
-
-    def get_module_status(self) -> List[ModuleStatus]:
-        """Get status of each current module
-
-        This tells the status of each current module, whether it is
-        enabled, disabled, or not available.
-
-        Returns:
-            List[ModuleStatus]: List of the possible 16 current modules status
-        """
-        ms = self._bstimulator_obj.get_module_status()
-        output = [ModuleStatus(x) for x in ms]
-        return output[: self.get_number_modules()]
-
-    def get_usb_address(self) -> int:
-        """Gets the USB address of the connected stimulator
-
-        Returns:
-            int: USB address
-        """
-        return self._bstimulator_obj.get_usb_address()
-
-    def get_max_hard_charge(self) -> int:
-        """Get hardware max charge per phase
-
-        This value is based on the hardware of the particuliar model of
-        the CereStim 96. Again the micro and macro versions of the
-        stimulator have different values
-
-        Returns:
-            int: Max charge per phase
-        """
-        return self._bstimulator_obj.get_max_hard_charge()
-
-    def get_min_hard_frequency(self) -> int:
-        """Get hardware minimum frequency
-
-        This value is based on the hardware of the particuliar model of
-        the CereStim 96. Again the micro and macro versions of the
-        stimulator have different values
-
-        Returns:
-            int: Minimum Stimulating Frequency in Hz
-        """
-        return self._bstimulator_obj.get_min_hard_frequency()
-
-    def get_max_hard_frequency(self) -> int:
-        """Get hardware maximum frequency
-
-        This value is based on the hardware of the particuliar model of
-        the CereStim 96. Again the micro and macro versions of the
-        stimulator have different values
-
-        Returns:
-            int: Maximum Stimulating Frequency in Hz
-        """
-        return self._bstimulator_obj.get_max_hard_frequency()
-
-    def get_number_modules(self) -> int:
-        """Get number of current modules installed
-
-        This value is based on the hardware of the particuliar model of
-        the CereStim 96. Again the micro and macro versions of the
-        stimulator have different values
-
-        Returns:
-            int: Number of Modules installed
-        """
-        return self._bstimulator_obj.get_number_modules()
-
-    def get_max_hard_width(self) -> int:
-        """Get hardware maximum pulse width
-
-        This value is based on the hardware of the particuliar model of
-        the CereStim 96.
-
-        Returns:
-            int: Maximum width of each phase in us
-        """
-        return self._bstimulator_obj.get_max_hard_width()
-
-    def get_max_hard_interphase(self) -> int:
-        """Get hardware maximum interphase width
-
-        This value is based on the hardware of the particuliar model of
-        the CereStim 96
-
-        Returns:
-            int: Maximum interphase width in us
-        """
-        return self._bstimulator_obj.get_max_hard_interphase()
-
-    def is_safety_disabled(self) -> bool:
-        """Check if safety limits are disabled
-
-        For Internal validation and testing it is required to disable
-        the safety limits in the firmware and API so that hardware
-        limits can be observed and tested.
-
-        Returns:
-            bool: True if disabled False otherwise
-        """
-        return bool(self._bstimulator_obj.is_safety_disabled())
-
-    def is_device_locked(self) -> bool:
-        """Check if stimulator is locked
-
-        If the detected number of current modules doesn't match the
-        hardware configuration or if the hardware configuration is not
-        setup, the device will be locked down preventing any stimulation
-        from occuring.
-
-        Returns:
-            bool: True if locked False otherwise
-        """
-        return bool(self._bstimulator_obj.is_device_locked())
+        Stimulator._stimulator_count -= 1
+# end class Stimulator

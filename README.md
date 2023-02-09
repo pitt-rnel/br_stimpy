@@ -22,7 +22,7 @@ pip from the package directory by running `pip install .`
 from br_stimpy import stimpy
 
 stim_obj = stimpy.Stimulator()
-print(stim_obj.lib_version())
+print(stim_obj.api_version)
 stim_obj.connect()
 stim_obj.configure_stimulus_pattern(
     configID=1,

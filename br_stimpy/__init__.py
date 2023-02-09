@@ -9,7 +9,7 @@ Example:
 from br_stimpy import stimpy
 
 stim_obj = stimpy.stimulator()
-print(stim_obj.lib_version())
+print(stim_obj.api_version)
 stim_obj.connect()
 stim_obj.configure_stimulus_pattern(
     configID=1,
@@ -27,8 +27,8 @@ stim_obj.disconnect()
 ```
 """
 
-__all__ = ["stimpy"]
-__private__ = ["_bstimulator"]
+__all__ = ["stimpy", "constants", "enums", "group_stim_struct"]
+__private__ = ["_bstimulator", "_validation", "__version__"]
 
 from .__version__ import (
     __author__,
