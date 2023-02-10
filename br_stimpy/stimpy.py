@@ -705,6 +705,22 @@ class Stimulator(object):
         self._raise_if_error("read_stimulus_pattern")
         return output
 
+    def read_all_stimulus_patterns(self) -> dict:
+        """Read back all stim config patterns from stimulator
+
+        Returns:
+            dict of 15 _bstimulator.StimulusConfiguration structures
+            Values are None if configuration is inactive
+        """
+        patterns = {}
+        for configID in range(1, MAX_CONFIGURATIONS):
+            try:
+                pat = self.read_stimulus_pattern(configID)
+            except:  # TODO: check specifically for RuntimeError: CONFIG_NOT_ACTIVE
+                pat = None
+            patterns[configID] = pat
+        return patterns
+
     def read_stimulus_max_values(self) -> _bstimulator.MaximumValues:
         """Read maximum stimulus values set using set_stimulus_max_values()
 
@@ -870,6 +886,7 @@ class Stimulator(object):
             last_err = self.last_result
             err_doc = get_enum_docstr(last_err)
             error_str = f"{last_err.name.upper()} error in {context}():\n {err_doc}"
+            # TODO create more specific error types
             raise RuntimeError(error_str)
 
     @staticmethod
