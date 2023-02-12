@@ -72,6 +72,7 @@ class Stimulator(object):
         )  # raw stimulator object
         self.device_index: Optional[List[int]] = None
         self.last_result: ResultTypes = _bstimulator.success
+        self._pattern_cache = {key: None for key in range(1, MAX_CONFIGURATIONS)}
 
     # Properties
 
@@ -86,6 +87,16 @@ class Stimulator(object):
         self.last_result = self._bstimulator_obj.lib_version(version_struct)
         self._raise_if_error("api_lib_version")
         return version_struct
+
+    @property
+    def stimulus_patterns_cached(self) -> dict:
+        """Get cached list of configured stimulus patterns
+
+        Returns:
+            dict: 15 cached _bstimulator.StimulusConfiguration
+            structures,  None if configuration is inactive.
+        """
+        return self._pattern_cache
 
     @property
     def device_info(self) -> dict:
@@ -385,6 +396,8 @@ class Stimulator(object):
                 raise IndexError("Invalid device_index")
             else:
                 raise RuntimeError("No Cerestim devices found")
+        # if successfully connected, initialize stimulus_patterns_cached
+        self.read_all_stimulus_patterns()
 
     def disconnect(self) -> None:
         """Disconnect from Cerestim"""
@@ -680,6 +693,16 @@ class Stimulator(object):
             interphase,
         )
         self._raise_if_error("configure_stimulus_pattern")
+        pat = _bstimulator.StimulusConfiguration()
+        pat.anodicFirst = afcf
+        pat.pulses = pulses
+        pat.amp1 = amp1
+        pat.amp2 = amp2
+        pat.width1 = width1
+        pat.width2 = width2
+        pat.frequency = frequency
+        pat.interphase = interphase
+        self._pattern_cache[configID] = pat
 
     def read_stimulus_pattern(
         self, configID: int
@@ -703,13 +726,14 @@ class Stimulator(object):
             output, _bstimulator.Config(configID)
         )
         self._raise_if_error("read_stimulus_pattern")
+        self._pattern_cache[configID] = output
         return output
 
     def read_all_stimulus_patterns(self) -> dict:
         """Read back all stim config patterns from stimulator
 
         Returns:
-            dict of 15 _bstimulator.StimulusConfiguration structures
+            dict: 15 _bstimulator.StimulusConfiguration structures
             Values are None if configuration is inactive
         """
         patterns = {}
@@ -719,7 +743,8 @@ class Stimulator(object):
             except:  # TODO: check specifically for RuntimeError: CONFIG_NOT_ACTIVE
                 pat = None
             patterns[configID] = pat
-        return patterns
+        self._pattern_cache = patterns
+        return self._pattern_cache
 
     def read_stimulus_max_values(self) -> _bstimulator.MaximumValues:
         """Read maximum stimulus values set using set_stimulus_max_values()
