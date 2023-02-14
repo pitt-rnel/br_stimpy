@@ -799,7 +799,6 @@ class Stimulator(object):
         begin_seq: bool,
         play: bool,
         times: int,
-        number: int,
         group_stim_struct: GroupStimulusStruct,
     ) -> None:
         """Send group stimulus command
@@ -817,14 +816,13 @@ class Stimulator(object):
                 should begin stimulating immedieatly after this call
             times (int): The number of times to play the stimulation,
                 is ignored if play = false
-            number (int): The number of stimulus that will occur
-                simultaneously.
             group_stim_struct (GroupStimulusStruct): structure which
                 has a pair of arrays with electrodes and waveforms
         """
         bgroup_stim_struct = _bstimulator.GroupStimulus()
         bgroup_stim_struct.electrode = group_stim_struct.electrode
         bgroup_stim_struct.pattern = group_stim_struct.pattern
+        number = group_stim_struct.number
         self.last_result = self._bstimulator_obj.group_stimulus(
             int(begin_seq), int(play), times, number, bgroup_stim_struct
         )

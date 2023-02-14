@@ -37,32 +37,32 @@ class GroupStimulusStruct(object):
             ValueError: Electrode and Pattern lists must be the same length and cannot be longer than MAX_MODULES.
         """
         if electrode:
-            self._num_elec = len(electrode)
+            self._number = len(electrode)
         else:
-            self._num_elec = 0
+            self._number = 0
 
         if pattern:
-            self._num_pat = len(pattern)
+            num_pat = len(pattern)
         else:
-            self._num_pat = 0
+            num_pat = 0
 
-        if self._num_elec > MAX_MODULES or self._num_pat > MAX_MODULES:
+        if num_pat != self._number:
+            raise ValueError(f"Electrode and Pattern lists must be the same length")
+
+        if self._number > MAX_MODULES:
             raise ValueError(
                 f"Cannot simultaneously stimulate on more than {MAX_MODULES} electrodes."
             )
 
-        if self._num_elec != self._num_pat:
-            raise ValueError(f"Electrode and Pattern lists must be the same length")
-
-        for idx in range(0, self._num_elec):
+        for idx in range(0, self._number):
             ValidationFcns.validate_electrode(electrode[idx])
             ValidationFcns.validate_configID(pattern[idx])
 
-        if self._num_elec:
+        if self._number:
             self._electrode = electrode
             self._pattern = pattern
-            if self._num_elec < MAX_MODULES:
-                ext_len = MAX_MODULES - self._num_elec
+            if self._number < MAX_MODULES:
+                ext_len = MAX_MODULES - self._number
                 self._electrode.extend([0] * ext_len)
                 self._pattern.extend([0] * ext_len)
         else:
@@ -76,3 +76,7 @@ class GroupStimulusStruct(object):
     @property
     def pattern(self) -> List[int]:
         return self._pattern
+    
+    @property
+    def number(self) -> int:
+        return self._number
