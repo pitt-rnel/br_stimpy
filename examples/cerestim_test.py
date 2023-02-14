@@ -114,11 +114,10 @@ group_stim_input = stimpy.GroupStimulusStruct(electrode=[1, 45], pattern=[1, 1])
 # beginSeq should be True if this is first part of a new program
 # play should be True if you want to stimulate immedietaly after.
 # times is the number of times to play the stimulation
-# number is the number of electrodes to simulatneously stimulate
 # group_stimlus_struct is the structure containing the electrodes and patterns to use
 print("group stimulus:")
 cerestim.group_stimulus(
-    begin_seq=True, play=True, times=1, number=2, group_stim_struct=group_stim_input
+    begin_seq=True, play=True, times=1, group_stim_struct=group_stim_input
 )
 print("done")
 time.sleep(0.2)
