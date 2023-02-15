@@ -76,7 +76,7 @@ class GroupStimulusStruct(object):
     @property
     def pattern(self) -> List[int]:
         return self._pattern
-    
+
     @property
     def number(self) -> int:
         return self._number

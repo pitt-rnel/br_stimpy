@@ -404,6 +404,97 @@ class Stimulator(object):
         self.last_result = self._bstimulator_obj.disconnect()
         self._raise_if_error("disconnect")
 
+    def simple_stimulus(
+        self,
+        electrode: int,
+        afcf: WFTypes,
+        pulses: int,
+        amp1: int,
+        amp2: int,
+        width1: int,
+        width2: int,
+        frequency: int,
+        interphase: int,
+    ) -> None:
+        """Simplest method to manually command a stimulus pulse
+        
+        Combines configure_stimulus_pattern() and manual_stimulus()
+        into a single call. Note that the overhead of 
+        configure_stimulus_pattern() limits how quickly this can run.
+        This method is simple, but inefficient.
+
+        Args:
+            electrode (int): The electrode that should be stimulated.
+                Valid values are from 1 - 96.
+            afcf (Stimulator.WFTypes): What polarity should the first
+                phase be, Anodic or Cathodic first
+            pulses (int): The number of stimulation pulses in waveform
+                from 1 - 255
+            amp1 (int): The amplitude of the first phase, for Micro it
+                is 1 - 215 uA, and for Macro it is 100 uA - 10 mA
+            amp2 (int): The amplitude of the first phase, for Micro it
+                is 1 - 215 uA, and for Macro it is 100 uA - 10 mA
+            width1 (int): The width of the first phase in the stimulation
+                1 - 65,535 uS
+            width2 (int): The width of the second phase in the stimulation
+                1 - 65,535 uS
+            frequency (int): The stimulating frequency at which the
+                biphasic pulses should repeat 4 - 5000 Hz
+            interphase (int): The period of time between the first and
+                second phases 53 - 65,535 uS
+        """
+        self.configure_stimulus_pattern(
+            1, afcf, pulses, amp1, amp2, width1, width2, frequency, interphase
+        )
+        self.manual_stimulus(electrode, 1)
+
+    def simple_stimulus_group(
+        self,
+        electrodes: List[int],
+        afcf: WFTypes,
+        pulses: int,
+        amp1: int,
+        amp2: int,
+        width1: int,
+        width2: int,
+        frequency: int,
+        interphase: int,
+    ) -> None:
+        """Simplest method to manually command a group stimulus pulse
+        with identical parameters on all electrodes
+        
+        Combines configure_stimulus_pattern() and group_stimulus()
+        into a single call. Note that the overhead of 
+        configure_stimulus_pattern() limits how quickly this can run.
+        This method is simple, but inefficient.
+
+        Args:
+            electrodes List[int]: The electrodes that should be stimulated.
+                Valid values are from 1 - 96.
+            afcf (Stimulator.WFTypes): What polarity should the first
+                phase be, Anodic or Cathodic first
+            pulses (int): The number of stimulation pulses in waveform
+                from 1 - 255
+            amp1 (int): The amplitude of the first phase, for Micro it
+                is 1 - 215 uA, and for Macro it is 100 uA - 10 mA
+            amp2 (int): The amplitude of the first phase, for Micro it
+                is 1 - 215 uA, and for Macro it is 100 uA - 10 mA
+            width1 (int): The width of the first phase in the stimulation
+                1 - 65,535 uS
+            width2 (int): The width of the second phase in the stimulation
+                1 - 65,535 uS
+            frequency (int): The stimulating frequency at which the
+                biphasic pulses should repeat 4 - 5000 Hz
+            interphase (int): The period of time between the first and
+                second phases 53 - 65,535 uS
+        """
+        self.configure_stimulus_pattern(
+            1, afcf, pulses, amp1, amp2, width1, width2, frequency, interphase
+        )
+        patterns = [1] * len(electrodes)
+        gc = GroupStimulusStruct(electrodes, patterns)
+        self.group_stimulus(begin_seq=True, play=True, times=1, group_stim_struct=gc)
+
     def manual_stimulus(self, electrode: int, configID: int) -> None:
         """Manually stimulate on one electrode
 
