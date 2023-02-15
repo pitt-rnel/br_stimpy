@@ -143,6 +143,15 @@ class Stimulator(object):
         return SeqType(output.status)
 
     @property
+    def is_stim_sequence_playing(self) -> bool:
+        """Check if a stim sequence is actively playing
+
+        Returns:
+            bool: Whether or not a stim sequence is playing
+        """
+        return self.sequence_status == self.SeqType.playing
+
+    @property
     def is_connected(self) -> bool:
         """Check if stimulator is connected
 
@@ -417,9 +426,9 @@ class Stimulator(object):
         interphase: int,
     ) -> None:
         """Simplest method to manually command a stimulus pulse
-        
+
         Combines configure_stimulus_pattern() and manual_stimulus()
-        into a single call. Note that the overhead of 
+        into a single call. Note that the overhead of
         configure_stimulus_pattern() limits how quickly this can run.
         This method is simple, but inefficient.
 
@@ -462,9 +471,9 @@ class Stimulator(object):
     ) -> None:
         """Simplest method to manually command a group stimulus pulse
         with identical parameters on all electrodes
-        
+
         Combines configure_stimulus_pattern() and group_stimulus()
-        into a single call. Note that the overhead of 
+        into a single call. Note that the overhead of
         configure_stimulus_pattern() limits how quickly this can run.
         This method is simple, but inefficient.
 

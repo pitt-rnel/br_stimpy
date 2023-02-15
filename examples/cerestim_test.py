@@ -135,7 +135,7 @@ for i in range(1, 10):
 cerestim.end_sequence()
 cerestim.play(times=5)
 print("playing")
-while cerestim.sequence_status == stimpy.SeqType.playing:
+while cerestim.is_stim_sequence_playing:
     print(".", end="", flush=True)
     time.sleep(0.05)
 print("")
@@ -150,7 +150,7 @@ cerestim.end_group()
 cerestim.end_sequence()
 cerestim.play(times=5)
 print("playing")
-while cerestim.sequence_status == stimpy.SeqType.playing:
+while cerestim.is_stim_sequence_playing:
     print(".", end="", flush=True)
     time.sleep(0.05)
 print("")
