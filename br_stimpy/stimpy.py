@@ -8,7 +8,7 @@ from __future__ import annotations  # ensure forward compatibility
 from br_stimpy import _bstimulator
 from br_stimpy.constants import *
 from br_stimpy.enums import *
-from br_stimpy._validation import ValidationFcns
+from br_stimpy._validation import _ValidationFcns
 from br_stimpy.group_stim_struct import GroupStimulusStruct
 from typing import List, Optional, Any
 
@@ -516,8 +516,8 @@ class Stimulator(object):
             configID (int): The stimulation waveform to use.
                 Valid values are from 1 - 15.
         """
-        ValidationFcns.validate_electrode(electrode)
-        ValidationFcns.validate_configID(configID)
+        _ValidationFcns.validate_electrode(electrode)
+        _ValidationFcns.validate_configID(configID)
 
         self.last_result = self._bstimulator_obj.manual_stimulus(
             electrode, _bstimulator.Config(configID)
@@ -585,8 +585,8 @@ class Stimulator(object):
             configID (int): One of the fifteen stimulation waveforms that should be used.
                 Valid values are from 1-15
         """
-        ValidationFcns.validate_electrode(electrode)
-        ValidationFcns.validate_configID(configID)
+        _ValidationFcns.validate_electrode(electrode)
+        _ValidationFcns.validate_configID(configID)
         self.last_result = self._bstimulator_obj.auto_stimulus(
             electrode, _bstimulator.Config(configID)
         )
@@ -707,7 +707,7 @@ class Stimulator(object):
         Args:
             module (int): The current module to be enabled from 0 to 15
         """
-        ValidationFcns.validate_module(module)
+        _ValidationFcns.validate_module(module)
         self.last_result = self._bstimulator_obj.enable_module(module)
         self._raise_if_error("enable_module")
 
@@ -722,7 +722,7 @@ class Stimulator(object):
         Args:
             module (int):The current module to be disabled from 0 to 15
         """
-        ValidationFcns.validate_module(module)
+        _ValidationFcns.validate_module(module)
         self.last_result = self._bstimulator_obj.disable_module(module)
         self._raise_if_error("enable_module")
 
@@ -773,14 +773,14 @@ class Stimulator(object):
             interphase (int): The period of time between the first and
                 second phases 53 - 65,535 uS
         """
-        ValidationFcns.validate_configID(configID)
-        ValidationFcns.validate_pulses(pulses)
-        ValidationFcns.validate_amp(amp1)
-        ValidationFcns.validate_amp(amp2)
-        ValidationFcns.validate_width(width1)
-        ValidationFcns.validate_width(width2)
-        ValidationFcns.validate_frequency(frequency)
-        ValidationFcns.validate_interphase(interphase)
+        _ValidationFcns.validate_configID(configID)
+        _ValidationFcns.validate_pulses(pulses)
+        _ValidationFcns.validate_amp(amp1)
+        _ValidationFcns.validate_amp(amp2)
+        _ValidationFcns.validate_width(width1)
+        _ValidationFcns.validate_width(width2)
+        _ValidationFcns.validate_frequency(frequency)
+        _ValidationFcns.validate_interphase(interphase)
         self.last_result = self._bstimulator_obj.configure_stimulus_pattern(
             _bstimulator.Config(configID),
             afcf,
@@ -820,7 +820,7 @@ class Stimulator(object):
             _bstimulator.StimulusConfiguration: structure which contains
                 all the parameters that consist in a stimulation waveform
         """
-        ValidationFcns.validate_configID(configID)
+        _ValidationFcns.validate_configID(configID)
         output = _bstimulator.StimulusConfiguration()
         self.last_result = self._bstimulator_obj.read_stimulus_pattern(
             output, _bstimulator.Config(configID)
@@ -986,7 +986,7 @@ class Stimulator(object):
         Args:
             configID (int): The configuration to disable
         """
-        ValidationFcns.validate_configID(configID)
+        _ValidationFcns.validate_configID(configID)
         self.last_result = self._bstimulator_obj.disable_stimulus_configuration(
             configID
         )

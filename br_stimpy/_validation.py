@@ -6,7 +6,7 @@ from __future__ import annotations  # ensure forward compatibility
 from br_stimpy.constants import *
 
 
-class ValidationFcns:
+class _ValidationFcns:
     """Validation functions for internal use within this module"""
 
     @staticmethod

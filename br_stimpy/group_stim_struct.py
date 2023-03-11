@@ -4,7 +4,7 @@
 
 from __future__ import annotations  # ensure forward compatibility
 from br_stimpy.constants import *
-from br_stimpy._validation import ValidationFcns
+from br_stimpy._validation import _ValidationFcns
 from typing import List, Optional, Any
 
 
@@ -55,8 +55,8 @@ class GroupStimulusStruct(object):
             )
 
         for idx in range(0, self._number):
-            ValidationFcns.validate_electrode(electrode[idx])
-            ValidationFcns.validate_configID(pattern[idx])
+            _ValidationFcns.validate_electrode(electrode[idx])
+            _ValidationFcns.validate_configID(pattern[idx])
 
         if self._number:
             self._electrode = electrode
@@ -71,12 +71,15 @@ class GroupStimulusStruct(object):
 
     @property
     def electrode(self) -> List[int]:
+        """List of electrodes"""
         return self._electrode
 
     @property
     def pattern(self) -> List[int]:
+        """List of pattern IDs corresponding to electrode"""
         return self._pattern
 
     @property
     def number(self) -> int:
+        """Number of electrodes contained in the group"""
         return self._number
