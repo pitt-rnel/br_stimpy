@@ -1,4 +1,4 @@
-# br_stimpy._validation
+"""Internal validation functions"""
 # Author: Jeff Weiss <jeff.weiss@pitt.edu>
 # February 2023
 

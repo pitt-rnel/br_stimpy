@@ -1,4 +1,4 @@
-# br_stimpy.enums
+"""Enumeration classes from _bstimulator submodule"""
 # Author: Jeff Weiss <jeff.weiss@pitt.edu>
 # February 2023
 

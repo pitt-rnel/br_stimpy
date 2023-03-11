@@ -1,6 +1,10 @@
-# br_stimpy.group_stim_struct
+"""GroupStimulusStruct class
+
+Defines a class for use with stimpy.Stimulator.group_stimulus()
+"""
 # Author: Jeff Weiss <jeff.weiss@pitt.edu>
 # February 2023
+
 
 from __future__ import annotations  # ensure forward compatibility
 from br_stimpy.constants import *
