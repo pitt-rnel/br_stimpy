@@ -289,7 +289,7 @@ PYBIND11_MODULE(_bstimulator, m) {
     // include callback function??
     // typedef void (* BCallback)(BEventType type, void* pCallbackData);
 
-    py::enum_<BResult>(m, "Result",
+    py::enum_<BResult>(m, "ResultType",
         "A stimulator object creates a USB connection with the actual CereStim 96 and calls are made to it through the stimulator object. The stimulator object can return an "
         "error message (Software Error) or the CereStim 96 can return an error message (Hardware Error).")
         .value("return", BResult::BRETURN, "Software Error: Early returned warning.")

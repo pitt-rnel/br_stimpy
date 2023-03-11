@@ -7,10 +7,10 @@ from br_stimpy import _bstimulator
 
 # add references to enums and other classes from _bstimulator
 OCVolt = _bstimulator.OCVolt  # enum class for compliance voltage
-WFTypes = _bstimulator.WFType  # enum class for anodal or cathodal first
+WFType = _bstimulator.WFType  # enum class for anodal or cathodal first
 TriggerType = _bstimulator.TriggerType
 ElectrodeChannelMap = _bstimulator.ElectrodeChannelMap
 PartNumbers = _bstimulator.PartNumbers
 ModuleStatus = _bstimulator.ModuleStatus
 SeqType = _bstimulator.SeqType
-ResultTypes = _bstimulator.Result
+ResultType = _bstimulator.ResultType

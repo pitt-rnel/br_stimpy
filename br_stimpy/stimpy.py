@@ -50,7 +50,7 @@ class Stimulator(object):
 
     # repeat _bstimulator references here (user can access from either module or class)
     OCVolt = OCVolt  # enum class for compliance voltage
-    WFTypes = WFTypes  # enum class for anodal or cathodal first
+    WFType = WFType  # enum class for anodal or cathodal first
     TriggerType = TriggerType
     ElectrodeChannelMap = ElectrodeChannelMap
     PartNumbers = PartNumbers
@@ -71,7 +71,7 @@ class Stimulator(object):
             _bstimulator.Stimulator()
         )  # raw stimulator object
         self.device_index: Optional[List[int]] = None
-        self.last_result: ResultTypes = _bstimulator.success
+        self.last_result: ResultType = _bstimulator.success
         self._pattern_cache = {key: None for key in range(1, MAX_CONFIGURATIONS)}
 
     # Properties
@@ -416,7 +416,7 @@ class Stimulator(object):
     def simple_stimulus(
         self,
         electrode: int,
-        afcf: WFTypes,
+        afcf: WFType,
         pulses: int,
         amp1: int,
         amp2: int,
@@ -435,7 +435,7 @@ class Stimulator(object):
         Args:
             electrode (int): The electrode that should be stimulated.
                 Valid values are from 1 - 96.
-            afcf (Stimulator.WFTypes): What polarity should the first
+            afcf (Stimulator.WFType): What polarity should the first
                 phase be, Anodic or Cathodic first
             pulses (int): The number of stimulation pulses in waveform
                 from 1 - 255
@@ -460,7 +460,7 @@ class Stimulator(object):
     def simple_stimulus_group(
         self,
         electrodes: List[int],
-        afcf: WFTypes,
+        afcf: WFType,
         pulses: int,
         amp1: int,
         amp2: int,
@@ -480,7 +480,7 @@ class Stimulator(object):
         Args:
             electrodes List[int]: The electrodes that should be stimulated.
                 Valid values are from 1 - 96.
-            afcf (Stimulator.WFTypes): What polarity should the first
+            afcf (Stimulator.WFType): What polarity should the first
                 phase be, Anodic or Cathodic first
             pulses (int): The number of stimulation pulses in waveform
                 from 1 - 255
@@ -729,7 +729,7 @@ class Stimulator(object):
     def configure_stimulus_pattern(
         self,
         configID: int,
-        afcf: WFTypes,
+        afcf: WFType,
         pulses: int,
         amp1: int,
         amp2: int,
@@ -756,7 +756,7 @@ class Stimulator(object):
         Args:
             configID (int): The stimulation waveform that is being
                 configured 1 - 15
-            afcf (Stimulator.WFTypes): What polarity should the first
+            afcf (Stimulator.WFType): What polarity should the first
                 phase be, Anodic or Cathodic first
             pulses (int): The number of stimulation pulses in waveform
                 from 1 - 255
