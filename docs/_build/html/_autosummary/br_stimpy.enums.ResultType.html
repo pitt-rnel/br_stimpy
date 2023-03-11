@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>br_stimpy.enums.ResultType &mdash; br_stimpy 0.0.5 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="br_stimpy.enums.SeqType" href="br_stimpy.enums.SeqType.html" />
+    <link rel="prev" title="br_stimpy.enums.PartNumbers" href="br_stimpy.enums.PartNumbers.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            br_stimpy
+              <img src="../_static/stimpy.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Home page</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="br_stimpy.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="br_stimpy.constants.html">br_stimpy.constants</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="br_stimpy.enums.html">br_stimpy.enums</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="br_stimpy.enums.ElectrodeChannelMap.html">br_stimpy.enums.ElectrodeChannelMap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="br_stimpy.enums.ModuleStatus.html">br_stimpy.enums.ModuleStatus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="br_stimpy.enums.OCVolt.html">br_stimpy.enums.OCVolt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="br_stimpy.enums.PartNumbers.html">br_stimpy.enums.PartNumbers</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">br_stimpy.enums.ResultType</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#br_stimpy.enums.ResultType"><code class="docutils literal notranslate"><span class="pre">ResultType</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="br_stimpy.enums.SeqType.html">br_stimpy.enums.SeqType</a></li>
+<li class="toctree-l3"><a class="reference internal" href="br_stimpy.enums.TriggerType.html">br_stimpy.enums.TriggerType</a></li>
+<li class="toctree-l3"><a class="reference internal" href="br_stimpy.enums.WFType.html">br_stimpy.enums.WFType</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="br_stimpy.group_stim_struct.html">br_stimpy.group_stim_struct</a></li>
+<li class="toctree-l2"><a class="reference internal" href="br_stimpy.stimpy.html">br_stimpy.stimpy</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">br_stimpy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="br_stimpy.html">br_stimpy</a></li>
+          <li class="breadcrumb-item"><a href="br_stimpy.enums.html">br_stimpy.enums</a></li>
+      <li class="breadcrumb-item active">br_stimpy.enums.ResultType</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="br-stimpy-enums-resulttype">
+<h1>br_stimpy.enums.ResultType<a class="headerlink" href="#br-stimpy-enums-resulttype" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="br_stimpy.enums.ResultType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ResultType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="br_stimpy.stimpy.ResultType.html#br_stimpy.stimpy.ResultType" title="br_stimpy._bstimulator.ResultType"><span class="pre">br_stimpy._bstimulator.ResultType</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#br_stimpy.enums.ResultType" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
+<p>A stimulator object creates a USB connection with the actual CereStim 96 and calls are made to it through the stimulator object. The stimulator object can return an error message (Software Error) or the CereStim 96 can return an error message (Hardware Error).</p>
+<p>Members:</p>
+<blockquote>
+<div><p>return : Software Error: Early returned warning.</p>
+<p>success : Successful operation.</p>
+<p>not_implemented : Software Error: Not implemented.</p>
+<p>unknown : Software Error: Unknown error.</p>
+<p>invalid_handle : Software Error: Invalid handle.</p>
+<p>null_ptr : Software Error: Null pointer.</p>
+<p>invalid_interface : Software Error: Invalid interface specified or interface not supported.</p>
+<p>interface_timeout : Software Error: Timeout in creating the interface.</p>
+<p>device_registered : Software Error: Device with that address already connected.</p>
+<p>invalid_params : Software Error: Invalid parameters.</p>
+<p>disconnected : Software Error: Stim is disconnected, invalid operation.</p>
+<p>connected : Software Error: Stim is connected, invalid operation.</p>
+<p>stim_attached : Software Error: Stim is attached, invalid operation.</p>
+<p>stim_detached : Software Error: Stim is detached, invalid operation.</p>
+<p>device_notify : Software Error: Cannot register for device change notification.</p>
+<p>invalid_command : Software Error: Invalid command.</p>
+<p>interface_write : Software Error: Cannot open interface for write.</p>
+<p>interface_read : Software Error: Cannot open interface for read.</p>
+<p>write_err : Software Error: Cannot write command to the interface.</p>
+<p>read_err : Software Error: Cannot read command from the interface.</p>
+<p>invalid_module_enum : Software Error: Invalid module number specified.</p>
+<p>invalid_callback_type : Software Error: Invalid callback type.</p>
+<p>callback_reg_failed : Software Error: Callback register/unregister failed.</p>
+<p>library_firmware : Software Error: CereStim Firmware version not supported by SDK Library Version.</p>
+<p>freq_period_zero : Software Error: Frequency or Period is zero and unable to be converted.</p>
+<p>no_device_selected : Software Error: No physical device has been set. See setDevice() for help.</p>
+<p>nok : Hardware Error: Comamnd result not OK.</p>
+<p>sequence_error : Hardware Error: Sequence Error.</p>
+<p>invalid_trigger : Hardware Error: Invalid Trigger.</p>
+<p>invalid_channel : Hardware Error: Invalid Channel.</p>
+<p>invalid_config : Hardware Error: Invalid Configuration.</p>
+<p>invalid_number : Hardware Error: Invalid Number.</p>
+<p>invalid_rwr : Hardware Error: Invalid Read/Write.</p>
+<p>invalid_voltage : Hardware Error: Invalid Voltage.</p>
+<p>invalid_amplitude : Hardware Error: Invalid Amplitude.</p>
+<p>invalid_afcf : Hardware Error: Invalid AF/CF.</p>
+<p>invalid_pulses : Hardware Error: Invalid Pulses.</p>
+<p>invalid_width : Hardware Error: Invalid Width.</p>
+<p>invalid_interpulse : Hardware Error: Invalid Interpulse.</p>
+<p>invalid_interphase : Hardware Error: Invalid Interphase.</p>
+<p>invalid_fastdisch : Hardware Error: Invalid Fast Discharge.</p>
+<p>invalid_module : Hardware Error: Invalid Module.</p>
+<p>stimuli_modules : Hardware Error: More Stimuli than Modules.</p>
+<p>module_unavailable : Hardware Error: Module not Available.</p>
+<p>channel_used_in_group : Hardware Error: Channel already used in Group.</p>
+<p>config_not_active : Hardware Error: Configuration not Active.</p>
+<p>empty_config : Hardware Error: Empty Config.</p>
+<p>phase_not_balanced : Hardware Error: Phases not Balanced.</p>
+<p>phase_great_max : Hardware Error: Phase Charge Greater than Max.</p>
+<p>amp_great_max : Hardware Error: Amplitude Greater than Max.</p>
+<p>width_great_max : Hardware Error: Width Greater than Max.</p>
+<p>volt_great_max : Hardware Error: Voltage Greater than Max.</p>
+<p>module_disabled : Hardware Error: Module already disabled can’t disable it.</p>
+<p>module_enabled : Hardware Error: Module already enabled can’t reenable it.</p>
+<p>invalid_frequency : Hardware Error: Invalid Frequency.</p>
+<p>frequency_great_max : Hardware Error: The frequency is greater than the max value allowed.</p>
+<p>device_locked : Hardware Error: Device locked due to hardware mismatch or not being configured.</p>
+<p>echo_error : Hardware Error: Command returned was not the same command sent.</p>
+</div></blockquote>
+<p class="rubric">Methods</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+</tbody>
+</table>
+<p class="rubric">Attributes</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">amp_great_max</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">callback_reg_failed</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">channel_used_in_group</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">config_not_active</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">connected</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">device_locked</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">device_notify</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">device_registered</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">disconnected</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">echo_error</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">empty_config</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">freq_period_zero</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">frequency_great_max</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">interface_read</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">interface_timeout</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">interface_write</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">invalid_afcf</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">invalid_amplitude</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">invalid_callback_type</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">invalid_channel</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">invalid_command</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">invalid_config</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">invalid_fastdisch</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">invalid_frequency</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">invalid_handle</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">invalid_interface</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">invalid_interphase</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">invalid_interpulse</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">invalid_module</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">invalid_module_enum</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">invalid_number</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">invalid_params</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">invalid_pulses</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">invalid_rwr</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">invalid_trigger</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">invalid_voltage</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">invalid_width</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">library_firmware</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">module_disabled</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">module_enabled</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">module_unavailable</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy.enums.ResultType.name" title="br_stimpy.enums.ResultType.name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">no_device_selected</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">nok</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">not_implemented</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">null_ptr</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">phase_great_max</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">phase_not_balanced</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_err</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">return</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">sequence_error</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">stim_attached</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">stim_detached</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">stimuli_modules</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">success</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">unknown</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">value</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">volt_great_max</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">width_great_max</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_err</span></code></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py property">
+<dt class="sig sig-object py" id="br_stimpy.enums.ResultType.name">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#br_stimpy.enums.ResultType.name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="br_stimpy.enums.PartNumbers.html" class="btn btn-neutral float-left" title="br_stimpy.enums.PartNumbers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="br_stimpy.enums.SeqType.html" class="btn btn-neutral float-right" title="br_stimpy.enums.SeqType" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Copyright University of Pittsburgh Rehab Neural Engineering Labs, 2023.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

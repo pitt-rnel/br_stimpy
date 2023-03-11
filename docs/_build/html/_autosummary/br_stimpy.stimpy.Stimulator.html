@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>br_stimpy.stimpy.Stimulator &mdash; br_stimpy 0.0.5 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="br_stimpy.stimpy.TriggerType" href="br_stimpy.stimpy.TriggerType.html" />
+    <link rel="prev" title="br_stimpy.stimpy.SeqType" href="br_stimpy.stimpy.SeqType.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            br_stimpy
+              <img src="../_static/stimpy.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Home page</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="br_stimpy.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="br_stimpy.constants.html">br_stimpy.constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="br_stimpy.enums.html">br_stimpy.enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="br_stimpy.group_stim_struct.html">br_stimpy.group_stim_struct</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="br_stimpy.stimpy.html">br_stimpy.stimpy</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="br_stimpy.stimpy.get_api_version.html">br_stimpy.stimpy.get_api_version</a></li>
+<li class="toctree-l3"><a class="reference internal" href="br_stimpy.stimpy.get_enum_docstr.html">br_stimpy.stimpy.get_enum_docstr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="br_stimpy.stimpy.ElectrodeChannelMap.html">br_stimpy.stimpy.ElectrodeChannelMap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="br_stimpy.stimpy.GroupStimulusStruct.html">br_stimpy.stimpy.GroupStimulusStruct</a></li>
+<li class="toctree-l3"><a class="reference internal" href="br_stimpy.stimpy.ModuleStatus.html">br_stimpy.stimpy.ModuleStatus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="br_stimpy.stimpy.OCVolt.html">br_stimpy.stimpy.OCVolt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="br_stimpy.stimpy.PartNumbers.html">br_stimpy.stimpy.PartNumbers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="br_stimpy.stimpy.ResultType.html">br_stimpy.stimpy.ResultType</a></li>
+<li class="toctree-l3"><a class="reference internal" href="br_stimpy.stimpy.SeqType.html">br_stimpy.stimpy.SeqType</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">br_stimpy.stimpy.Stimulator</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#br_stimpy.stimpy.Stimulator"><code class="docutils literal notranslate"><span class="pre">Stimulator</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="br_stimpy.stimpy.TriggerType.html">br_stimpy.stimpy.TriggerType</a></li>
+<li class="toctree-l3"><a class="reference internal" href="br_stimpy.stimpy.WFType.html">br_stimpy.stimpy.WFType</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">br_stimpy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="br_stimpy.html">br_stimpy</a></li>
+          <li class="breadcrumb-item"><a href="br_stimpy.stimpy.html">br_stimpy.stimpy</a></li>
+      <li class="breadcrumb-item active">br_stimpy.stimpy.Stimulator</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="br-stimpy-stimpy-stimulator">
+<h1>br_stimpy.stimpy.Stimulator<a class="headerlink" href="#br-stimpy-stimpy-stimulator" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Stimulator</span></span><a class="reference internal" href="../_modules/br_stimpy/stimpy.html#Stimulator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#br_stimpy.stimpy.Stimulator" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Simple python interface to Blackrock Cerestim 96</p>
+<p>Stimulator constructor</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError" title="(in Python v3.11)"><strong>RuntimeError</strong></a> – Only 12 stimulator objects can be created at a time</p>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.auto_stimulus" title="br_stimpy.stimpy.Stimulator.auto_stimulus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">auto_stimulus</span></code></a></p></td>
+<td><p>Stimulate in stim script</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.begin_group" title="br_stimpy.stimpy.Stimulator.begin_group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">begin_group</span></code></a></p></td>
+<td><p>Begin group stim</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.begin_sequence" title="br_stimpy.stimpy.Stimulator.begin_sequence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">begin_sequence</span></code></a></p></td>
+<td><p>Begin stim script</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.configure_stimulus_pattern" title="br_stimpy.stimpy.Stimulator.configure_stimulus_pattern"><code class="xref py py-obj docutils literal notranslate"><span class="pre">configure_stimulus_pattern</span></code></a></p></td>
+<td><p>Set stim pattern configs</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.connect" title="br_stimpy.stimpy.Stimulator.connect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">connect</span></code></a></p></td>
+<td><p>Connect to Cerestim.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.disable_module" title="br_stimpy.stimpy.Stimulator.disable_module"><code class="xref py py-obj docutils literal notranslate"><span class="pre">disable_module</span></code></a></p></td>
+<td><p>Disable current module</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.disable_stimulus_configuration" title="br_stimpy.stimpy.Stimulator.disable_stimulus_configuration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">disable_stimulus_configuration</span></code></a></p></td>
+<td><p>Disables a stimulation waveform so that it is able to be reset</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.disconnect" title="br_stimpy.stimpy.Stimulator.disconnect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">disconnect</span></code></a></p></td>
+<td><p>Disconnect from Cerestim</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.enable_module" title="br_stimpy.stimpy.Stimulator.enable_module"><code class="xref py py-obj docutils literal notranslate"><span class="pre">enable_module</span></code></a></p></td>
+<td><p>Enable current module</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.end_group" title="br_stimpy.stimpy.Stimulator.end_group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">end_group</span></code></a></p></td>
+<td><p>End group stim</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.end_sequence" title="br_stimpy.stimpy.Stimulator.end_sequence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">end_sequence</span></code></a></p></td>
+<td><p>End stim script</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.group_stimulus" title="br_stimpy.stimpy.Stimulator.group_stimulus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">group_stimulus</span></code></a></p></td>
+<td><p>Send group stimulus command</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.manual_stimulus" title="br_stimpy.stimpy.Stimulator.manual_stimulus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">manual_stimulus</span></code></a></p></td>
+<td><p>Manually stimulate on one electrode</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.pause" title="br_stimpy.stimpy.Stimulator.pause"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pause</span></code></a></p></td>
+<td><p>Pause stim script execution</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.play" title="br_stimpy.stimpy.Stimulator.play"><code class="xref py py-obj docutils literal notranslate"><span class="pre">play</span></code></a></p></td>
+<td><p>Play stim script</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.read_all_stimulus_patterns" title="br_stimpy.stimpy.Stimulator.read_all_stimulus_patterns"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_all_stimulus_patterns</span></code></a></p></td>
+<td><p>Read back all stim config patterns from stimulator</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.read_hardware_values" title="br_stimpy.stimpy.Stimulator.read_hardware_values"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_hardware_values</span></code></a></p></td>
+<td><p>Reads the hardware values that are set based on the part number</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.read_max_output_voltage" title="br_stimpy.stimpy.Stimulator.read_max_output_voltage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_max_output_voltage</span></code></a></p></td>
+<td><p>Read compliance voltage</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.read_stimulus_max_values" title="br_stimpy.stimpy.Stimulator.read_stimulus_max_values"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_stimulus_max_values</span></code></a></p></td>
+<td><p>Read maximum stimulus values set using set_stimulus_max_values()</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.read_stimulus_pattern" title="br_stimpy.stimpy.Stimulator.read_stimulus_pattern"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_stimulus_pattern</span></code></a></p></td>
+<td><p>Read stim config pattern</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.reset_stimulator" title="br_stimpy.stimpy.Stimulator.reset_stimulator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset_stimulator</span></code></a></p></td>
+<td><p>Stimulator Reset</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.scan_for_devices" title="br_stimpy.stimpy.Stimulator.scan_for_devices"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scan_for_devices</span></code></a></p></td>
+<td><p>Scan for connected Cerestim devices</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.set_max_output_voltage" title="br_stimpy.stimpy.Stimulator.set_max_output_voltage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_max_output_voltage</span></code></a></p></td>
+<td><p>Set compliance voltage</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.set_stimulus_max_values" title="br_stimpy.stimpy.Stimulator.set_stimulus_max_values"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_stimulus_max_values</span></code></a></p></td>
+<td><p>Set max limits</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.simple_stimulus" title="br_stimpy.stimpy.Stimulator.simple_stimulus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">simple_stimulus</span></code></a></p></td>
+<td><p>Simplest method to manually command a stimulus pulse</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.simple_stimulus_group" title="br_stimpy.stimpy.Stimulator.simple_stimulus_group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">simple_stimulus_group</span></code></a></p></td>
+<td><p>Simplest method to manually command a group stimulus pulse with identical parameters on all electrodes</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.stop" title="br_stimpy.stimpy.Stimulator.stop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stop</span></code></a></p></td>
+<td><p>Stop stim script execution</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.stop_trigger_stimulus" title="br_stimpy.stimpy.Stimulator.stop_trigger_stimulus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stop_trigger_stimulus</span></code></a></p></td>
+<td><p>Stop trigger mode</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.trigger_stimulus" title="br_stimpy.stimpy.Stimulator.trigger_stimulus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">trigger_stimulus</span></code></a></p></td>
+<td><p>Start trigger mode</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.update_electrode_channel_map" title="br_stimpy.stimpy.Stimulator.update_electrode_channel_map"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_electrode_channel_map</span></code></a></p></td>
+<td><p>Set electrode map</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.wait" title="br_stimpy.stimpy.Stimulator.wait"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wait</span></code></a></p></td>
+<td><p>Wait between stim pulses</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.api_version" title="br_stimpy.stimpy.Stimulator.api_version"><code class="xref py py-obj docutils literal notranslate"><span class="pre">api_version</span></code></a></p></td>
+<td><p>Get Cerestim API library version</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.device_info" title="br_stimpy.stimpy.Stimulator.device_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">device_info</span></code></a></p></td>
+<td><p>Read device hardware and firmware info</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">device_vector</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.is_connected" title="br_stimpy.stimpy.Stimulator.is_connected"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_connected</span></code></a></p></td>
+<td><p>Check if stimulator is connected</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.is_device_locked" title="br_stimpy.stimpy.Stimulator.is_device_locked"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_device_locked</span></code></a></p></td>
+<td><p>Check if stimulator is locked</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.is_safety_disabled" title="br_stimpy.stimpy.Stimulator.is_safety_disabled"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_safety_disabled</span></code></a></p></td>
+<td><p>Check if safety limits are disabled</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.is_stim_sequence_playing" title="br_stimpy.stimpy.Stimulator.is_stim_sequence_playing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_stim_sequence_playing</span></code></a></p></td>
+<td><p>Check if a stim sequence is actively playing</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.max_hard_charge" title="br_stimpy.stimpy.Stimulator.max_hard_charge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_hard_charge</span></code></a></p></td>
+<td><p>Get hardware max charge per phase</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.max_hard_frequency" title="br_stimpy.stimpy.Stimulator.max_hard_frequency"><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_hard_frequency</span></code></a></p></td>
+<td><p>Get hardware maximum frequency</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.max_hard_interphase" title="br_stimpy.stimpy.Stimulator.max_hard_interphase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_hard_interphase</span></code></a></p></td>
+<td><p>Get hardware maximum interphase width</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.max_hard_width" title="br_stimpy.stimpy.Stimulator.max_hard_width"><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_hard_width</span></code></a></p></td>
+<td><p>Get hardware maximum pulse width</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.min_hard_frequency" title="br_stimpy.stimpy.Stimulator.min_hard_frequency"><code class="xref py py-obj docutils literal notranslate"><span class="pre">min_hard_frequency</span></code></a></p></td>
+<td><p>Get hardware minimum frequency</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.min_max_amplitude" title="br_stimpy.stimpy.Stimulator.min_max_amplitude"><code class="xref py py-obj docutils literal notranslate"><span class="pre">min_max_amplitude</span></code></a></p></td>
+<td><p>Get hardware min and max amplitudes</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.module_firmware_version" title="br_stimpy.stimpy.Stimulator.module_firmware_version"><code class="xref py py-obj docutils literal notranslate"><span class="pre">module_firmware_version</span></code></a></p></td>
+<td><p>Get firmware versions of current modules</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.module_status" title="br_stimpy.stimpy.Stimulator.module_status"><code class="xref py py-obj docutils literal notranslate"><span class="pre">module_status</span></code></a></p></td>
+<td><p>Get status of each current module</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.motherboard_firmware_version" title="br_stimpy.stimpy.Stimulator.motherboard_firmware_version"><code class="xref py py-obj docutils literal notranslate"><span class="pre">motherboard_firmware_version</span></code></a></p></td>
+<td><p>Get main firmware version</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.number_modules" title="br_stimpy.stimpy.Stimulator.number_modules"><code class="xref py py-obj docutils literal notranslate"><span class="pre">number_modules</span></code></a></p></td>
+<td><p>Get number of current modules installed</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.protocol_version" title="br_stimpy.stimpy.Stimulator.protocol_version"><code class="xref py py-obj docutils literal notranslate"><span class="pre">protocol_version</span></code></a></p></td>
+<td><p>Get motherboard protocol version</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.sequence_status" title="br_stimpy.stimpy.Stimulator.sequence_status"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sequence_status</span></code></a></p></td>
+<td><p>Get stim sequence status</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.serial_number" title="br_stimpy.stimpy.Stimulator.serial_number"><code class="xref py py-obj docutils literal notranslate"><span class="pre">serial_number</span></code></a></p></td>
+<td><p>Get device serial number</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.stimulus_patterns_cached" title="br_stimpy.stimpy.Stimulator.stimulus_patterns_cached"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stimulus_patterns_cached</span></code></a></p></td>
+<td><p>Get cached list of configured stimulus patterns</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.usb_address" title="br_stimpy.stimpy.Stimulator.usb_address"><code class="xref py py-obj docutils literal notranslate"><span class="pre">usb_address</span></code></a></p></td>
+<td><p>Gets the USB address of the connected stimulator</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.ElectrodeChannelMap">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ElectrodeChannelMap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.ElectrodeChannelMap" title="br_stimpy._bstimulator.ElectrodeChannelMap"><span class="pre">br_stimpy._bstimulator.ElectrodeChannelMap</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.ElectrodeChannelMap" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
+<p>The stimulator is capable of sending stimulation up to 96 different electrodes. The layout of where those electrodes are mapped to sometimes are not a straight channel 1 to electrode 1, such as in a Blackrock .CMP file. This struct allows the user to specify a mapping for there electrodes so that they do not need to worry about what channel they need to stimulate if they want electrode 20 to be stimulated.</p>
+<p>Map Channels to Electrodes.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.ElectrodeChannelMap.bankA">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">bankA</span></span><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.ElectrodeChannelMap.bankA" title="Permalink to this definition"></a></dt>
+<dd><p>UINT8 Array, the pin on bank A is the index, and the value is the acutal electrode number.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.ElectrodeChannelMap.bankB">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">bankB</span></span><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.ElectrodeChannelMap.bankB" title="Permalink to this definition"></a></dt>
+<dd><p>UINT8 Array, the pin on bank B is the index, and the value is the acutal electrode number.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.ElectrodeChannelMap.bankC">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">bankC</span></span><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.ElectrodeChannelMap.bankC" title="Permalink to this definition"></a></dt>
+<dd><p>UINT8 Array, the pin on bank C is the index, and the value is the acutal electrode number.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.ModuleStatus">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ModuleStatus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.ModuleStatus" title="br_stimpy._bstimulator.ModuleStatus"><span class="pre">br_stimpy._bstimulator.ModuleStatus</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.ModuleStatus" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
+<p>The stimulator is capable of housing up to 16 current modules. Each current module can have several states based on how the user has configured the stimulator. The current modules are also capable of returning problem statuses based on the hardware.</p>
+<p>Members:</p>
+<blockquote>
+<div><p>module_unavailable : No current module in the specified position.</p>
+<p>module_enabled : Current module in the specified position is enabled.</p>
+<p>module_disabled : Current Module in the specified position is disabled.</p>
+<p>module_ok : Voltage levels on the current module are normal.</p>
+<p>module_voltagelimitation : Voltage levels on the current module are below normal, Module is bad.</p>
+<p>module_count : Number of Statuses, Always the Last one.</p>
+</div></blockquote>
+<dl class="py property">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.ModuleStatus.name">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.ModuleStatus.name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.OCVolt">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">OCVolt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.OCVolt" title="br_stimpy._bstimulator.OCVolt"><span class="pre">br_stimpy._bstimulator.OCVolt</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.OCVolt" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
+<p>The Stimulator is capable of setting different output compliance voltage levels based on the users needs and safety considerations.</p>
+<p>Members:</p>
+<blockquote>
+<div><p>ocvolt4_7 : Output Voltage Level 4.7V.</p>
+<p>ocvolt5_3 : Output Voltage Level 5.3V.</p>
+<p>ocvolt5_9 : Output Voltage Level 5.9V.</p>
+<p>ocvolt6_5 : Output Voltage Level 6.5V.</p>
+<p>ocvolt7_1 : Output Voltage Level 7.1V.</p>
+<p>ocvolt7_7 : Output Voltage Level 7.7V.</p>
+<p>ocvolt8_3 : Output Voltage Level 8.3V.</p>
+<p>ocvolt8_9 : Output Voltage Level 8.9V.</p>
+<p>ocvolt9_5 : Output Voltage Level 9.5V.</p>
+<p>ocvolt_invalid : Invalid Compliance Voltage, Always the Last One.</p>
+</div></blockquote>
+<dl class="py property">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.OCVolt.name">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.OCVolt.name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.PartNumbers">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PartNumbers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.PartNumbers" title="br_stimpy._bstimulator.PartNumbers"><span class="pre">br_stimpy._bstimulator.PartNumbers</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.PartNumbers" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
+<p>There are many versions of the stimulator. There are research versions of micro and macro stimulators, each with varying number of installed current modules; and there is a clinical version of the macro stimulator with a single current module. The part number of the device sets internal safety levels of what stimulation parameters are allowed.</p>
+<p>Members:</p>
+<blockquote>
+<div><p>PN6425 : CereStim R96 Micro Stimulator Beta Unit, May be either a 3 or 16 current module unit.</p>
+<p>PN7008 : CereStim R96 Micro Stimulator 3 current module unit.</p>
+<p>PN7039 : CereStim R96 Micro Stimulator 16 current module unit.</p>
+<p>PN7169 : CereStim R96 Micro Stimulator 1 current module unit.</p>
+<p>PN8543 : CereStim R96 Micro Stimulator Customer Specified Configuration.</p>
+<p>PN7655 : CereStim R96 Macro Stimulator 3 current module unit.</p>
+<p>PN7656 : CereStim M96 Macro Stimulator Clinical 1 current module unit.</p>
+<p>PN7875 : CereStim R96 Macro Stimulator 16 current module unit.</p>
+<p>PN8544 : CereStim R96 Macro Stimulator Customer Specified Configuration.</p>
+<p>PN_invalid : Invalid part number.</p>
+</div></blockquote>
+<dl class="py property">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.PartNumbers.name">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.PartNumbers.name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.SeqType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SeqType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.SeqType" title="br_stimpy._bstimulator.SeqType"><span class="pre">br_stimpy._bstimulator.SeqType</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.SeqType" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
+<p>The Stimulator has internal states, and based on those states the stimulator is allowed to perform different functions. The SeqType enumerator lists all the valid states.</p>
+<p>Members:</p>
+<blockquote>
+<div><p>stop : The stimulator is stopped.</p>
+<p>pause : The stimulator is paused.</p>
+<p>playing : The stimulator is actively delivering a stimulus.</p>
+<p>writing : A stimulus sequence is being written to the stimulator.</p>
+<p>trigger : The stimulator is waiting for a trigger on its trigger line.</p>
+<p>invalid : Invalid Sequence, Always the last value.</p>
+</div></blockquote>
+<dl class="py property">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.SeqType.name">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.SeqType.name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.TriggerType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">TriggerType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="br_stimpy.stimpy.TriggerType.html#br_stimpy.stimpy.TriggerType" title="br_stimpy._bstimulator.TriggerType"><span class="pre">br_stimpy._bstimulator.TriggerType</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.TriggerType" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
+<p>The stimulator is able to begin stimulating based on an external TTL logic. The Trigger type defines the possible trigger methods. It can be set to trigger on a low to high transistion, a high to low transistion, or any transistion.</p>
+<p>Members:</p>
+<blockquote>
+<div><p>trigger_disabled : Trigger mode is currently turned off.</p>
+<p>trigger_rising : Trigger on a low to high transistion.</p>
+<p>trigger_falling : Trigger on a high to low transistion</p>
+<p>trigger_change : Trigger on any transistion.</p>
+<p>trigger_invalid : Invalid Trigger, Always the last value</p>
+</div></blockquote>
+<dl class="py property">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.TriggerType.name">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.TriggerType.name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.WFType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">WFType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="br_stimpy.stimpy.WFType.html#br_stimpy.stimpy.WFType" title="br_stimpy._bstimulator.WFType"><span class="pre">br_stimpy._bstimulator.WFType</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.WFType" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
+<p>The Stimulator is capable of outputting a biphasic current pulse. the BWFType enumerator allows the user to determine what the polarity is of the first phase of the biphasic pulse.</p>
+<p>Members:</p>
+<blockquote>
+<div><p>wf_anodic_first : The first phase is anodic.</p>
+<p>wf_cathodic_first : The first phase is cathodic.</p>
+<p>wf_invalid : Invalid Selection, always the last one.</p>
+</div></blockquote>
+<dl class="py property">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.WFType.name">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.WFType.name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.api_version">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">api_version</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Version</span></em><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.api_version" title="Permalink to this definition"></a></dt>
+<dd><p>Get Cerestim API library version</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>structure containing version</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>_bstimulator.Version</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.auto_stimulus">
+<span class="sig-name descname"><span class="pre">auto_stimulus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">electrode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">configID</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/br_stimpy/stimpy.html#Stimulator.auto_stimulus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.auto_stimulus" title="Permalink to this definition"></a></dt>
+<dd><p>Stimulate in stim script</p>
+<p>This command tells the stimulator when to send a stimulus to an
+electrode in a stimulation script. It can be used as many times
+as needed so long as the total number of commands does not exceed
+128. It should also be used within begin_group() and end_group()
+commands to allow for simultaneous stimulations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>electrode</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The electrode that will be stimulated.
+Valid values are from 1 - 96</p></li>
+<li><p><strong>configID</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – One of the fifteen stimulation waveforms that should be used.
+Valid values are from 1-15</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.begin_group">
+<span class="sig-name descname"><span class="pre">begin_group</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/br_stimpy/stimpy.html#Stimulator.begin_group"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.begin_group" title="Permalink to this definition"></a></dt>
+<dd><p>Begin group stim</p>
+<p>This command signifies that the following commands up to the
+end_group() command should all occur simultaneously. The only
+commands that are valid are the auto_stimulus() commands. You
+can only have as many stimulations as the number of current
+modules installed. Can’t be called on the last of the 128
+instructions since it needs to have a closing end_group command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.begin_sequence">
+<span class="sig-name descname"><span class="pre">begin_sequence</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/br_stimpy/stimpy.html#Stimulator.begin_sequence"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.begin_sequence" title="Permalink to this definition"></a></dt>
+<dd><p>Begin stim script</p>
+<p>This is the first command that must be called when creating a
+stimulation script. After calling this you are able to call wait(),
+auto_stimulus(), begin_group(), and end_group() commands. The
+stimulation script can have up to 128 commands, excluding
+begin_sequence() and end_sequence()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.configure_stimulus_pattern">
+<span class="sig-name descname"><span class="pre">configure_stimulus_pattern</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">configID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">afcf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pulses</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amp1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amp2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interphase</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/br_stimpy/stimpy.html#Stimulator.configure_stimulus_pattern"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.configure_stimulus_pattern" title="Permalink to this definition"></a></dt>
+<dd><p>Set stim pattern configs</p>
+<p>Takes all of the parameters needed in order to create a custom
+biphasic stimulation waveform. The device is capable of handling
+16 differnt waveforms, but waveform 0 is reserved and used for
+testing in getting measurements from electrodes and current
+modules. Micro and Macro stimulators have different ranges of
+valid values. Especially for the amplitude where micro
+stimulators are in the uA range with uA precision, Macro
+stimulators go from 100 uA to 10 mA with 100 uA precision.
+While the widths and interphases have quite a range, the user
+needs to somewhat understand how they interact with the frequency
+chosen. You dont want a stimulus waveform that is longer than
+the time between repeats.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>configID</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The stimulation waveform that is being
+configured 1 - 15</p></li>
+<li><p><strong>afcf</strong> (<a class="reference internal" href="#br_stimpy.stimpy.Stimulator.WFType" title="br_stimpy.stimpy.Stimulator.WFType"><em>Stimulator.WFType</em></a>) – What polarity should the first
+phase be, Anodic or Cathodic first</p></li>
+<li><p><strong>pulses</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The number of stimulation pulses in waveform
+from 1 - 255</p></li>
+<li><p><strong>amp1</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The amplitude of the first phase, for Micro it
+is 1 - 215 uA, and for Macro it is 100 uA - 10 mA</p></li>
+<li><p><strong>amp2</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The amplitude of the first phase, for Micro it
+is 1 - 215 uA, and for Macro it is 100 uA - 10 mA</p></li>
+<li><p><strong>width1</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The width of the first phase in the stimulation
+1 - 65,535 uS</p></li>
+<li><p><strong>width2</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The width of the second phase in the stimulation
+1 - 65,535 uS</p></li>
+<li><p><strong>frequency</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The stimulating frequency at which the
+biphasic pulses should repeat 4 - 5000 Hz</p></li>
+<li><p><strong>interphase</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The period of time between the first and
+second phases 53 - 65,535 uS</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.connect">
+<span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/br_stimpy/stimpy.html#Stimulator.connect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.connect" title="Permalink to this definition"></a></dt>
+<dd><p>Connect to Cerestim.</p>
+<p>If multiple devices are attached to PC, first call scan_for_devices
+to view the list of serial numbers, then input the device_index you
+would like to connect to.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>device_index</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>, </em><em>optional</em>) – Index of device from scan_for_devices.
+Defaults to 0.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#IndexError" title="(in Python v3.11)"><strong>IndexError</strong></a> – Invalid device_index</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError" title="(in Python v3.11)"><strong>RuntimeError</strong></a> – No Cerestim devices found</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.device_info">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">device_info</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a></em><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.device_info" title="Permalink to this definition"></a></dt>
+<dd><p>Read device hardware and firmware info</p>
+<p>This returns all the information about the CereStim 96 that is
+connected to. It will tell its part number, serial number,
+firmware versions for both the motherboard and for the current
+modules. It will also tell you the protocol that the motherboard
+is using with the current modules and the number of installed
+current modules.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a dictionary populated with the CereStim’s information</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.disable_module">
+<span class="sig-name descname"><span class="pre">disable_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/br_stimpy/stimpy.html#Stimulator.disable_module"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.disable_module" title="Permalink to this definition"></a></dt>
+<dd><p>Disable current module</p>
+<p>Allows the user to disable different current modules that are
+installed in the CereStim. This is useful for testing and making
+sure that multiple current modules are all giving the same output
+values. The current module has to exist to be disabled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>module</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The current module to be disabled from 0 to 15</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.disable_stimulus_configuration">
+<span class="sig-name descname"><span class="pre">disable_stimulus_configuration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">configID</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/br_stimpy/stimpy.html#Stimulator.disable_stimulus_configuration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.disable_stimulus_configuration" title="Permalink to this definition"></a></dt>
+<dd><p>Disables a stimulation waveform so that it is able to be reset</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>configID</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The configuration to disable</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.disconnect">
+<span class="sig-name descname"><span class="pre">disconnect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/br_stimpy/stimpy.html#Stimulator.disconnect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.disconnect" title="Permalink to this definition"></a></dt>
+<dd><p>Disconnect from Cerestim</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.enable_module">
+<span class="sig-name descname"><span class="pre">enable_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/br_stimpy/stimpy.html#Stimulator.enable_module"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.enable_module" title="Permalink to this definition"></a></dt>
+<dd><p>Enable current module</p>
+<p>Allows the user to enable different current modules that have
+been disabled. This is useful for testing and making sure that
+multiple current modules are all giving the same output values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>module</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The current module to be enabled from 0 to 15</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.end_group">
+<span class="sig-name descname"><span class="pre">end_group</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/br_stimpy/stimpy.html#Stimulator.end_group"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.end_group" title="Permalink to this definition"></a></dt>
+<dd><p>End group stim</p>
+<p>This command closes off a group of simultaneous stimulations.
+If begin_group() is called during a sequence of commands, then
+there must be an end_group() otherwise the user will get a
+sequence error as a return value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.end_sequence">
+<span class="sig-name descname"><span class="pre">end_sequence</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/br_stimpy/stimpy.html#Stimulator.end_sequence"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.end_sequence" title="Permalink to this definition"></a></dt>
+<dd><p>End stim script</p>
+<p>This is the last command that must be called when creating a
+stimulation script. It does not count towards the maximum of 128
+commands.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.group_stimulus">
+<span class="sig-name descname"><span class="pre">group_stimulus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">begin_seq</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">play</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">times</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_stim_struct</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/br_stimpy/stimpy.html#Stimulator.group_stimulus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.group_stimulus" title="Permalink to this definition"></a></dt>
+<dd><p>Send group stimulus command</p>
+<p>There is a lot of overhead in sending commands over the USB to
+the CereStim 96. each function call averages 2mS. This function
+allows the user to create the stimulation parameters beforehand
+and in a single function call perform simultaneous stimulations
+based on different electrodes and configured waveforms.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>begin_seq</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Boolean expression to tell the function
+that it is the beginning of a sequence</p></li>
+<li><p><strong>play</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Boolean expression to tell if the stimulator
+should begin stimulating immedieatly after this call</p></li>
+<li><p><strong>times</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The number of times to play the stimulation,
+is ignored if play = false</p></li>
+<li><p><strong>group_stim_struct</strong> (<a class="reference internal" href="br_stimpy.stimpy.GroupStimulusStruct.html#br_stimpy.stimpy.GroupStimulusStruct" title="br_stimpy.stimpy.GroupStimulusStruct"><em>GroupStimulusStruct</em></a>) – structure which
+has a pair of arrays with electrodes and waveforms</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.is_connected">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_connected</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></em><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.is_connected" title="Permalink to this definition"></a></dt>
+<dd><p>Check if stimulator is connected</p>
+<p>Lets the user know that the Stimulator object is connected to a
+physical CereStim 96 device.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if stimulator is connected</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.is_device_locked">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_device_locked</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></em><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.is_device_locked" title="Permalink to this definition"></a></dt>
+<dd><p>Check if stimulator is locked</p>
+<p>If the detected number of current modules doesn’t match the
+hardware configuration or if the hardware configuration is not
+setup, the device will be locked down preventing any stimulation
+from occuring.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if locked False otherwise</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.is_safety_disabled">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_safety_disabled</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></em><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.is_safety_disabled" title="Permalink to this definition"></a></dt>
+<dd><p>Check if safety limits are disabled</p>
+<p>For Internal validation and testing it is required to disable
+the safety limits in the firmware and API so that hardware
+limits can be observed and tested.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if disabled False otherwise</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.is_stim_sequence_playing">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_stim_sequence_playing</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></em><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.is_stim_sequence_playing" title="Permalink to this definition"></a></dt>
+<dd><p>Check if a stim sequence is actively playing</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Whether or not a stim sequence is playing</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.manual_stimulus">
+<span class="sig-name descname"><span class="pre">manual_stimulus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">electrode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">configID</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/br_stimpy/stimpy.html#Stimulator.manual_stimulus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.manual_stimulus" title="Permalink to this definition"></a></dt>
+<dd><p>Manually stimulate on one electrode</p>
+<p>Allows the user to send a single stimulus pulse of one of the
+stimulation waveforms to a specified electrode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>electrode</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The electrode that should be stimulated.
+Valid values are from 1 - 96.</p></li>
+<li><p><strong>configID</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The stimulation waveform to use.
+Valid values are from 1 - 15.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.max_hard_charge">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">max_hard_charge</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></em><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.max_hard_charge" title="Permalink to this definition"></a></dt>
+<dd><p>Get hardware max charge per phase</p>
+<p>This value is based on the hardware of the particuliar model of
+the CereStim 96. Again the micro and macro versions of the
+stimulator have different values</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Max charge per phase</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.max_hard_frequency">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">max_hard_frequency</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></em><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.max_hard_frequency" title="Permalink to this definition"></a></dt>
+<dd><p>Get hardware maximum frequency</p>
+<p>This value is based on the hardware of the particuliar model of
+the CereStim 96. Again the micro and macro versions of the
+stimulator have different values</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Maximum Stimulating Frequency in Hz</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.max_hard_interphase">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">max_hard_interphase</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></em><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.max_hard_interphase" title="Permalink to this definition"></a></dt>
+<dd><p>Get hardware maximum interphase width</p>
+<p>This value is based on the hardware of the particuliar model of
+the CereStim 96</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Maximum interphase width in us</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.max_hard_width">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">max_hard_width</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></em><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.max_hard_width" title="Permalink to this definition"></a></dt>
+<dd><p>Get hardware maximum pulse width</p>
+<p>This value is based on the hardware of the particuliar model of
+the CereStim 96.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Maximum width of each phase in us</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.min_hard_frequency">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">min_hard_frequency</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></em><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.min_hard_frequency" title="Permalink to this definition"></a></dt>
+<dd><p>Get hardware minimum frequency</p>
+<p>This value is based on the hardware of the particuliar model of
+the CereStim 96. Again the micro and macro versions of the
+stimulator have different values</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Minimum Stimulating Frequency in Hz</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.min_max_amplitude">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">min_max_amplitude</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a></em><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.min_max_amplitude" title="Permalink to this definition"></a></dt>
+<dd><p>Get hardware min and max amplitudes</p>
+<p>Since there are different models and version of the stimulator,
+such as the micro and macro versions, this will allow the user
+to get the min and max amplitudes that are allowed for
+stimulation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Min and Max Amplitude</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.module_firmware_version">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">module_firmware_version</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.11)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.module_firmware_version" title="Permalink to this definition"></a></dt>
+<dd><p>Get firmware versions of current modules</p>
+<p>Each current module has its own microcontroller and has a
+firmware version. All current modules in a single stimulator
+should have the same firmware version. The MSB is the Major
+revision number and the LSB is the minor revision number. I.e.
+0x0105 would be version 1.5</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of dicts with module firmware versions</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>List[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.module_status">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">module_status</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.11)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.ModuleStatus" title="br_stimpy._bstimulator.ModuleStatus"><span class="pre">ModuleStatus</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.module_status" title="Permalink to this definition"></a></dt>
+<dd><p>Get status of each current module</p>
+<p>This tells the status of each current module, whether it is
+enabled, disabled, or not available.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of the possible 16 current modules status</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>List[<a class="reference internal" href="#br_stimpy.stimpy.Stimulator.ModuleStatus" title="br_stimpy.stimpy.Stimulator.ModuleStatus">ModuleStatus</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.motherboard_firmware_version">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">motherboard_firmware_version</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a></em><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.motherboard_firmware_version" title="Permalink to this definition"></a></dt>
+<dd><p>Get main firmware version</p>
+<p>Retrieves the firmware revision of the microcontroller on the
+motherboard.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Firmware Version of the Motherboard</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.number_modules">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">number_modules</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></em><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.number_modules" title="Permalink to this definition"></a></dt>
+<dd><p>Get number of current modules installed</p>
+<p>This value is based on the hardware of the particuliar model of
+the CereStim 96. Again the micro and macro versions of the
+stimulator have different values</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Number of Modules installed</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.pause">
+<span class="sig-name descname"><span class="pre">pause</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/br_stimpy/stimpy.html#Stimulator.pause"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.pause" title="Permalink to this definition"></a></dt>
+<dd><p>Pause stim script execution</p>
+<p>This will pause a currently running stimulation script and keep
+track of the next command that needs to be executed so if it
+receives a play command it can pick up where it left off.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.play">
+<span class="sig-name descname"><span class="pre">play</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">times</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/br_stimpy/stimpy.html#Stimulator.play"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.play" title="Permalink to this definition"></a></dt>
+<dd><p>Play stim script</p>
+<p>Tells the stimulator the number of times that it should run the
+stimulation script. A zero passed in will tell it to run
+indefinitely until it is either stopped or paused by the user.
+Other values include between 1 and 65,535 repetitions. Cannot
+be called during a begin_sequence() and end_sequence() command call.
+:type times: <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>
+:param times: Number of times to execute the stimulation script.
+:type times: int
+:param 0 means indefinitely.:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.11)"><strong>ValueError</strong></a> – times must be between 0 and 65535.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>times</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.protocol_version">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">protocol_version</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a></em><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.protocol_version" title="Permalink to this definition"></a></dt>
+<dd><p>Get motherboard protocol version</p>
+<p>The protocol version that the motherboard uses to send and
+receive data from the current modules.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Protocol Version of the Motherboard</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.read_all_stimulus_patterns">
+<span class="sig-name descname"><span class="pre">read_all_stimulus_patterns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/br_stimpy/stimpy.html#Stimulator.read_all_stimulus_patterns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.read_all_stimulus_patterns" title="Permalink to this definition"></a></dt>
+<dd><p>Read back all stim config patterns from stimulator</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>15 _bstimulator.StimulusConfiguration structures
+Values are None if configuration is inactive</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.read_hardware_values">
+<span class="sig-name descname"><span class="pre">read_hardware_values</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/br_stimpy/stimpy.html#Stimulator.read_hardware_values"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.read_hardware_values" title="Permalink to this definition"></a></dt>
+<dd><p>Reads the hardware values that are set based on the part number</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Structure containing the hardware values</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>_bstimulator.ReadHardwareValuesOutput</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.read_max_output_voltage">
+<span class="sig-name descname"><span class="pre">read_max_output_voltage</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/br_stimpy/stimpy.html#Stimulator.read_max_output_voltage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.read_max_output_voltage" title="Permalink to this definition"></a></dt>
+<dd><p>Read compliance voltage</p>
+<p>This will read the values of +VDD and -VSS on the stimulator
+which allows it to effectively limit the maximum output voltage
+that can be delivered during a stimulation. If the output current
+times the impedance of the electrode is greater than the max
+compliance voltage then it means the full current is not being
+delivered to the electrode because it can not drive any more current.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the max output voltage in millivolts</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.read_stimulus_max_values">
+<span class="sig-name descname"><span class="pre">read_stimulus_max_values</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/br_stimpy/stimpy.html#Stimulator.read_stimulus_max_values"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.read_stimulus_max_values" title="Permalink to this definition"></a></dt>
+<dd><p>Read maximum stimulus values set using set_stimulus_max_values()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>structure that will contain the current max values that are set</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>_bstimulator.MaximumValues</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.read_stimulus_pattern">
+<span class="sig-name descname"><span class="pre">read_stimulus_pattern</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">configID</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/br_stimpy/stimpy.html#Stimulator.read_stimulus_pattern"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.read_stimulus_pattern" title="Permalink to this definition"></a></dt>
+<dd><p>Read stim config pattern</p>
+<p>Reads back all of the parameters associated with a specific
+stimulation waveform and stores it in the structure supplied by
+the user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>configID</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The stimulation waveform that is being read back</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>structure which contains</dt><dd><p>all the parameters that consist in a stimulation waveform</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_bstimulator.StimulusConfiguration</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.reset_stimulator">
+<span class="sig-name descname"><span class="pre">reset_stimulator</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/br_stimpy/stimpy.html#Stimulator.reset_stimulator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.reset_stimulator" title="Permalink to this definition"></a></dt>
+<dd><p>Stimulator Reset</p>
+<p>Administrative command that will call the reset interrupt
+vector on the uController. User will need to call connect()
+after calling this.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.scan_for_devices">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">scan_for_devices</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/br_stimpy/stimpy.html#Stimulator.scan_for_devices"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.scan_for_devices" title="Permalink to this definition"></a></dt>
+<dd><p>Scan for connected Cerestim devices</p>
+<p>If only one Cerestim device is attached to PC, you can skip this step
+and just call connect().</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of serial numbers of the connected Cerestims</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>List[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)">int</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.sequence_status">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sequence_status</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.SeqType" title="br_stimpy._bstimulator.SeqType"><span class="pre">SeqType</span></a></em><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.sequence_status" title="Permalink to this definition"></a></dt>
+<dd><p>Get stim sequence status</p>
+<p>Can be called anytime as it does not interrupt other functions
+from executing, but simply reads what state the stimulator is in.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Enum containing the sequence state</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.SeqType" title="br_stimpy.stimpy.Stimulator.SeqType">SeqType</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.serial_number">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">serial_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a></em><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.serial_number" title="Permalink to this definition"></a></dt>
+<dd><p>Get device serial number</p>
+<p>Retrieves the serial number that is programmed into the
+CereStim 96 device that is attached.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Part Number and Serial number of the CereStim 96</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.set_max_output_voltage">
+<span class="sig-name descname"><span class="pre">set_max_output_voltage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">oc_voltage</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/br_stimpy/stimpy.html#Stimulator.set_max_output_voltage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.set_max_output_voltage" title="Permalink to this definition"></a></dt>
+<dd><p>Set compliance voltage</p>
+<p>This will set the values of +VDD and -VSS on the stimulator
+which allows it to effectively limit the maximum output voltage
+that can be delivered during a stimulation. If the output
+current times the impedance of the electrode is greater than the
+max compliance voltage then it means the full current is not
+being delivered to the electrode because it can not drive any
+more current.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>oc_voltage</strong> (<em>Stimulator.oc_volt</em>) – The voltage level that is
+being set. Must be an oc_volt enum value.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the max output voltage in millivolts.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.set_stimulus_max_values">
+<span class="sig-name descname"><span class="pre">set_stimulus_max_values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">voltage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amplitude</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phaseCharge</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/br_stimpy/stimpy.html#Stimulator.set_stimulus_max_values"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.set_stimulus_max_values" title="Permalink to this definition"></a></dt>
+<dd><p>Set max limits</p>
+<p>Intended to be an administrative interface that can be password
+protected and only allow the lead researcher to make changes.
+It allows the user to set other determined upper limits for the
+stimulation parameters for whatever safety protocol they are
+requiring. Again micro and macro stimulators will have some
+different bounds for setting max values due to the different
+ranges each are able to achieve.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>voltage</strong> (<a class="reference internal" href="#br_stimpy.stimpy.Stimulator.OCVolt" title="br_stimpy.stimpy.Stimulator.OCVolt"><em>OCVolt</em></a>) – The Max Compliance Voltage that can be set</p></li>
+<li><p><strong>amplitude</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The Max amplitude that can be used in a stimulation</p></li>
+<li><p><strong>phaseCharge</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The Max charge per phase that will be allowed (Charge = Amplitude * Width)</p></li>
+<li><p><strong>frequency</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The Max frequency at which the stimulations can take place</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>structure that will contain the current max values that are set</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_bstimulator.MaximumValues</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.simple_stimulus">
+<span class="sig-name descname"><span class="pre">simple_stimulus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">electrode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">afcf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pulses</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amp1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amp2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interphase</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/br_stimpy/stimpy.html#Stimulator.simple_stimulus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.simple_stimulus" title="Permalink to this definition"></a></dt>
+<dd><p>Simplest method to manually command a stimulus pulse</p>
+<p>Combines configure_stimulus_pattern() and manual_stimulus()
+into a single call. Note that the overhead of
+configure_stimulus_pattern() limits how quickly this can run.
+This method is simple, but inefficient.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>electrode</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The electrode that should be stimulated.
+Valid values are from 1 - 96.</p></li>
+<li><p><strong>afcf</strong> (<a class="reference internal" href="#br_stimpy.stimpy.Stimulator.WFType" title="br_stimpy.stimpy.Stimulator.WFType"><em>Stimulator.WFType</em></a>) – What polarity should the first
+phase be, Anodic or Cathodic first</p></li>
+<li><p><strong>pulses</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The number of stimulation pulses in waveform
+from 1 - 255</p></li>
+<li><p><strong>amp1</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The amplitude of the first phase, for Micro it
+is 1 - 215 uA, and for Macro it is 100 uA - 10 mA</p></li>
+<li><p><strong>amp2</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The amplitude of the first phase, for Micro it
+is 1 - 215 uA, and for Macro it is 100 uA - 10 mA</p></li>
+<li><p><strong>width1</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The width of the first phase in the stimulation
+1 - 65,535 uS</p></li>
+<li><p><strong>width2</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The width of the second phase in the stimulation
+1 - 65,535 uS</p></li>
+<li><p><strong>frequency</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The stimulating frequency at which the
+biphasic pulses should repeat 4 - 5000 Hz</p></li>
+<li><p><strong>interphase</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The period of time between the first and
+second phases 53 - 65,535 uS</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.simple_stimulus_group">
+<span class="sig-name descname"><span class="pre">simple_stimulus_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">electrodes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">afcf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pulses</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amp1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amp2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interphase</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/br_stimpy/stimpy.html#Stimulator.simple_stimulus_group"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.simple_stimulus_group" title="Permalink to this definition"></a></dt>
+<dd><p>Simplest method to manually command a group stimulus pulse
+with identical parameters on all electrodes</p>
+<p>Combines configure_stimulus_pattern() and group_stimulus()
+into a single call. Note that the overhead of
+configure_stimulus_pattern() limits how quickly this can run.
+This method is simple, but inefficient.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>List</strong><strong>[</strong><strong>int</strong><strong>]</strong> (<em>electrodes</em>) – The electrodes that should be stimulated.
+Valid values are from 1 - 96.</p></li>
+<li><p><strong>afcf</strong> (<a class="reference internal" href="#br_stimpy.stimpy.Stimulator.WFType" title="br_stimpy.stimpy.Stimulator.WFType"><em>Stimulator.WFType</em></a>) – What polarity should the first
+phase be, Anodic or Cathodic first</p></li>
+<li><p><strong>pulses</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The number of stimulation pulses in waveform
+from 1 - 255</p></li>
+<li><p><strong>amp1</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The amplitude of the first phase, for Micro it
+is 1 - 215 uA, and for Macro it is 100 uA - 10 mA</p></li>
+<li><p><strong>amp2</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The amplitude of the first phase, for Micro it
+is 1 - 215 uA, and for Macro it is 100 uA - 10 mA</p></li>
+<li><p><strong>width1</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The width of the first phase in the stimulation
+1 - 65,535 uS</p></li>
+<li><p><strong>width2</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The width of the second phase in the stimulation
+1 - 65,535 uS</p></li>
+<li><p><strong>frequency</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The stimulating frequency at which the
+biphasic pulses should repeat 4 - 5000 Hz</p></li>
+<li><p><strong>interphase</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The period of time between the first and
+second phases 53 - 65,535 uS</p></li>
+<li><p><strong>electrodes</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.11)"><em>List</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>]</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.stimulus_patterns_cached">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">stimulus_patterns_cached</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a></em><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.stimulus_patterns_cached" title="Permalink to this definition"></a></dt>
+<dd><p>Get cached list of configured stimulus patterns</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>15 cached _bstimulator.StimulusConfiguration
+structures,  None if configuration is inactive.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.stop">
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/br_stimpy/stimpy.html#Stimulator.stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.stop" title="Permalink to this definition"></a></dt>
+<dd><p>Stop stim script execution</p>
+<p>This will stop a currently running stimulation script and reset
+it so when played again it will begin from the first command.
+Can only be called while the stimulator has a status of
+stimulating or paused.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.stop_trigger_stimulus">
+<span class="sig-name descname"><span class="pre">stop_trigger_stimulus</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/br_stimpy/stimpy.html#Stimulator.stop_trigger_stimulus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.stop_trigger_stimulus" title="Permalink to this definition"></a></dt>
+<dd><p>Stop trigger mode</p>
+<p>Changes the state of the stimulator so that it is no longer
+waiting for a trigger. Frees up the stimulator for other
+commands to be called.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.trigger_stimulus">
+<span class="sig-name descname"><span class="pre">trigger_stimulus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">edge</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/br_stimpy/stimpy.html#Stimulator.trigger_stimulus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.trigger_stimulus" title="Permalink to this definition"></a></dt>
+<dd><p>Start trigger mode</p>
+<p>Allows the stimulator to wait for a trigger event before
+executing a stimulation script. The stimulator has an external
+TTL Trigger input port that uses TTL logic levels to determine
+whether the input is high or low. The stimulator can be set to
+fire on a rising edge, falling edge, or any edge transition.
+Once in trigger mode the stimulator is locked down from other
+function calls except for stop_trigger_stimulus()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>edge</strong> (<a class="reference internal" href="#br_stimpy.stimpy.Stimulator.TriggerType" title="br_stimpy.stimpy.Stimulator.TriggerType"><em>TriggerType</em></a>) – The type of digital event to trigger the stimulation on</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.update_electrode_channel_map">
+<span class="sig-name descname"><span class="pre">update_electrode_channel_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">map</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/br_stimpy/stimpy.html#Stimulator.update_electrode_channel_map"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.update_electrode_channel_map" title="Permalink to this definition"></a></dt>
+<dd><p>Set electrode map</p>
+<p>Since not all electrodes are found on channel 1 this function
+allows the user to create a map key pair where the channel is
+an index into an array which holds the value of the electrode
+at that channel.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>map</strong> (<a class="reference internal" href="#br_stimpy.stimpy.Stimulator.ElectrodeChannelMap" title="br_stimpy.stimpy.Stimulator.ElectrodeChannelMap"><em>ElectrodeChannelMap</em></a>) – channel map structure</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.usb_address">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">usb_address</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></em><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.usb_address" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the USB address of the connected stimulator</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>USB address</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.wait">
+<span class="sig-name descname"><span class="pre">wait</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">milliseconds</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/br_stimpy/stimpy.html#Stimulator.wait"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.wait" title="Permalink to this definition"></a></dt>
+<dd><p>Wait between stim pulses</p>
+<p>This command can only be used within a stimulation script and
+is capable of adding a wait of up to 65,535 milliseconds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>milliseconds</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The number of milliseconds to wait before
+executing the next command</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.11)"><strong>ValueError</strong></a> – milliseconds must be between 0 and 65535.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="br_stimpy.stimpy.SeqType.html" class="btn btn-neutral float-left" title="br_stimpy.stimpy.SeqType" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="br_stimpy.stimpy.TriggerType.html" class="btn btn-neutral float-right" title="br_stimpy.stimpy.TriggerType" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Copyright University of Pittsburgh Rehab Neural Engineering Labs, 2023.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
