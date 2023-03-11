@@ -10,8 +10,6 @@ from codecs import open
 from pybind11.setup_helpers import Pybind11Extension, build_ext
 from setuptools import setup
 
-__version__ = "0.0.1"
-
 # The main interface is through Pybind11Extension.
 # * You can add cxx_std=11/14/17, and then build_ext can be removed.
 # * You can set include_pybind11=false to add the include directory yourself,
@@ -46,20 +44,6 @@ for file in glob.glob(lib_dir + lib_glob_str):
     # copy libs to module dir
     shutil.copy2(file, "br_stimpy")
 
-ext_modules = [
-    Pybind11Extension(
-        "br_stimpy._bstimulator",
-        ["br_stimpy/_pybstimulator.cpp"],
-        # Example: passing in the version to the compiled code
-        define_macros=[("VERSION_INFO", __version__)],
-        libraries=[lib_name],
-        library_dirs=[lib_dir],
-        include_dirs=["br_stimpy"],
-        depends=["_pybstimulator.h"],
-        language="c++",
-    )
-]
-
 about = {}
 here = os.path.abspath(os.path.dirname(__file__))
 with open(os.path.join(here, "br_stimpy", "__version__.py"), "r", "utf-8") as f:
@@ -67,6 +51,20 @@ with open(os.path.join(here, "br_stimpy", "__version__.py"), "r", "utf-8") as f:
 
 with open("README.md", "r", encoding="utf-8") as fh:
     readme = fh.read()
+
+ext_modules = [
+    Pybind11Extension(
+        "br_stimpy._bstimulator",
+        ["br_stimpy/_pybstimulator.cpp"],
+        # Example: passing in the version to the compiled code
+        define_macros=[("VERSION_INFO", about["__version__"])],
+        libraries=[lib_name],
+        library_dirs=[lib_dir],
+        include_dirs=["br_stimpy"],
+        depends=["_pybstimulator.h"],
+        language="c++",
+    )
+]
 
 setup(
     name=about["__title__"],
