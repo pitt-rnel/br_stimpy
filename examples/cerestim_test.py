@@ -68,7 +68,7 @@ print(f"Maximum Phase Charge: {max_values.phase_charge}")
 print(f"Maximum Frequency:    {max_values.frequency}")
 
 # Set up additional configurations to a default value
-cath = stimpy.WFTypes.wf_cathodic_first
+cath = stimpy.WFType.wf_cathodic_first
 for i in range(1, 16):
     cerestim.configure_stimulus_pattern(
         configID=i,

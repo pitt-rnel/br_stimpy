@@ -21,12 +21,12 @@ pip from the package directory by running `pip install .`
 ```python
 from br_stimpy import stimpy
 
-stim_obj = Stimulator()
+stim_obj = stimpy.Stimulator()
 print(stim_obj.api_version)
 stim_obj.connect()
 stim_obj.simple_stimulus(
     electrode=1,
-    afcf=stim_obj.WFTypes.wf_cathodic_first,
+    afcf=stimpy.WFType.wf_cathodic_first,
     pulses=1,
     amp1=10,
     amp2=10,
