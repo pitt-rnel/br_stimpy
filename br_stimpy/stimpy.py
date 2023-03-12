@@ -78,11 +78,7 @@ class Stimulator(object):
 
     @property
     def api_version(self) -> _bstimulator.Version:
-        """Get Cerestim API library version
-
-        Returns:
-            structure containing version info
-        """
+        """Cerestim API library version"""
         version_struct = _bstimulator.Version()
         self.last_result = self._bstimulator_obj.lib_version(version_struct)
         self._raise_if_error("api_lib_version")
@@ -90,12 +86,7 @@ class Stimulator(object):
 
     @property
     def stimulus_patterns_cached(self) -> dict:
-        """Get cached list of configured stimulus patterns
-
-        Returns:
-            15 cached _bstimulator.StimulusConfiguration
-            structures,  None if configuration is inactive.
-        """
+        """Cached list of configured stimulus patterns"""
         return self._pattern_cache
 
     @property
@@ -559,9 +550,10 @@ class Stimulator(object):
         indefinitely until it is either stopped or paused by the user.
         Other values include between 1 and 65,535 repetitions. Cannot
         be called during a begin_sequence() and end_sequence() command call.
+        
         Args:
             times: Number of times to execute the stimulation script.
-            0 means indefinitely.
+                0 means indefinitely.
 
         Raises:
             ValueError: times must be between 0 and 65535.
