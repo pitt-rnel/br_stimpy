@@ -63,7 +63,7 @@ myst_enable_extensions = ["colon_fence"]
 html_theme = 'furo' #'alabaster'
 html_static_path = ['_static']
 html_logo = '../../assets/stimpy.png'
-html_show_sourcelink = False
+#html_show_sourcelink = False
 
 # Readthedocs theme
 # on_rtd is whether on readthedocs.org, this line of code grabbed from docs.readthedocs.org...

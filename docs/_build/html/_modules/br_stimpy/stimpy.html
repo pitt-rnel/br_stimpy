@@ -256,7 +256,7 @@
 <span class="sd">        enum_val: an enumeration value from the _bstimulator module</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        str: docstr for the enum_val</span>
+<span class="sd">        docstr for the enum_val</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">enum_entries</span> <span class="o">=</span> <span class="n">enum_val</span><span class="o">.</span><span class="n">__entries</span>
     <span class="n">doc_str</span> <span class="o">=</span> <span class="n">enum_entries</span><span class="p">[</span><span class="n">enum_val</span><span class="o">.</span><span class="n">name</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
@@ -267,7 +267,7 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get Cerestim API library version</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        _bstimulator.Version: structure containing version</span>
+<span class="sd">        structure containing version info</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">version_struct</span> <span class="o">=</span> <span class="n">_bstimulator</span><span class="o">.</span><span class="n">Version</span><span class="p">()</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">_bstimulator</span><span class="o">.</span><span class="n">Stimulator</span><span class="p">()</span><span class="o">.</span><span class="n">lib_version</span><span class="p">(</span><span class="n">version_struct</span><span class="p">)</span>
@@ -279,8 +279,13 @@
 
 
 <div class="viewcode-block" id="Stimulator"><a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator">[docs]</a><span class="k">class</span> <span class="nc">Stimulator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Simple python interface to Blackrock Cerestim 96&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Simple python interface to Blackrock Cerestim 96</span>
+<span class="sd">    </span>
+<span class="sd">    Raises:</span>
+<span class="sd">            RuntimeError: Only 12 stimulator objects can be created at a time</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="c1">#: list of stimulators across all class instances</span>
     <span class="n">device_vector</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">_stimulator_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
 
@@ -293,12 +298,7 @@
     <span class="n">ModuleStatus</span> <span class="o">=</span> <span class="n">ModuleStatus</span>
     <span class="n">SeqType</span> <span class="o">=</span> <span class="n">SeqType</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Stimulator constructor</span>
-
-<span class="sd">        Raises:</span>
-<span class="sd">            RuntimeError: Only 12 stimulator objects can be created at a time</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">Stimulator</span><span class="o">.</span><span class="n">_stimulator_count</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="k">if</span> <span class="n">Stimulator</span><span class="o">.</span><span class="n">_stimulator_count</span> <span class="o">&gt;</span> <span class="n">MAX_STIMULATORS</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Max stimulator error&quot;</span><span class="p">)</span>
@@ -317,7 +317,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get Cerestim API library version</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            _bstimulator.Version: structure containing version</span>
+<span class="sd">            structure containing version info</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">version_struct</span> <span class="o">=</span> <span class="n">_bstimulator</span><span class="o">.</span><span class="n">Version</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">last_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">lib_version</span><span class="p">(</span><span class="n">version_struct</span><span class="p">)</span>
@@ -329,7 +329,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get cached list of configured stimulus patterns</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            dict: 15 cached _bstimulator.StimulusConfiguration</span>
+<span class="sd">            15 cached _bstimulator.StimulusConfiguration</span>
 <span class="sd">            structures,  None if configuration is inactive.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pattern_cache</span>
@@ -344,9 +344,6 @@
 <span class="sd">        modules. It will also tell you the protocol that the motherboard</span>
 <span class="sd">        is using with the current modules and the number of installed</span>
 <span class="sd">        current modules.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            dict: a dictionary populated with the CereStim&#39;s information</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">dev_info</span> <span class="o">=</span> <span class="n">_bstimulator</span><span class="o">.</span><span class="n">DeviceInfo</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">last_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">read_device_info</span><span class="p">(</span><span class="n">dev_info</span><span class="p">)</span>
@@ -367,11 +364,8 @@
     <span class="k">def</span> <span class="nf">sequence_status</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SeqType</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get stim sequence status</span>
 
-<span class="sd">        Can be called anytime as it does not interrupt other functions</span>
+<span class="sd">        Can be read anytime as it does not interrupt other functions</span>
 <span class="sd">        from executing, but simply reads what state the stimulator is in.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            SeqType: Enum containing the sequence state</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">output</span> <span class="o">=</span> <span class="n">_bstimulator</span><span class="o">.</span><span class="n">SequenceStatus</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">last_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">read_sequence_status</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
@@ -380,11 +374,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">is_stim_sequence_playing</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if a stim sequence is actively playing</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            bool: Whether or not a stim sequence is playing</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if a stim sequence is actively playing&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sequence_status</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">SeqType</span><span class="o">.</span><span class="n">playing</span>
 
     <span class="nd">@property</span>
@@ -393,9 +383,6 @@
 
 <span class="sd">        Lets the user know that the Stimulator object is connected to a</span>
 <span class="sd">        physical CereStim 96 device.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            bool: True if stimulator is connected</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">is_connected</span><span class="p">())</span>
 
@@ -405,9 +392,6 @@
 
 <span class="sd">        Retrieves the serial number that is programmed into the</span>
 <span class="sd">        CereStim 96 device that is attached.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            dict: Part Number and Serial number of the CereStim 96</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert_raw_serial_num</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">get_serial_number</span><span class="p">())</span>
 
@@ -417,9 +401,6 @@
 
 <span class="sd">        Retrieves the firmware revision of the microcontroller on the</span>
 <span class="sd">        motherboard.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            dict: Firmware Version of the Motherboard</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert_raw_version</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">get_motherboard_firmware_version</span><span class="p">()</span>
@@ -431,9 +412,6 @@
 
 <span class="sd">        The protocol version that the motherboard uses to send and</span>
 <span class="sd">        receive data from the current modules.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            dict: Protocol Version of the Motherboard</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert_raw_version</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">get_protocol_version</span><span class="p">())</span>
 
@@ -445,9 +423,6 @@
 <span class="sd">        such as the micro and macro versions, this will allow the user</span>
 <span class="sd">        to get the min and max amplitudes that are allowed for</span>
 <span class="sd">        stimulation.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            dict: Min and Max Amplitude</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert_raw_min_max_amp</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">get_min_max_amplitude</span><span class="p">()</span>
@@ -462,9 +437,6 @@
 <span class="sd">        should have the same firmware version. The MSB is the Major</span>
 <span class="sd">        revision number and the LSB is the minor revision number. I.e.</span>
 <span class="sd">        0x0105 would be version 1.5</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            List[dict]: List of dicts with module firmware versions</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">fv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">get_module_firmware_version</span><span class="p">()</span>
         <span class="n">output</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_convert_raw_version</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">fv</span><span class="p">]</span>
@@ -476,9 +448,6 @@
 
 <span class="sd">        This tells the status of each current module, whether it is</span>
 <span class="sd">        enabled, disabled, or not available.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            List[ModuleStatus]: List of the possible 16 current modules status</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">ms</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">get_module_status</span><span class="p">()</span>
         <span class="n">output</span> <span class="o">=</span> <span class="p">[</span><span class="n">ModuleStatus</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">ms</span><span class="p">]</span>
@@ -486,49 +455,36 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">usb_address</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Gets the USB address of the connected stimulator</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            int: USB address</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Gets the USB address of the connected stimulator&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">get_usb_address</span><span class="p">()</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">max_hard_charge</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get hardware max charge per phase</span>
 
-<span class="sd">        This value is based on the hardware of the particuliar model of</span>
+<span class="sd">        This value is based on the hardware of the particular model of</span>
 <span class="sd">        the CereStim 96. Again the micro and macro versions of the</span>
 <span class="sd">        stimulator have different values</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            int: Max charge per phase</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">get_max_hard_charge</span><span class="p">()</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">min_hard_frequency</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get hardware minimum frequency</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get hardware minimum frequency in Hz</span>
 
-<span class="sd">        This value is based on the hardware of the particuliar model of</span>
+<span class="sd">        This value is based on the hardware of the particular model of</span>
 <span class="sd">        the CereStim 96. Again the micro and macro versions of the</span>
 <span class="sd">        stimulator have different values</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            int: Minimum Stimulating Frequency in Hz</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">get_min_hard_frequency</span><span class="p">()</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">max_hard_frequency</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get hardware maximum frequency</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get hardware maximum frequency in Hz</span>
 
-<span class="sd">        This value is based on the hardware of the particuliar model of</span>
+<span class="sd">        This value is based on the hardware of the particular model of</span>
 <span class="sd">        the CereStim 96. Again the micro and macro versions of the</span>
 <span class="sd">        stimulator have different values</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            int: Maximum Stimulating Frequency in Hz</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">get_max_hard_frequency</span><span class="p">()</span>
 
@@ -536,36 +492,27 @@
     <span class="k">def</span> <span class="nf">number_modules</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get number of current modules installed</span>
 
-<span class="sd">        This value is based on the hardware of the particuliar model of</span>
+<span class="sd">        This value is based on the hardware of the particular model of</span>
 <span class="sd">        the CereStim 96. Again the micro and macro versions of the</span>
 <span class="sd">        stimulator have different values</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            int: Number of Modules installed</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">get_number_modules</span><span class="p">()</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">max_hard_width</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get hardware maximum pulse width</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get hardware maximum pulse width in us</span>
 
 <span class="sd">        This value is based on the hardware of the particuliar model of</span>
 <span class="sd">        the CereStim 96.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            int: Maximum width of each phase in us</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">get_max_hard_width</span><span class="p">()</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">max_hard_interphase</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get hardware maximum interphase width</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get hardware maximum interphase width in us</span>
 
 <span class="sd">        This value is based on the hardware of the particuliar model of</span>
 <span class="sd">        the CereStim 96</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            int: Maximum interphase width in us</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">get_max_hard_interphase</span><span class="p">()</span>
 
@@ -576,9 +523,6 @@
 <span class="sd">        For Internal validation and testing it is required to disable</span>
 <span class="sd">        the safety limits in the firmware and API so that hardware</span>
 <span class="sd">        limits can be observed and tested.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            bool: True if disabled False otherwise</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">is_safety_disabled</span><span class="p">())</span>
 
@@ -590,9 +534,6 @@
 <span class="sd">        hardware configuration or if the hardware configuration is not</span>
 <span class="sd">        setup, the device will be locked down preventing any stimulation</span>
 <span class="sd">        from occuring.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            bool: True if locked False otherwise</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">is_device_locked</span><span class="p">())</span>
 
@@ -605,7 +546,7 @@
 <span class="sd">        and just call connect().</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            List[int]: list of serial numbers of the connected Cerestims</span>
+<span class="sd">            list of serial numbers of the connected Cerestims</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">device_vector</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">_bstimulator</span><span class="o">.</span><span class="n">Stimulator</span><span class="o">.</span><span class="n">scan_for_devices</span><span class="p">())</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">device_vector</span></div>
@@ -619,7 +560,7 @@
 <span class="sd">        would like to connect to.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            device_index (int, optional): Index of device from scan_for_devices.</span>
+<span class="sd">            device_index (optional): Index of device from scan_for_devices.</span>
 <span class="sd">                Defaults to 0.</span>
 
 <span class="sd">        Raises:</span>
@@ -669,23 +610,23 @@
 <span class="sd">        This method is simple, but inefficient.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            electrode (int): The electrode that should be stimulated.</span>
+<span class="sd">            electrode: The electrode that should be stimulated.</span>
 <span class="sd">                Valid values are from 1 - 96.</span>
-<span class="sd">            afcf (Stimulator.WFType): What polarity should the first</span>
+<span class="sd">            afcf: What polarity should the first</span>
 <span class="sd">                phase be, Anodic or Cathodic first</span>
-<span class="sd">            pulses (int): The number of stimulation pulses in waveform</span>
+<span class="sd">            pulses: The number of stimulation pulses in waveform</span>
 <span class="sd">                from 1 - 255</span>
-<span class="sd">            amp1 (int): The amplitude of the first phase, for Micro it</span>
+<span class="sd">            amp1: The amplitude of the first phase, for Micro it</span>
 <span class="sd">                is 1 - 215 uA, and for Macro it is 100 uA - 10 mA</span>
-<span class="sd">            amp2 (int): The amplitude of the first phase, for Micro it</span>
+<span class="sd">            amp2: The amplitude of the first phase, for Micro it</span>
 <span class="sd">                is 1 - 215 uA, and for Macro it is 100 uA - 10 mA</span>
-<span class="sd">            width1 (int): The width of the first phase in the stimulation</span>
+<span class="sd">            width1: The width of the first phase in the stimulation</span>
 <span class="sd">                1 - 65,535 uS</span>
-<span class="sd">            width2 (int): The width of the second phase in the stimulation</span>
+<span class="sd">            width2: The width of the second phase in the stimulation</span>
 <span class="sd">                1 - 65,535 uS</span>
-<span class="sd">            frequency (int): The stimulating frequency at which the</span>
+<span class="sd">            frequency: The stimulating frequency at which the</span>
 <span class="sd">                biphasic pulses should repeat 4 - 5000 Hz</span>
-<span class="sd">            interphase (int): The period of time between the first and</span>
+<span class="sd">            interphase: The period of time between the first and</span>
 <span class="sd">                second phases 53 - 65,535 uS</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">configure_stimulus_pattern</span><span class="p">(</span>
@@ -714,23 +655,23 @@
 <span class="sd">        This method is simple, but inefficient.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            electrodes List[int]: The electrodes that should be stimulated.</span>
+<span class="sd">            electrodes: The electrodes that should be stimulated.</span>
 <span class="sd">                Valid values are from 1 - 96.</span>
-<span class="sd">            afcf (Stimulator.WFType): What polarity should the first</span>
+<span class="sd">            afcf: What polarity should the first</span>
 <span class="sd">                phase be, Anodic or Cathodic first</span>
-<span class="sd">            pulses (int): The number of stimulation pulses in waveform</span>
+<span class="sd">            pulses: The number of stimulation pulses in waveform</span>
 <span class="sd">                from 1 - 255</span>
-<span class="sd">            amp1 (int): The amplitude of the first phase, for Micro it</span>
+<span class="sd">            amp1: The amplitude of the first phase, for Micro it</span>
 <span class="sd">                is 1 - 215 uA, and for Macro it is 100 uA - 10 mA</span>
-<span class="sd">            amp2 (int): The amplitude of the first phase, for Micro it</span>
+<span class="sd">            amp2: The amplitude of the first phase, for Micro it</span>
 <span class="sd">                is 1 - 215 uA, and for Macro it is 100 uA - 10 mA</span>
-<span class="sd">            width1 (int): The width of the first phase in the stimulation</span>
+<span class="sd">            width1: The width of the first phase in the stimulation</span>
 <span class="sd">                1 - 65,535 uS</span>
-<span class="sd">            width2 (int): The width of the second phase in the stimulation</span>
+<span class="sd">            width2: The width of the second phase in the stimulation</span>
 <span class="sd">                1 - 65,535 uS</span>
-<span class="sd">            frequency (int): The stimulating frequency at which the</span>
+<span class="sd">            frequency: The stimulating frequency at which the</span>
 <span class="sd">                biphasic pulses should repeat 4 - 5000 Hz</span>
-<span class="sd">            interphase (int): The period of time between the first and</span>
+<span class="sd">            interphase: The period of time between the first and</span>
 <span class="sd">                second phases 53 - 65,535 uS</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">configure_stimulus_pattern</span><span class="p">(</span>
@@ -747,9 +688,9 @@
 <span class="sd">        stimulation waveforms to a specified electrode.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            electrode (int): The electrode that should be stimulated.</span>
+<span class="sd">            electrode: The electrode that should be stimulated.</span>
 <span class="sd">                Valid values are from 1 - 96.</span>
-<span class="sd">            configID (int): The stimulation waveform to use.</span>
+<span class="sd">            configID: The stimulation waveform to use.</span>
 <span class="sd">                Valid values are from 1 - 15.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">_ValidationFcns</span><span class="o">.</span><span class="n">validate_electrode</span><span class="p">(</span><span class="n">electrode</span><span class="p">)</span>
@@ -816,9 +757,9 @@
 <span class="sd">        commands to allow for simultaneous stimulations.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            electrode (int): The electrode that will be stimulated.</span>
+<span class="sd">            electrode: The electrode that will be stimulated.</span>
 <span class="sd">                Valid values are from 1 - 96</span>
-<span class="sd">            configID (int): One of the fifteen stimulation waveforms that should be used.</span>
+<span class="sd">            configID: One of the fifteen stimulation waveforms that should be used.</span>
 <span class="sd">                Valid values are from 1-15</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">_ValidationFcns</span><span class="o">.</span><span class="n">validate_electrode</span><span class="p">(</span><span class="n">electrode</span><span class="p">)</span>
@@ -835,7 +776,7 @@
 <span class="sd">        is capable of adding a wait of up to 65,535 milliseconds.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            milliseconds (int): The number of milliseconds to wait before</span>
+<span class="sd">            milliseconds: The number of milliseconds to wait before</span>
 <span class="sd">                executing the next command</span>
 
 <span class="sd">        Raises:</span>
@@ -855,7 +796,7 @@
 <span class="sd">        Other values include between 1 and 65,535 repetitions. Cannot</span>
 <span class="sd">        be called during a begin_sequence() and end_sequence() command call.</span>
 <span class="sd">        Args:</span>
-<span class="sd">            times (int): Number of times to execute the stimulation script.</span>
+<span class="sd">            times: Number of times to execute the stimulation script.</span>
 <span class="sd">            0 means indefinitely.</span>
 
 <span class="sd">        Raises:</span>
@@ -898,7 +839,7 @@
 <span class="sd">        delivered to the electrode because it can not drive any more current.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            int: the max output voltage in millivolts</span>
+<span class="sd">            the max output voltage in millivolts</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">output</span> <span class="o">=</span> <span class="n">_bstimulator</span><span class="o">.</span><span class="n">MaxOutputVoltage</span><span class="p">()</span>
         <span class="n">rw</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># read</span>
@@ -919,11 +860,11 @@
 <span class="sd">        more current.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            oc_voltage (Stimulator.oc_volt): The voltage level that is</span>
+<span class="sd">            oc_voltage: The voltage level that is</span>
 <span class="sd">                being set. Must be an oc_volt enum value.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            int: the max output voltage in millivolts.</span>
+<span class="sd">            the max output voltage in millivolts.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">output</span> <span class="o">=</span> <span class="n">_bstimulator</span><span class="o">.</span><span class="n">MaxOutputVoltage</span><span class="p">()</span>
         <span class="n">rw</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># write</span>
@@ -941,7 +882,7 @@
 <span class="sd">        multiple current modules are all giving the same output values.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            module (int): The current module to be enabled from 0 to 15</span>
+<span class="sd">            module: The current module to be enabled from 0 to 15</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">_ValidationFcns</span><span class="o">.</span><span class="n">validate_module</span><span class="p">(</span><span class="n">module</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">last_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">enable_module</span><span class="p">(</span><span class="n">module</span><span class="p">)</span>
@@ -956,7 +897,7 @@
 <span class="sd">        values. The current module has to exist to be disabled.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            module (int):The current module to be disabled from 0 to 15</span>
+<span class="sd">            module:The current module to be disabled from 0 to 15</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">_ValidationFcns</span><span class="o">.</span><span class="n">validate_module</span><span class="p">(</span><span class="n">module</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">last_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">disable_module</span><span class="p">(</span><span class="n">module</span><span class="p">)</span>
@@ -990,23 +931,23 @@
 <span class="sd">        the time between repeats.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            configID (int): The stimulation waveform that is being</span>
+<span class="sd">            configID: The stimulation waveform that is being</span>
 <span class="sd">                configured 1 - 15</span>
-<span class="sd">            afcf (Stimulator.WFType): What polarity should the first</span>
+<span class="sd">            afcf: What polarity should the first</span>
 <span class="sd">                phase be, Anodic or Cathodic first</span>
-<span class="sd">            pulses (int): The number of stimulation pulses in waveform</span>
+<span class="sd">            pulses: The number of stimulation pulses in waveform</span>
 <span class="sd">                from 1 - 255</span>
-<span class="sd">            amp1 (int): The amplitude of the first phase, for Micro it</span>
+<span class="sd">            amp1: The amplitude of the first phase, for Micro it</span>
 <span class="sd">                is 1 - 215 uA, and for Macro it is 100 uA - 10 mA</span>
-<span class="sd">            amp2 (int): The amplitude of the first phase, for Micro it</span>
+<span class="sd">            amp2: The amplitude of the first phase, for Micro it</span>
 <span class="sd">                is 1 - 215 uA, and for Macro it is 100 uA - 10 mA</span>
-<span class="sd">            width1 (int): The width of the first phase in the stimulation</span>
+<span class="sd">            width1: The width of the first phase in the stimulation</span>
 <span class="sd">                1 - 65,535 uS</span>
-<span class="sd">            width2 (int): The width of the second phase in the stimulation</span>
+<span class="sd">            width2: The width of the second phase in the stimulation</span>
 <span class="sd">                1 - 65,535 uS</span>
-<span class="sd">            frequency (int): The stimulating frequency at which the</span>
+<span class="sd">            frequency: The stimulating frequency at which the</span>
 <span class="sd">                biphasic pulses should repeat 4 - 5000 Hz</span>
-<span class="sd">            interphase (int): The period of time between the first and</span>
+<span class="sd">            interphase: The period of time between the first and</span>
 <span class="sd">                second phases 53 - 65,535 uS</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">_ValidationFcns</span><span class="o">.</span><span class="n">validate_configID</span><span class="p">(</span><span class="n">configID</span><span class="p">)</span>
@@ -1050,11 +991,11 @@
 <span class="sd">        the user.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            configID (int): The stimulation waveform that is being read back</span>
+<span class="sd">            configID: The stimulation waveform that is being read back</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            _bstimulator.StimulusConfiguration: structure which contains</span>
-<span class="sd">                all the parameters that consist in a stimulation waveform</span>
+<span class="sd">            structure which contains all the parameters that consist in</span>
+<span class="sd">            a stimulation waveform</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">_ValidationFcns</span><span class="o">.</span><span class="n">validate_configID</span><span class="p">(</span><span class="n">configID</span><span class="p">)</span>
         <span class="n">output</span> <span class="o">=</span> <span class="n">_bstimulator</span><span class="o">.</span><span class="n">StimulusConfiguration</span><span class="p">()</span>
@@ -1069,7 +1010,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Read back all stim config patterns from stimulator</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            dict: 15 _bstimulator.StimulusConfiguration structures</span>
+<span class="sd">            15 _bstimulator.StimulusConfiguration structures</span>
 <span class="sd">            Values are None if configuration is inactive</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">patterns</span> <span class="o">=</span> <span class="p">{}</span>
@@ -1086,7 +1027,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Read maximum stimulus values set using set_stimulus_max_values()</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            _bstimulator.MaximumValues: structure that will contain the current max values that are set</span>
+<span class="sd">            structure that will contain the current max values that are set</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">output</span> <span class="o">=</span> <span class="n">_bstimulator</span><span class="o">.</span><span class="n">MaximumValues</span><span class="p">()</span>
         <span class="n">rw</span> <span class="o">=</span> <span class="mi">0</span>
@@ -1114,13 +1055,13 @@
 <span class="sd">        ranges each are able to achieve.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            voltage (OCVolt): The Max Compliance Voltage that can be set</span>
-<span class="sd">            amplitude (int): The Max amplitude that can be used in a stimulation</span>
-<span class="sd">            phaseCharge (int): The Max charge per phase that will be allowed (Charge = Amplitude * Width)</span>
-<span class="sd">            frequency (int): The Max frequency at which the stimulations can take place</span>
+<span class="sd">            voltage: The Max Compliance Voltage that can be set</span>
+<span class="sd">            amplitude: The Max amplitude that can be used in a stimulation</span>
+<span class="sd">            phaseCharge: The Max charge per phase that will be allowed (Charge = Amplitude * Width)</span>
+<span class="sd">            frequency: The Max frequency at which the stimulations can take place</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            _bstimulator.MaximumValues: structure that will contain the current max values that are set</span>
+<span class="sd">            structure that will contain the current max values that are set</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">output</span> <span class="o">=</span> <span class="n">_bstimulator</span><span class="o">.</span><span class="n">MaximumValues</span><span class="p">()</span>
         <span class="n">rw</span> <span class="o">=</span> <span class="mi">1</span>
@@ -1146,14 +1087,14 @@
 <span class="sd">        based on different electrodes and configured waveforms.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            begin_seq (bool): Boolean expression to tell the function</span>
+<span class="sd">            begin_seq: Boolean expression to tell the function</span>
 <span class="sd">                that it is the beginning of a sequence</span>
-<span class="sd">            play (bool): Boolean expression to tell if the stimulator</span>
+<span class="sd">            play: Boolean expression to tell if the stimulator</span>
 <span class="sd">                should begin stimulating immedieatly after this call</span>
-<span class="sd">            times (int): The number of times to play the stimulation,</span>
+<span class="sd">            times: The number of times to play the stimulation,</span>
 <span class="sd">                is ignored if play = false</span>
-<span class="sd">            group_stim_struct (GroupStimulusStruct): structure which</span>
-<span class="sd">                has a pair of arrays with electrodes and waveforms</span>
+<span class="sd">            group_stim_struct: structure which has a pair of arrays</span>
+<span class="sd">                with electrodes and waveforms</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">bgroup_stim_struct</span> <span class="o">=</span> <span class="n">_bstimulator</span><span class="o">.</span><span class="n">GroupStimulus</span><span class="p">()</span>
         <span class="n">bgroup_stim_struct</span><span class="o">.</span><span class="n">electrode</span> <span class="o">=</span> <span class="n">group_stim_struct</span><span class="o">.</span><span class="n">electrode</span>
@@ -1176,7 +1117,7 @@
 <span class="sd">        function calls except for stop_trigger_stimulus()</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            edge (TriggerType): The type of digital event to trigger the stimulation on</span>
+<span class="sd">            edge: The type of digital event to trigger the stimulation on</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">last_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">trigger_stimulus</span><span class="p">(</span><span class="n">edge</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_raise_if_error</span><span class="p">(</span><span class="s2">&quot;trigger_stimulus&quot;</span><span class="p">)</span></div>
@@ -1200,7 +1141,7 @@
 <span class="sd">        at that channel.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            map (ElectrodeChannelMap):channel map structure</span>
+<span class="sd">            map:channel map structure</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">last_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">update_electrode_channel_map</span><span class="p">(</span><span class="nb">map</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_raise_if_error</span><span class="p">(</span><span class="s2">&quot;update_electrode_channel_map&quot;</span><span class="p">)</span></div>
@@ -1209,7 +1150,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Reads the hardware values that are set based on the part number</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            _bstimulator.ReadHardwareValuesOutput: Structure containing the hardware values</span>
+<span class="sd">            Structure containing the hardware values</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">output</span> <span class="o">=</span> <span class="n">_bstimulator</span><span class="o">.</span><span class="n">ReadHardwareValuesOutput</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">last_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">read_hardware_values</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
@@ -1220,7 +1161,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Disables a stimulation waveform so that it is able to be reset</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            configID (int): The configuration to disable</span>
+<span class="sd">            configID: The configuration to disable</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">_ValidationFcns</span><span class="o">.</span><span class="n">validate_configID</span><span class="p">(</span><span class="n">configID</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">last_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">disable_stimulus_configuration</span><span class="p">(</span>
@@ -1266,7 +1207,7 @@
         <span class="n">amp_limits</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;min_amp&quot;</span><span class="p">:</span> <span class="n">raw_amp</span> <span class="o">&amp;</span> <span class="mh">0xFFFF</span><span class="p">,</span> <span class="s2">&quot;max_amp&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">raw_amp</span> <span class="o">&gt;&gt;</span> <span class="mi">16</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFFFF</span><span class="p">}</span>
         <span class="k">return</span> <span class="n">amp_limits</span>
 
-    <span class="k">def</span> <span class="fm">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Stimulator destructor</span>
 
 <span class="sd">        Decrements _stimulator_count</span>
