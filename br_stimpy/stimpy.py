@@ -766,8 +766,8 @@ class Stimulator(object):
         """Read back all stim config patterns from stimulator
 
         Returns:
-            15 _bstimulator.StimulusConfiguration structures
-            Values are None if configuration is inactive
+            15 _bstimulator.StimulusConfiguration structures.
+            Values are None if configuration is inactive.
         """
         patterns = {}
         for configID in range(1, MAX_CONFIGURATIONS):
