@@ -9,7 +9,7 @@
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here.
 import pathlib
-import sys
+#import sys
 import os
 from codecs import open
 #sys.path.insert(0, pathlib.Path(__file__).parents[2].resolve().as_posix())
@@ -60,18 +60,18 @@ myst_enable_extensions = ["colon_fence"]
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-#html_theme = 'sphinx_rtd_theme' #'furo' #'alabaster'
+html_theme = 'furo' #'alabaster'
 html_static_path = ['_static']
 html_logo = '../../assets/stimpy.png'
 html_show_sourcelink = False
 
 # Readthedocs theme
 # on_rtd is whether on readthedocs.org, this line of code grabbed from docs.readthedocs.org...
-on_rtd = os.environ.get("READTHEDOCS", None) == "True"
-if not on_rtd:  # only import and set the theme if we're building docs locally
-    import sphinx_rtd_theme
-    html_theme = "sphinx_rtd_theme"
-    html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+#on_rtd = os.environ.get("READTHEDOCS", None) == "True"
+#if not on_rtd:  # only import and set the theme if we're building docs locally
+    #import sphinx_rtd_theme
+    #html_theme = "sphinx_rtd_theme"
+    #html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
 # EPUB options
 epub_show_urls = 'footnote'
