@@ -36,7 +36,7 @@ class GroupStimulusStruct(object):
 
     def __init__(
         self, electrode: Optional[List[int]] = None, pattern: Optional[List[int]] = None
-    ) -> None:
+    ):
         
         if electrode:
             self._number = len(electrode)
