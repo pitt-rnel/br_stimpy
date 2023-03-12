@@ -20,7 +20,7 @@ def get_enum_docstr(enum_val: Any) -> str:
         enum_val: an enumeration value from the _bstimulator module
 
     Returns:
-        str: docstr for the enum_val
+        docstr for the enum_val
     """
     enum_entries = enum_val.__entries
     doc_str = enum_entries[enum_val.name][1]
@@ -31,7 +31,7 @@ def get_api_version() -> _bstimulator.Version:
     """Get Cerestim API library version
 
     Returns:
-        _bstimulator.Version: structure containing version
+        structure containing version info
     """
     version_struct = _bstimulator.Version()
     result = _bstimulator.Stimulator().lib_version(version_struct)
@@ -43,7 +43,11 @@ def get_api_version() -> _bstimulator.Version:
 
 
 class Stimulator(object):
-    """Simple python interface to Blackrock Cerestim 96"""
+    """Simple python interface to Blackrock Cerestim 96
+    
+    Raises:
+            RuntimeError: Only 12 stimulator objects can be created at a time
+    """
 
     device_vector: Optional[List[int]] = None
     _stimulator_count: int = 0
@@ -58,11 +62,6 @@ class Stimulator(object):
     SeqType = SeqType
 
     def __init__(self) -> None:
-        """Stimulator constructor
-
-        Raises:
-            RuntimeError: Only 12 stimulator objects can be created at a time
-        """
         Stimulator._stimulator_count += 1
         if Stimulator._stimulator_count > MAX_STIMULATORS:
             raise RuntimeError("Max stimulator error")
@@ -81,7 +80,7 @@ class Stimulator(object):
         """Get Cerestim API library version
 
         Returns:
-            _bstimulator.Version: structure containing version
+            structure containing version info
         """
         version_struct = _bstimulator.Version()
         self.last_result = self._bstimulator_obj.lib_version(version_struct)
@@ -93,7 +92,7 @@ class Stimulator(object):
         """Get cached list of configured stimulus patterns
 
         Returns:
-            dict: 15 cached _bstimulator.StimulusConfiguration
+            15 cached _bstimulator.StimulusConfiguration
             structures,  None if configuration is inactive.
         """
         return self._pattern_cache
@@ -108,9 +107,6 @@ class Stimulator(object):
         modules. It will also tell you the protocol that the motherboard
         is using with the current modules and the number of installed
         current modules.
-
-        Returns:
-            dict: a dictionary populated with the CereStim's information
         """
         dev_info = _bstimulator.DeviceInfo()
         self.last_result = self._bstimulator_obj.read_device_info(dev_info)
@@ -131,11 +127,8 @@ class Stimulator(object):
     def sequence_status(self) -> SeqType:
         """Get stim sequence status
 
-        Can be called anytime as it does not interrupt other functions
+        Can be read anytime as it does not interrupt other functions
         from executing, but simply reads what state the stimulator is in.
-
-        Returns:
-            SeqType: Enum containing the sequence state
         """
         output = _bstimulator.SequenceStatus()
         self.last_result = self._bstimulator_obj.read_sequence_status(output)
@@ -144,11 +137,7 @@ class Stimulator(object):
 
     @property
     def is_stim_sequence_playing(self) -> bool:
-        """Check if a stim sequence is actively playing
-
-        Returns:
-            bool: Whether or not a stim sequence is playing
-        """
+        """Check if a stim sequence is actively playing"""
         return self.sequence_status == self.SeqType.playing
 
     @property
@@ -157,9 +146,6 @@ class Stimulator(object):
 
         Lets the user know that the Stimulator object is connected to a
         physical CereStim 96 device.
-
-        Returns:
-            bool: True if stimulator is connected
         """
         return bool(self._bstimulator_obj.is_connected())
 
@@ -169,9 +155,6 @@ class Stimulator(object):
 
         Retrieves the serial number that is programmed into the
         CereStim 96 device that is attached.
-
-        Returns:
-            dict: Part Number and Serial number of the CereStim 96
         """
         return self._convert_raw_serial_num(self._bstimulator_obj.get_serial_number())
 
@@ -181,9 +164,6 @@ class Stimulator(object):
 
         Retrieves the firmware revision of the microcontroller on the
         motherboard.
-
-        Returns:
-            dict: Firmware Version of the Motherboard
         """
         return self._convert_raw_version(
             self._bstimulator_obj.get_motherboard_firmware_version()
@@ -195,9 +175,6 @@ class Stimulator(object):
 
         The protocol version that the motherboard uses to send and
         receive data from the current modules.
-
-        Returns:
-            dict: Protocol Version of the Motherboard
         """
         return self._convert_raw_version(self._bstimulator_obj.get_protocol_version())
 
@@ -209,9 +186,6 @@ class Stimulator(object):
         such as the micro and macro versions, this will allow the user
         to get the min and max amplitudes that are allowed for
         stimulation.
-
-        Returns:
-            dict: Min and Max Amplitude
         """
         return self._convert_raw_min_max_amp(
             self._bstimulator_obj.get_min_max_amplitude()
@@ -226,9 +200,6 @@ class Stimulator(object):
         should have the same firmware version. The MSB is the Major
         revision number and the LSB is the minor revision number. I.e.
         0x0105 would be version 1.5
-
-        Returns:
-            List[dict]: List of dicts with module firmware versions
         """
         fv = self._bstimulator_obj.get_module_firmware_version()
         output = [self._convert_raw_version(x) for x in fv]
@@ -240,9 +211,6 @@ class Stimulator(object):
 
         This tells the status of each current module, whether it is
         enabled, disabled, or not available.
-
-        Returns:
-            List[ModuleStatus]: List of the possible 16 current modules status
         """
         ms = self._bstimulator_obj.get_module_status()
         output = [ModuleStatus(x) for x in ms]
@@ -250,49 +218,36 @@ class Stimulator(object):
 
     @property
     def usb_address(self) -> int:
-        """Gets the USB address of the connected stimulator
-
-        Returns:
-            int: USB address
-        """
+        """Gets the USB address of the connected stimulator"""
         return self._bstimulator_obj.get_usb_address()
 
     @property
     def max_hard_charge(self) -> int:
         """Get hardware max charge per phase
 
-        This value is based on the hardware of the particuliar model of
+        This value is based on the hardware of the particular model of
         the CereStim 96. Again the micro and macro versions of the
         stimulator have different values
-
-        Returns:
-            int: Max charge per phase
         """
         return self._bstimulator_obj.get_max_hard_charge()
 
     @property
     def min_hard_frequency(self) -> int:
-        """Get hardware minimum frequency
+        """Get hardware minimum frequency in Hz
 
-        This value is based on the hardware of the particuliar model of
+        This value is based on the hardware of the particular model of
         the CereStim 96. Again the micro and macro versions of the
         stimulator have different values
-
-        Returns:
-            int: Minimum Stimulating Frequency in Hz
         """
         return self._bstimulator_obj.get_min_hard_frequency()
 
     @property
     def max_hard_frequency(self) -> int:
-        """Get hardware maximum frequency
+        """Get hardware maximum frequency in Hz
 
-        This value is based on the hardware of the particuliar model of
+        This value is based on the hardware of the particular model of
         the CereStim 96. Again the micro and macro versions of the
         stimulator have different values
-
-        Returns:
-            int: Maximum Stimulating Frequency in Hz
         """
         return self._bstimulator_obj.get_max_hard_frequency()
 
@@ -300,36 +255,27 @@ class Stimulator(object):
     def number_modules(self) -> int:
         """Get number of current modules installed
 
-        This value is based on the hardware of the particuliar model of
+        This value is based on the hardware of the particular model of
         the CereStim 96. Again the micro and macro versions of the
         stimulator have different values
-
-        Returns:
-            int: Number of Modules installed
         """
         return self._bstimulator_obj.get_number_modules()
 
     @property
     def max_hard_width(self) -> int:
-        """Get hardware maximum pulse width
+        """Get hardware maximum pulse width in us
 
         This value is based on the hardware of the particuliar model of
         the CereStim 96.
-
-        Returns:
-            int: Maximum width of each phase in us
         """
         return self._bstimulator_obj.get_max_hard_width()
 
     @property
     def max_hard_interphase(self) -> int:
-        """Get hardware maximum interphase width
+        """Get hardware maximum interphase width in us
 
         This value is based on the hardware of the particuliar model of
         the CereStim 96
-
-        Returns:
-            int: Maximum interphase width in us
         """
         return self._bstimulator_obj.get_max_hard_interphase()
 
@@ -340,9 +286,6 @@ class Stimulator(object):
         For Internal validation and testing it is required to disable
         the safety limits in the firmware and API so that hardware
         limits can be observed and tested.
-
-        Returns:
-            bool: True if disabled False otherwise
         """
         return bool(self._bstimulator_obj.is_safety_disabled())
 
@@ -354,9 +297,6 @@ class Stimulator(object):
         hardware configuration or if the hardware configuration is not
         setup, the device will be locked down preventing any stimulation
         from occuring.
-
-        Returns:
-            bool: True if locked False otherwise
         """
         return bool(self._bstimulator_obj.is_device_locked())
 
@@ -369,7 +309,7 @@ class Stimulator(object):
         and just call connect().
 
         Returns:
-            List[int]: list of serial numbers of the connected Cerestims
+            list of serial numbers of the connected Cerestims
         """
         cls.device_vector = list(_bstimulator.Stimulator.scan_for_devices())
         return cls.device_vector
@@ -383,7 +323,7 @@ class Stimulator(object):
         would like to connect to.
 
         Args:
-            device_index (int, optional): Index of device from scan_for_devices.
+            device_index (optional): Index of device from scan_for_devices.
                 Defaults to 0.
 
         Raises:
@@ -433,23 +373,23 @@ class Stimulator(object):
         This method is simple, but inefficient.
 
         Args:
-            electrode (int): The electrode that should be stimulated.
+            electrode: The electrode that should be stimulated.
                 Valid values are from 1 - 96.
-            afcf (Stimulator.WFType): What polarity should the first
+            afcf: What polarity should the first
                 phase be, Anodic or Cathodic first
-            pulses (int): The number of stimulation pulses in waveform
+            pulses: The number of stimulation pulses in waveform
                 from 1 - 255
-            amp1 (int): The amplitude of the first phase, for Micro it
+            amp1: The amplitude of the first phase, for Micro it
                 is 1 - 215 uA, and for Macro it is 100 uA - 10 mA
-            amp2 (int): The amplitude of the first phase, for Micro it
+            amp2: The amplitude of the first phase, for Micro it
                 is 1 - 215 uA, and for Macro it is 100 uA - 10 mA
-            width1 (int): The width of the first phase in the stimulation
+            width1: The width of the first phase in the stimulation
                 1 - 65,535 uS
-            width2 (int): The width of the second phase in the stimulation
+            width2: The width of the second phase in the stimulation
                 1 - 65,535 uS
-            frequency (int): The stimulating frequency at which the
+            frequency: The stimulating frequency at which the
                 biphasic pulses should repeat 4 - 5000 Hz
-            interphase (int): The period of time between the first and
+            interphase: The period of time between the first and
                 second phases 53 - 65,535 uS
         """
         self.configure_stimulus_pattern(
@@ -478,23 +418,23 @@ class Stimulator(object):
         This method is simple, but inefficient.
 
         Args:
-            electrodes List[int]: The electrodes that should be stimulated.
+            electrodes: The electrodes that should be stimulated.
                 Valid values are from 1 - 96.
-            afcf (Stimulator.WFType): What polarity should the first
+            afcf: What polarity should the first
                 phase be, Anodic or Cathodic first
-            pulses (int): The number of stimulation pulses in waveform
+            pulses: The number of stimulation pulses in waveform
                 from 1 - 255
-            amp1 (int): The amplitude of the first phase, for Micro it
+            amp1: The amplitude of the first phase, for Micro it
                 is 1 - 215 uA, and for Macro it is 100 uA - 10 mA
-            amp2 (int): The amplitude of the first phase, for Micro it
+            amp2: The amplitude of the first phase, for Micro it
                 is 1 - 215 uA, and for Macro it is 100 uA - 10 mA
-            width1 (int): The width of the first phase in the stimulation
+            width1: The width of the first phase in the stimulation
                 1 - 65,535 uS
-            width2 (int): The width of the second phase in the stimulation
+            width2: The width of the second phase in the stimulation
                 1 - 65,535 uS
-            frequency (int): The stimulating frequency at which the
+            frequency: The stimulating frequency at which the
                 biphasic pulses should repeat 4 - 5000 Hz
-            interphase (int): The period of time between the first and
+            interphase: The period of time between the first and
                 second phases 53 - 65,535 uS
         """
         self.configure_stimulus_pattern(
@@ -511,9 +451,9 @@ class Stimulator(object):
         stimulation waveforms to a specified electrode.
 
         Args:
-            electrode (int): The electrode that should be stimulated.
+            electrode: The electrode that should be stimulated.
                 Valid values are from 1 - 96.
-            configID (int): The stimulation waveform to use.
+            configID: The stimulation waveform to use.
                 Valid values are from 1 - 15.
         """
         _ValidationFcns.validate_electrode(electrode)
@@ -580,9 +520,9 @@ class Stimulator(object):
         commands to allow for simultaneous stimulations.
 
         Args:
-            electrode (int): The electrode that will be stimulated.
+            electrode: The electrode that will be stimulated.
                 Valid values are from 1 - 96
-            configID (int): One of the fifteen stimulation waveforms that should be used.
+            configID: One of the fifteen stimulation waveforms that should be used.
                 Valid values are from 1-15
         """
         _ValidationFcns.validate_electrode(electrode)
@@ -599,7 +539,7 @@ class Stimulator(object):
         is capable of adding a wait of up to 65,535 milliseconds.
 
         Args:
-            milliseconds (int): The number of milliseconds to wait before
+            milliseconds: The number of milliseconds to wait before
                 executing the next command
 
         Raises:
@@ -619,7 +559,7 @@ class Stimulator(object):
         Other values include between 1 and 65,535 repetitions. Cannot
         be called during a begin_sequence() and end_sequence() command call.
         Args:
-            times (int): Number of times to execute the stimulation script.
+            times: Number of times to execute the stimulation script.
             0 means indefinitely.
 
         Raises:
@@ -662,7 +602,7 @@ class Stimulator(object):
         delivered to the electrode because it can not drive any more current.
 
         Returns:
-            int: the max output voltage in millivolts
+            the max output voltage in millivolts
         """
         output = _bstimulator.MaxOutputVoltage()
         rw = 0  # read
@@ -683,11 +623,11 @@ class Stimulator(object):
         more current.
 
         Args:
-            oc_voltage (Stimulator.oc_volt): The voltage level that is
+            oc_voltage: The voltage level that is
                 being set. Must be an oc_volt enum value.
 
         Returns:
-            int: the max output voltage in millivolts.
+            the max output voltage in millivolts.
         """
         output = _bstimulator.MaxOutputVoltage()
         rw = 1  # write
@@ -705,7 +645,7 @@ class Stimulator(object):
         multiple current modules are all giving the same output values.
 
         Args:
-            module (int): The current module to be enabled from 0 to 15
+            module: The current module to be enabled from 0 to 15
         """
         _ValidationFcns.validate_module(module)
         self.last_result = self._bstimulator_obj.enable_module(module)
@@ -720,7 +660,7 @@ class Stimulator(object):
         values. The current module has to exist to be disabled.
 
         Args:
-            module (int):The current module to be disabled from 0 to 15
+            module:The current module to be disabled from 0 to 15
         """
         _ValidationFcns.validate_module(module)
         self.last_result = self._bstimulator_obj.disable_module(module)
@@ -754,23 +694,23 @@ class Stimulator(object):
         the time between repeats.
 
         Args:
-            configID (int): The stimulation waveform that is being
+            configID: The stimulation waveform that is being
                 configured 1 - 15
-            afcf (Stimulator.WFType): What polarity should the first
+            afcf: What polarity should the first
                 phase be, Anodic or Cathodic first
-            pulses (int): The number of stimulation pulses in waveform
+            pulses: The number of stimulation pulses in waveform
                 from 1 - 255
-            amp1 (int): The amplitude of the first phase, for Micro it
+            amp1: The amplitude of the first phase, for Micro it
                 is 1 - 215 uA, and for Macro it is 100 uA - 10 mA
-            amp2 (int): The amplitude of the first phase, for Micro it
+            amp2: The amplitude of the first phase, for Micro it
                 is 1 - 215 uA, and for Macro it is 100 uA - 10 mA
-            width1 (int): The width of the first phase in the stimulation
+            width1: The width of the first phase in the stimulation
                 1 - 65,535 uS
-            width2 (int): The width of the second phase in the stimulation
+            width2: The width of the second phase in the stimulation
                 1 - 65,535 uS
-            frequency (int): The stimulating frequency at which the
+            frequency: The stimulating frequency at which the
                 biphasic pulses should repeat 4 - 5000 Hz
-            interphase (int): The period of time between the first and
+            interphase: The period of time between the first and
                 second phases 53 - 65,535 uS
         """
         _ValidationFcns.validate_configID(configID)
@@ -814,11 +754,11 @@ class Stimulator(object):
         the user.
 
         Args:
-            configID (int): The stimulation waveform that is being read back
+            configID: The stimulation waveform that is being read back
 
         Returns:
-            _bstimulator.StimulusConfiguration: structure which contains
-                all the parameters that consist in a stimulation waveform
+            structure which contains all the parameters that consist in
+            a stimulation waveform
         """
         _ValidationFcns.validate_configID(configID)
         output = _bstimulator.StimulusConfiguration()
@@ -833,7 +773,7 @@ class Stimulator(object):
         """Read back all stim config patterns from stimulator
 
         Returns:
-            dict: 15 _bstimulator.StimulusConfiguration structures
+            15 _bstimulator.StimulusConfiguration structures
             Values are None if configuration is inactive
         """
         patterns = {}
@@ -850,7 +790,7 @@ class Stimulator(object):
         """Read maximum stimulus values set using set_stimulus_max_values()
 
         Returns:
-            _bstimulator.MaximumValues: structure that will contain the current max values that are set
+            structure that will contain the current max values that are set
         """
         output = _bstimulator.MaximumValues()
         rw = 0
@@ -878,13 +818,13 @@ class Stimulator(object):
         ranges each are able to achieve.
 
         Args:
-            voltage (OCVolt): The Max Compliance Voltage that can be set
-            amplitude (int): The Max amplitude that can be used in a stimulation
-            phaseCharge (int): The Max charge per phase that will be allowed (Charge = Amplitude * Width)
-            frequency (int): The Max frequency at which the stimulations can take place
+            voltage: The Max Compliance Voltage that can be set
+            amplitude: The Max amplitude that can be used in a stimulation
+            phaseCharge: The Max charge per phase that will be allowed (Charge = Amplitude * Width)
+            frequency: The Max frequency at which the stimulations can take place
 
         Returns:
-            _bstimulator.MaximumValues: structure that will contain the current max values that are set
+            structure that will contain the current max values that are set
         """
         output = _bstimulator.MaximumValues()
         rw = 1
@@ -910,14 +850,14 @@ class Stimulator(object):
         based on different electrodes and configured waveforms.
 
         Args:
-            begin_seq (bool): Boolean expression to tell the function
+            begin_seq: Boolean expression to tell the function
                 that it is the beginning of a sequence
-            play (bool): Boolean expression to tell if the stimulator
+            play: Boolean expression to tell if the stimulator
                 should begin stimulating immedieatly after this call
-            times (int): The number of times to play the stimulation,
+            times: The number of times to play the stimulation,
                 is ignored if play = false
-            group_stim_struct (GroupStimulusStruct): structure which
-                has a pair of arrays with electrodes and waveforms
+            group_stim_struct: structure which has a pair of arrays
+                with electrodes and waveforms
         """
         bgroup_stim_struct = _bstimulator.GroupStimulus()
         bgroup_stim_struct.electrode = group_stim_struct.electrode
@@ -940,7 +880,7 @@ class Stimulator(object):
         function calls except for stop_trigger_stimulus()
 
         Args:
-            edge (TriggerType): The type of digital event to trigger the stimulation on
+            edge: The type of digital event to trigger the stimulation on
         """
         self.last_result = self._bstimulator_obj.trigger_stimulus(edge)
         self._raise_if_error("trigger_stimulus")
@@ -964,7 +904,7 @@ class Stimulator(object):
         at that channel.
 
         Args:
-            map (ElectrodeChannelMap):channel map structure
+            map:channel map structure
         """
         self.last_result = self._bstimulator_obj.update_electrode_channel_map(map)
         self._raise_if_error("update_electrode_channel_map")
@@ -973,7 +913,7 @@ class Stimulator(object):
         """Reads the hardware values that are set based on the part number
 
         Returns:
-            _bstimulator.ReadHardwareValuesOutput: Structure containing the hardware values
+            Structure containing the hardware values
         """
         output = _bstimulator.ReadHardwareValuesOutput()
         self.last_result = self._bstimulator_obj.read_hardware_values(output)
@@ -984,7 +924,7 @@ class Stimulator(object):
         """Disables a stimulation waveform so that it is able to be reset
 
         Args:
-            configID (int): The configuration to disable
+            configID: The configuration to disable
         """
         _ValidationFcns.validate_configID(configID)
         self.last_result = self._bstimulator_obj.disable_stimulus_configuration(
