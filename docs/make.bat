@@ -8,8 +8,8 @@ if "%SPHINXBUILD%" == "" (
 	set SPHINXBUILD=sphinx-build
 )
 set SOURCEDIR=source
-set BUILDDIR=build
-set HTMLDIR=../docs
+set BUILDDIR=_build
+set HTMLDIR=%BUILDDIR%/html
 
 %SPHINXBUILD% >NUL 2>NUL
 if errorlevel 9009 (
@@ -27,6 +27,11 @@ if errorlevel 9009 (
 if "%1" == "" goto help
 
 %SPHINXBUILD% -M %1 %SOURCEDIR% %BUILDDIR% %SPHINXOPTS% %O%
+if NOT "%HTMLDIR%" == "%BUILDDIR%/html" goto movehtml 
+
+goto end
+
+:movehtml
 move %BUILDDIR%/html %HTMLDIR%
 goto end
 
