@@ -352,7 +352,7 @@
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.api_version" title="br_stimpy.stimpy.Stimulator.api_version"><code class="xref py py-obj docutils literal notranslate"><span class="pre">api_version</span></code></a></p></td>
-<td><p>Get Cerestim API library version</p></td>
+<td><p>Cerestim API library version</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.device_info" title="br_stimpy.stimpy.Stimulator.device_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">device_info</span></code></a></p></td>
 <td><p>Read device hardware and firmware info</p></td>
@@ -412,7 +412,7 @@
 <td><p>Get device serial number</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.stimulus_patterns_cached" title="br_stimpy.stimpy.Stimulator.stimulus_patterns_cached"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stimulus_patterns_cached</span></code></a></p></td>
-<td><p>Get cached list of configured stimulus patterns</p></td>
+<td><p>Cached list of configured stimulus patterns</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy.stimpy.Stimulator.usb_address" title="br_stimpy.stimpy.Stimulator.usb_address"><code class="xref py py-obj docutils literal notranslate"><span class="pre">usb_address</span></code></a></p></td>
 <td><p>Gets the USB address of the connected stimulator</p></td>
@@ -579,12 +579,7 @@
 <dl class="py property">
 <dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.api_version">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">api_version</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Version</span></em><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.api_version" title="Permalink to this definition"></a></dt>
-<dd><p>Get Cerestim API library version</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>structure containing version info</p>
-</dd>
-</dl>
+<dd><p>Cerestim API library version</p>
 </dd></dl>
 
 <dl class="py method">
@@ -1013,19 +1008,17 @@ receives a play command it can pick up where it left off.</p>
 stimulation script. A zero passed in will tell it to run
 indefinitely until it is either stopped or paused by the user.
 Other values include between 1 and 65,535 repetitions. Cannot
-be called during a begin_sequence() and end_sequence() command call.
-:type times: <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>
-:param times: Number of times to execute the stimulation script.
-:param 0 means indefinitely.:</p>
+be called during a begin_sequence() and end_sequence() command call.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.11)"><strong>ValueError</strong></a> – times must be between 0 and 65535.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
-</dd>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>times</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – </p>
+<dd class="field-odd"><p><strong>times</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Number of times to execute the stimulation script.
+0 means indefinitely.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.11)"><strong>ValueError</strong></a> – times must be between 0 and 65535.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1300,13 +1293,7 @@ second phases 53 - 65,535 uS</p></li>
 <dl class="py property">
 <dt class="sig sig-object py" id="br_stimpy.stimpy.Stimulator.stimulus_patterns_cached">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">stimulus_patterns_cached</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a></em><a class="headerlink" href="#br_stimpy.stimpy.Stimulator.stimulus_patterns_cached" title="Permalink to this definition"></a></dt>
-<dd><p>Get cached list of configured stimulus patterns</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>15 cached _bstimulator.StimulusConfiguration
-structures,  None if configuration is inactive.</p>
-</dd>
-</dl>
+<dd><p>Cached list of configured stimulus patterns</p>
 </dd></dl>
 
 <dl class="py method">

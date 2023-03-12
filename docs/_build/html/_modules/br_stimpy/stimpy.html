@@ -314,11 +314,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">api_version</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_bstimulator</span><span class="o">.</span><span class="n">Version</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get Cerestim API library version</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            structure containing version info</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Cerestim API library version&quot;&quot;&quot;</span>
         <span class="n">version_struct</span> <span class="o">=</span> <span class="n">_bstimulator</span><span class="o">.</span><span class="n">Version</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">last_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">lib_version</span><span class="p">(</span><span class="n">version_struct</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_raise_if_error</span><span class="p">(</span><span class="s2">&quot;api_lib_version&quot;</span><span class="p">)</span>
@@ -326,12 +322,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">stimulus_patterns_cached</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get cached list of configured stimulus patterns</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            15 cached _bstimulator.StimulusConfiguration</span>
-<span class="sd">            structures,  None if configuration is inactive.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Cached list of configured stimulus patterns&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pattern_cache</span>
 
     <span class="nd">@property</span>
@@ -795,9 +786,10 @@
 <span class="sd">        indefinitely until it is either stopped or paused by the user.</span>
 <span class="sd">        Other values include between 1 and 65,535 repetitions. Cannot</span>
 <span class="sd">        be called during a begin_sequence() and end_sequence() command call.</span>
+<span class="sd">        </span>
 <span class="sd">        Args:</span>
 <span class="sd">            times: Number of times to execute the stimulation script.</span>
-<span class="sd">            0 means indefinitely.</span>
+<span class="sd">                0 means indefinitely.</span>
 
 <span class="sd">        Raises:</span>
 <span class="sd">            ValueError: times must be between 0 and 65535.</span>
