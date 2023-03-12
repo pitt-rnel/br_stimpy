@@ -54,7 +54,8 @@ intersphinx_mapping = {
 templates_path = ['_templates']
 exclude_patterns = []
 
-
+#myst
+myst_enable_extensions = ["colon_fence"]
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
@@ -88,5 +89,4 @@ autosummary_generate = True # Turn on sphinx.ext.autosummary
 autosummary_imported_members = True
 add_module_names = False # Remove namespaces from class/method signatures
 
-#myst
-myst_enable_extensions = ["colon_fence"]
+
