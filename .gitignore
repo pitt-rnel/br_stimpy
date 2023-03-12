@@ -1,6 +1,6 @@
 extern/*
 .vscode/*
-docs_source/source/_autosummary
+docs/source/_autosummary
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
