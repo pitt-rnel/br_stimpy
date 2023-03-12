@@ -2,7 +2,9 @@
 
 ![stimpy icon](assets/stimpy.png)
 
-## Dependencies
+Read the complete API documentation [here](https://pitt-rnel.github.io/br_stimpy/).
+
+## Dependencies and Installation
 This package depends on the Blackrock Cerestim API (for C++),
 [pybind11](https://github.com/pybind/pybind11), and a C++ compiler.
 
@@ -37,14 +39,15 @@ stim_obj.simple_stimulus(
 )
 stim_obj.disconnect()
 ```
-See additional examples in the examples directory.
+See additional examples in the examples directory or read the complete API
+documentation [here](https://pitt-rnel.github.io/br_stimpy/).
 
 ## Maintainer
 Maintained by [Jeff Weiss](https://github.com/jmw182) and 
 [RNEL](https://github.com/pitt-rnel) at the University of Pittsburgh.
 
 ### Disclaimer
-The graphic included in this README is not intended to be an
-official logo or mascot for this package. The maintainers of this
-package do not claim any ownership over the copyright of this image
-or the character depicted within it.
+The graphic included in this README is not intended to be an official logo or
+mascot for this package. The maintainers of this package do not claim any
+ownership over the copyright of this image or the character depicted within it.
+The authors of this package are not affiliated with Blackrock Neurotech.
