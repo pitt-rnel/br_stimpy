@@ -21,25 +21,23 @@ class GroupStimulusStruct(object):
     Constructor will check that electrode and pattern IDs are valid and
     not longer than MAX_MODULES. Will zero-pad lists to length
     MAX_MODULES. User cannot modify these lengths after object creation.
+
+    Args:
+        electrode:
+            List of electrodes to stimulate on, up to length
+            MAX_MODULES. Defaults to None.
+        pattern:
+            List of pattern config IDs to match to electrodes above.
+            Must be same length as electrode list. Defaults to None.
+    
+    Raises:
+        ValueError: Electrode and Pattern lists must be the same length and cannot be longer than MAX_MODULES.
     """
 
     def __init__(
         self, electrode: Optional[List[int]] = None, pattern: Optional[List[int]] = None
     ) -> None:
-        """
-        GroupStimulusStruct constructor
-
-        Args:
-            electrode (Optional[List[int]], optional):
-                List of electrodes to stimulate on, up to length
-                MAX_MODULES. Defaults to None.
-            pattern (Optional[List[int]], optional):
-                List of pattern config IDs to match to electrodes above.
-                Must be same length as electrode list. Defaults to None.
-
-        Raises:
-            ValueError: Electrode and Pattern lists must be the same length and cannot be longer than MAX_MODULES.
-        """
+        
         if electrode:
             self._number = len(electrode)
         else:
