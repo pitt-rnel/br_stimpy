@@ -49,6 +49,7 @@ class Stimulator(object):
             RuntimeError: Only 12 stimulator objects can be created at a time
     """
 
+    #: list of stimulators across all class instances
     device_vector: Optional[List[int]] = None
     _stimulator_count: int = 0
 
@@ -61,7 +62,7 @@ class Stimulator(object):
     ModuleStatus = ModuleStatus
     SeqType = SeqType
 
-    def __init__(self) -> None:
+    def __init__(self):
         Stimulator._stimulator_count += 1
         if Stimulator._stimulator_count > MAX_STIMULATORS:
             raise RuntimeError("Max stimulator error")
@@ -970,7 +971,7 @@ class Stimulator(object):
         amp_limits = {"min_amp": raw_amp & 0xFFFF, "max_amp": (raw_amp >> 16) & 0xFFFF}
         return amp_limits
 
-    def __del__(self) -> None:
+    def __del__(self):
         """Stimulator destructor
 
         Decrements _stimulator_count
