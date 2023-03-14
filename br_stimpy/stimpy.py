@@ -1,5 +1,28 @@
-"""br_stimpy: a python package to interface with Blackrock Cerestim API."""
+"""stimpy: a python package to interface with Blackrock Cerestim API.
 
+Quickstart Example::
+
+    from br_stimpy import stimpy
+    
+    stim_obj = stimpy.Stimulator()
+    print(stim_obj.api_version)
+    stim_obj.connect()
+    stim_obj.simple_stimulus(
+        electrode=1,
+        afcf=stimpy.WFType.wf_cathodic_first,
+        pulses=1,
+        amp1=10,
+        amp2=10,
+        width1=200,
+        width2=200,
+        frequency=100,
+        interphase=100,
+    )
+    stim_obj.disconnect()
+
+Note that this module imports constants from :py:mod:`~br_stimpy.constants` in
+addition to the classes imported or defined here.
+"""
 # br_stimpy.stimpy
 # Author: Jeff Weiss <jeff.weiss@pitt.edu>
 # May 2022
@@ -17,7 +40,7 @@ def get_enum_docstr(enum_val: Any) -> str:
     """Lookup docstr for a pybind11 enum value and output as string
 
     Args:
-        enum_val: an enumeration value from the _bstimulator module
+        enum_val: an enumeration value from the :py:mod:`~br_stimpy.enums` module
 
     Returns:
         docstr for the enum_val
@@ -44,7 +67,7 @@ def get_api_version() -> _bstimulator.Version:
 
 class Stimulator(object):
     """Simple python interface to Blackrock Cerestim 96
-    
+
     Raises:
             RuntimeError: Only 12 stimulator objects can be created at a time
     """
@@ -298,7 +321,7 @@ class Stimulator(object):
         """Scan for connected Cerestim devices
 
         If only one Cerestim device is attached to PC, you can skip this step
-        and just call connect().
+        and just call :py:func:`connect`.
 
         Returns:
             list of serial numbers of the connected Cerestims
@@ -310,12 +333,12 @@ class Stimulator(object):
     def connect(self, device_index: int = 0) -> None:
         """Connect to Cerestim.
 
-        If multiple devices are attached to PC, first call scan_for_devices
+        If multiple devices are attached to PC, first call :py:func:`scan_for_devices`
         to view the list of serial numbers, then input the device_index you
         would like to connect to.
 
         Args:
-            device_index (optional): Index of device from scan_for_devices.
+            device_index: (Optional) Index of device from :py:func:`scan_for_devices`.
                 Defaults to 0.
 
         Raises:
@@ -359,9 +382,9 @@ class Stimulator(object):
     ) -> None:
         """Simplest method to manually command a stimulus pulse
 
-        Combines configure_stimulus_pattern() and manual_stimulus()
+        Combines :py:func:`configure_stimulus_pattern` and :py:func:`manual_stimulus`
         into a single call. Note that the overhead of
-        configure_stimulus_pattern() limits how quickly this can run.
+        :py:func:`configure_stimulus_pattern` limits how quickly this can run.
         This method is simple, but inefficient.
 
         Args:
@@ -404,9 +427,9 @@ class Stimulator(object):
         """Simplest method to manually command a group stimulus pulse
         with identical parameters on all electrodes
 
-        Combines configure_stimulus_pattern() and group_stimulus()
+        Combines :py:func:`configure_stimulus_pattern` and :py:func:`group_stimulus`
         into a single call. Note that the overhead of
-        configure_stimulus_pattern() limits how quickly this can run.
+        :py:func:`configure_stimulus_pattern` limits how quickly this can run.
         This method is simple, but inefficient.
 
         Args:
@@ -460,10 +483,10 @@ class Stimulator(object):
         """Begin stim script
 
         This is the first command that must be called when creating a
-        stimulation script. After calling this you are able to call wait(),
-        auto_stimulus(), begin_group(), and end_group() commands. The
+        stimulation script. After calling this you are able to call :py:func:`wait`,
+        :py:func:`auto_stimulus`, :py:func:`begin_group`, and :py:func:`end_group` commands. The
         stimulation script can have up to 128 commands, excluding
-        begin_sequence() and end_sequence()
+        :py:func:`begin_sequence` and :py:func:`end_sequence`
         """
         self.last_result = self._bstimulator_obj.beginning_of_sequence()
         self._raise_if_error("begin_sequence")
@@ -482,8 +505,8 @@ class Stimulator(object):
         """Begin group stim
 
         This command signifies that the following commands up to the
-        end_group() command should all occur simultaneously. The only
-        commands that are valid are the auto_stimulus() commands. You
+        :py:func:`end_group` command should all occur simultaneously. The only
+        commands that are valid are the :py:func:`auto_stimulus` commands. You
         can only have as many stimulations as the number of current
         modules installed. Can't be called on the last of the 128
         instructions since it needs to have a closing end_group command.
@@ -495,8 +518,8 @@ class Stimulator(object):
         """End group stim
 
         This command closes off a group of simultaneous stimulations.
-        If begin_group() is called during a sequence of commands, then
-        there must be an end_group() otherwise the user will get a
+        If :py:func:`begin_group` is called during a sequence of commands, then
+        there must be an :py:func:`end_group` otherwise the user will get a
         sequence error as a return value.
         """
         self.last_result = self._bstimulator_obj.end_of_group()
@@ -508,7 +531,7 @@ class Stimulator(object):
         This command tells the stimulator when to send a stimulus to an
         electrode in a stimulation script. It can be used as many times
         as needed so long as the total number of commands does not exceed
-        128. It should also be used within begin_group() and end_group()
+        128. It should also be used within :py:func:`begin_group` and :py:func:`end_group`
         commands to allow for simultaneous stimulations.
 
         Args:
@@ -549,8 +572,8 @@ class Stimulator(object):
         stimulation script. A zero passed in will tell it to run
         indefinitely until it is either stopped or paused by the user.
         Other values include between 1 and 65,535 repetitions. Cannot
-        be called during a begin_sequence() and end_sequence() command call.
-        
+        be called during a :py:func:`begin_sequence` and :py:func:`end_sequence` command call.
+
         Args:
             times: Number of times to execute the stimulation script.
                 0 means indefinitely.
@@ -742,16 +765,15 @@ class Stimulator(object):
     ) -> _bstimulator.StimulusConfiguration:
         """Read stim config pattern
 
-        Reads back all of the parameters associated with a specific
-        stimulation waveform and stores it in the structure supplied by
-        the user.
+        Reads back all of the parameters associated with a specific stimulation
+        waveform and stores it in the structure supplied by the user.
 
         Args:
             configID: The stimulation waveform that is being read back
 
         Returns:
-            structure which contains all the parameters that consist in
-            a stimulation waveform
+            structure which contains all the parameters that consist in a
+            stimulation waveform
         """
         _ValidationFcns.validate_configID(configID)
         output = _bstimulator.StimulusConfiguration()
@@ -766,7 +788,7 @@ class Stimulator(object):
         """Read back all stim config patterns from stimulator
 
         Returns:
-            15 _bstimulator.StimulusConfiguration structures.
+            15 :py:class:`~br_stimpy._bstimulator.StimulusConfiguration` structures.
             Values are None if configuration is inactive.
         """
         patterns = {}
@@ -780,7 +802,7 @@ class Stimulator(object):
         return self._pattern_cache
 
     def read_stimulus_max_values(self) -> _bstimulator.MaximumValues:
-        """Read maximum stimulus values set using set_stimulus_max_values()
+        """Read maximum stimulus values set using :py:func:`set_stimulus_max_values`
 
         Returns:
             structure that will contain the current max values that are set
@@ -870,7 +892,7 @@ class Stimulator(object):
         whether the input is high or low. The stimulator can be set to
         fire on a rising edge, falling edge, or any edge transition.
         Once in trigger mode the stimulator is locked down from other
-        function calls except for stop_trigger_stimulus()
+        function calls except for :py:func:`stop_trigger_stimulus`
 
         Args:
             edge: The type of digital event to trigger the stimulation on
@@ -929,7 +951,7 @@ class Stimulator(object):
         """Stimulator Reset
 
         Administrative command that will call the reset interrupt
-        vector on the uController. User will need to call connect()
+        vector on the uController. User will need to call :py:func:`connect`
         after calling this.
         """
         self.last_result = self._bstimulator_obj.reset_stimulator()
