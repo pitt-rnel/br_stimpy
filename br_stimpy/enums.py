@@ -1,4 +1,4 @@
-"""Enumeration classes from _bstimulator submodule"""
+"""Enumeration classes from :py:mod:`~br_stimpy._bstimulator` submodule"""
 # Author: Jeff Weiss <jeff.weiss@pitt.edu>
 # February 2023
 

@@ -15,29 +15,33 @@ from typing import List, Optional, Any
 class GroupStimulusStruct(object):
     """Group Stimulus Structure
 
-    Structure to input to Stimulator.group_stimulus() function.
+    Structure to input to :py:meth:`~br_stimpy.stimpy.Stimulator.group_stimulus` function.
 
-    Optionally accepts electrode and pattern ID lists as input.
-    Constructor will check that electrode and pattern IDs are valid and
-    not longer than MAX_MODULES. Will zero-pad lists to length
-    MAX_MODULES. User cannot modify these lengths after object creation.
+    Optionally accepts electrode and pattern ID lists as input. Constructor will
+    check that electrode and pattern IDs are valid and not longer than
+    :py:const:`~br_stimpy.constants.MAX_MODULES`. Will zero-pad lists to length
+    :py:const:`~br_stimpy.constants.MAX_MODULES`. User cannot modify these
+    lengths after object creation.
 
     Args:
         electrode:
             List of electrodes to stimulate on, up to length
-            MAX_MODULES. Defaults to None.
+            :py:const:`~br_stimpy.constants.MAX_MODULES`. Defaults to None.
+
         pattern:
-            List of pattern config IDs to match to electrodes above.
-            Must be same length as electrode list. Defaults to None.
-    
+            List of pattern config IDs to match to electrodes above. Must be
+            same length as electrode list. Defaults to None.
+
     Raises:
-        ValueError: Electrode and Pattern lists must be the same length and cannot be longer than MAX_MODULES.
+        ValueError:
+            Electrode and Pattern lists must be the same length and cannot be
+            longer than :py:const:`~br_stimpy.constants.MAX_MODULES`.
+
     """
 
     def __init__(
         self, electrode: Optional[List[int]] = None, pattern: Optional[List[int]] = None
     ):
-        
         if electrode:
             self._number = len(electrode)
         else:
