@@ -1,5 +1,28 @@
-"""br_stimpy: a python package to interface with Blackrock Cerestim API."""
+"""stimpy: a python package to interface with Blackrock Cerestim API.
 
+Quickstart Example::
+
+    from br_stimpy import stimpy
+    
+    stim_obj = stimpy.Stimulator()
+    print(stim_obj.api_version)
+    stim_obj.connect()
+    stim_obj.simple_stimulus(
+        electrode=1,
+        afcf=stimpy.WFType.wf_cathodic_first,
+        pulses=1,
+        amp1=10,
+        amp2=10,
+        width1=200,
+        width2=200,
+        frequency=100,
+        interphase=100,
+    )
+    stim_obj.disconnect()
+
+Note that this module imports constants from :py:mod:`br_stimpy.constants` in
+addition to the classes imported or defined here.
+"""
 # br_stimpy.stimpy
 # Author: Jeff Weiss <jeff.weiss@pitt.edu>
 # May 2022

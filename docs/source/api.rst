@@ -10,6 +10,7 @@
    :recursive:
 
    br_stimpy
+   br_stimpy._bstimulator
 
 ..
    br_stimpy.stimpy

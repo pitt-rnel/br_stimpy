@@ -1,0 +1,878 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" />
+
+    <!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
+        <title>br_stimpy._bstimulator.Stimulator - br_stimpy 0.0.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">br_stimpy 0.0.5 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../_static/stimpy.png" alt="Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">br_stimpy 0.0.5 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">   Home page</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="br_stimpy.stimpy.html">   API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="br_stimpy.stimpy.get_api_version.html">br_stimpy.stimpy.get_api_version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="br_stimpy.stimpy.get_enum_docstr.html">br_stimpy.stimpy.get_enum_docstr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="br_stimpy.stimpy.ElectrodeChannelMap.html">br_stimpy.stimpy.ElectrodeChannelMap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="br_stimpy.stimpy.GroupStimulusStruct.html">br_stimpy.stimpy.GroupStimulusStruct</a></li>
+<li class="toctree-l2"><a class="reference internal" href="br_stimpy.stimpy.ModuleStatus.html">br_stimpy.stimpy.ModuleStatus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="br_stimpy.stimpy.OCVolt.html">br_stimpy.stimpy.OCVolt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="br_stimpy.stimpy.PartNumbers.html">br_stimpy.stimpy.PartNumbers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="br_stimpy.stimpy.ResultType.html">br_stimpy.stimpy.ResultType</a></li>
+<li class="toctree-l2"><a class="reference internal" href="br_stimpy.stimpy.SeqType.html">br_stimpy.stimpy.SeqType</a></li>
+<li class="toctree-l2"><a class="reference internal" href="br_stimpy.stimpy.Stimulator.html">br_stimpy.stimpy.Stimulator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="br_stimpy.stimpy.TriggerType.html">br_stimpy.stimpy.TriggerType</a></li>
+<li class="toctree-l2"><a class="reference internal" href="br_stimpy.stimpy.WFType.html">br_stimpy.stimpy.WFType</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="br-stimpy-bstimulator-stimulator">
+<h1>br_stimpy._bstimulator.Stimulator<a class="headerlink" href="#br-stimpy-bstimulator-stimulator" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Stimulator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
+<p>The stimulator class encapsulates all the functionallity of the stimulator and allows the user the ability to interface directly with Blackrock Microsystems CereStim 96 device. By encapsulating it in an object, multiple stimulators can be connected to a single Host PC and be used simultaneously.</p>
+<p>Creates a stimulator object that is able to bind to an actual CereStim 96 that is connected to the host PC.</p>
+<p class="rubric">Methods</p>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.auto_stimulus" title="br_stimpy._bstimulator.Stimulator.auto_stimulus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">auto_stimulus</span></code></a></p></td>
+<td><p>This command tells the stimulator when to send a stimulus to an electrode in a stimulation script.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.beginning_of_group" title="br_stimpy._bstimulator.Stimulator.beginning_of_group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">beginning_of_group</span></code></a></p></td>
+<td><p>This command signifies that the following commands up to the endOfGroup command should all occur simultaneously.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.beginning_of_sequence" title="br_stimpy._bstimulator.Stimulator.beginning_of_sequence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">beginning_of_sequence</span></code></a></p></td>
+<td><p>This is the first command that must be called when creating a stimulation script.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.configure_stimulus_pattern" title="br_stimpy._bstimulator.Stimulator.configure_stimulus_pattern"><code class="xref py py-obj docutils literal notranslate"><span class="pre">configure_stimulus_pattern</span></code></a></p></td>
+<td><p>Takes all of the parameters needed in order to create a custom biphasic stimulation waveform.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.connect" title="br_stimpy._bstimulator.Stimulator.connect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">connect</span></code></a></p></td>
+<td><p>Tries to establish a connection with a CereStim 96 device that has been selected using setDevice().</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.disable_module" title="br_stimpy._bstimulator.Stimulator.disable_module"><code class="xref py py-obj docutils literal notranslate"><span class="pre">disable_module</span></code></a></p></td>
+<td><p>Allows the user to disable different current modules that are installed in the CereStim.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.disable_stimulus_configuration" title="br_stimpy._bstimulator.Stimulator.disable_stimulus_configuration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">disable_stimulus_configuration</span></code></a></p></td>
+<td><p>Disables a stimulation waveform so that it is able to be reset</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.disconnect" title="br_stimpy._bstimulator.Stimulator.disconnect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">disconnect</span></code></a></p></td>
+<td><p>Disconnects from a connected CereStim 96 device.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.enable_module" title="br_stimpy._bstimulator.Stimulator.enable_module"><code class="xref py py-obj docutils literal notranslate"><span class="pre">enable_module</span></code></a></p></td>
+<td><p>Allows the user to enable different current modules that have been disabled.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.end_of_group" title="br_stimpy._bstimulator.Stimulator.end_of_group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">end_of_group</span></code></a></p></td>
+<td><p>This command closes off a group of simultaneous stimulations.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.end_of_sequence" title="br_stimpy._bstimulator.Stimulator.end_of_sequence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">end_of_sequence</span></code></a></p></td>
+<td><p>This is the last command that must be called when creating a stimulation script.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.erase_eeprom" title="br_stimpy._bstimulator.Stimulator.erase_eeprom"><code class="xref py py-obj docutils literal notranslate"><span class="pre">erase_eeprom</span></code></a></p></td>
+<td><p>Erases the complete EEProm on the the CereStim 96 motherboard, setting all values to 0xFF</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.get_interface" title="br_stimpy._bstimulator.Stimulator.get_interface"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_interface</span></code></a></p></td>
+<td><p>Checks to see what interface is being used for the connection between the stimulator object and the physical CereStim 96 Device.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.get_max_hard_charge" title="br_stimpy._bstimulator.Stimulator.get_max_hard_charge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_max_hard_charge</span></code></a></p></td>
+<td><p>This value is based on the hardware of the particuliar model of the CereStim 96.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.get_max_hard_frequency" title="br_stimpy._bstimulator.Stimulator.get_max_hard_frequency"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_max_hard_frequency</span></code></a></p></td>
+<td><p>This value is based on the hardware of the particuliar model of the CereStim 96.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.get_max_hard_interphase" title="br_stimpy._bstimulator.Stimulator.get_max_hard_interphase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_max_hard_interphase</span></code></a></p></td>
+<td><p>This value is based on the hardware of the particuliar model of the CereStim 96</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.get_max_hard_width" title="br_stimpy._bstimulator.Stimulator.get_max_hard_width"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_max_hard_width</span></code></a></p></td>
+<td><p>This value is based on the hardware of the particuliar model of the CereStim 96.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.get_min_hard_frequency" title="br_stimpy._bstimulator.Stimulator.get_min_hard_frequency"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_min_hard_frequency</span></code></a></p></td>
+<td><p>This value is based on the hardware of the particuliar model of the CereStim 96.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.get_min_max_amplitude" title="br_stimpy._bstimulator.Stimulator.get_min_max_amplitude"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_min_max_amplitude</span></code></a></p></td>
+<td><p>Since there are different models and version of the stimulator, such as the micro and macro versions, this will allow the user to get the min and max amplitudes that are allowed for stimulation.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.get_module_firmware_version" title="br_stimpy._bstimulator.Stimulator.get_module_firmware_version"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_module_firmware_version</span></code></a></p></td>
+<td><p>Each current module has its own microcontroller and has a firmware version.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.get_module_status" title="br_stimpy._bstimulator.Stimulator.get_module_status"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_module_status</span></code></a></p></td>
+<td><p>This tells the status of each current module, whether it is enabled, disabled, or not available.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.get_motherboard_firmware_version" title="br_stimpy._bstimulator.Stimulator.get_motherboard_firmware_version"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_motherboard_firmware_version</span></code></a></p></td>
+<td><p>Retrieves the firmware revision of the microcontroller on the motherboard.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.get_number_modules" title="br_stimpy._bstimulator.Stimulator.get_number_modules"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_number_modules</span></code></a></p></td>
+<td><p>This value is based on the hardware of the particuliar model of the CereStim 96.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.get_protocol_version" title="br_stimpy._bstimulator.Stimulator.get_protocol_version"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_protocol_version</span></code></a></p></td>
+<td><p>The protocol version that the motherboard uses to send and receive data from the current modules.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.get_serial_number" title="br_stimpy._bstimulator.Stimulator.get_serial_number"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_serial_number</span></code></a></p></td>
+<td><p>Retrieves the serial number that is programmed into the CereStim 96 device that is attached.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.get_usb_address" title="br_stimpy._bstimulator.Stimulator.get_usb_address"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_usb_address</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.group_stimulus" title="br_stimpy._bstimulator.Stimulator.group_stimulus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">group_stimulus</span></code></a></p></td>
+<td><p>There is a lot of overhead in sending commands over the USB to the CereStim 96.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.is_connected" title="br_stimpy._bstimulator.Stimulator.is_connected"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_connected</span></code></a></p></td>
+<td><p>Lets the user know that the stimulator object is connected to a physical CereStim 96 device.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.is_device_locked" title="br_stimpy._bstimulator.Stimulator.is_device_locked"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_device_locked</span></code></a></p></td>
+<td><p>If the detected number of current modules doesn't match the hardware configuration or if the hardware configuration is not setup, the device will be locked down preventing any stimulation from occuring.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.is_safety_disabled" title="br_stimpy._bstimulator.Stimulator.is_safety_disabled"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_safety_disabled</span></code></a></p></td>
+<td><p>For Internal validation and testing it is required to disable the safety limits in the firmware and API so that hardware limits can be observed and tested.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.lib_version" title="br_stimpy._bstimulator.Stimulator.lib_version"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lib_version</span></code></a></p></td>
+<td><p>Takes a pointer to a BVersion structure and writes the libarary version to the structure.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.manual_stimulus" title="br_stimpy._bstimulator.Stimulator.manual_stimulus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">manual_stimulus</span></code></a></p></td>
+<td><p>Allows the user to send a single stimulus pulse of one of the stimulation waveforms to a specified electrode.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.max_output_voltage" title="br_stimpy._bstimulator.Stimulator.max_output_voltage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_output_voltage</span></code></a></p></td>
+<td><p>This will set the values of +VDD and -VSS on the stimulator which allows it to effectively limit the maximum output voltage that can be delivered during a stimulation.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.measure_output_voltage" title="br_stimpy._bstimulator.Stimulator.measure_output_voltage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">measure_output_voltage</span></code></a></p></td>
+<td><p>Sends a known stimulation configuration, 45 uA for micro and 9 mA for Macro, from a selected current module to a specific module.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.pause" title="br_stimpy._bstimulator.Stimulator.pause"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pause</span></code></a></p></td>
+<td><p>This will pause a currently running stimulation script and keep track of the next command that needs to be executed so if it receives a play command it can pick up where it left off.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.play" title="br_stimpy._bstimulator.Stimulator.play"><code class="xref py py-obj docutils literal notranslate"><span class="pre">play</span></code></a></p></td>
+<td><p>Tells the stimulator the number of times that it should run the stimulation script.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.read_device_info" title="br_stimpy._bstimulator.Stimulator.read_device_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_device_info</span></code></a></p></td>
+<td><p>This returns all the information about the CereStim 96 that is connected to.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.read_eeprom" title="br_stimpy._bstimulator.Stimulator.read_eeprom"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_eeprom</span></code></a></p></td>
+<td><p>Reads the CereStim 96 motherboards EEprom and returns all values</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.read_hardware_values" title="br_stimpy._bstimulator.Stimulator.read_hardware_values"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_hardware_values</span></code></a></p></td>
+<td><p>Reads the hardware values that are set based on the part number</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.read_sequence_status" title="br_stimpy._bstimulator.Stimulator.read_sequence_status"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_sequence_status</span></code></a></p></td>
+<td><p>Can be called anytime as it does not interrupt other functions from executing, but simply reads what state the stimulator is in.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.read_stimulus_pattern" title="br_stimpy._bstimulator.Stimulator.read_stimulus_pattern"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_stimulus_pattern</span></code></a></p></td>
+<td><p>Reads back all of the parameters associated with a specific stimulation waveform and stores it in the structure supplied by the user</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.reset_stimulator" title="br_stimpy._bstimulator.Stimulator.reset_stimulator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset_stimulator</span></code></a></p></td>
+<td><p>Administrative command that will call the reset interrupt vector on the uController User will need to call Connect after calling this.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.scan_for_devices" title="br_stimpy._bstimulator.Stimulator.scan_for_devices"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scan_for_devices</span></code></a></p></td>
+<td><p>Scans all USB devices and builds up a list of serial numbers of the devices connected to the computer.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.set_device" title="br_stimpy._bstimulator.Stimulator.set_device"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_device</span></code></a></p></td>
+<td><p>Using the index of the device in the serial number list obtained from scanForDevices(), set the device you want to connect.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.stimulus_max_values" title="br_stimpy._bstimulator.Stimulator.stimulus_max_values"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stimulus_max_values</span></code></a></p></td>
+<td><p>Intended to be an administrative interface that can be password protected and only allow the lead researcher to make changes.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.stop" title="br_stimpy._bstimulator.Stimulator.stop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stop</span></code></a></p></td>
+<td><p>This will stop a currently running stimulation script and reset it so when played again it will begin from the first command.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.stop_trigger_stimulus" title="br_stimpy._bstimulator.Stimulator.stop_trigger_stimulus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stop_trigger_stimulus</span></code></a></p></td>
+<td><p>Changes the state of the stimulator so that it is no longer waiting for a trigger.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.test_electrodes" title="br_stimpy._bstimulator.Stimulator.test_electrodes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">test_electrodes</span></code></a></p></td>
+<td><p>This is a diagnostic tool that can be used to help determine which electrodes are good and which ones are bad.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.test_modules" title="br_stimpy._bstimulator.Stimulator.test_modules"><code class="xref py py-obj docutils literal notranslate"><span class="pre">test_modules</span></code></a></p></td>
+<td><p>Used as a way to diagnose the current modules that reside in the stimulator to determine if there output voltage levels are okay and ensure that they continue to function at the right levels over time.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.trigger_stimulus" title="br_stimpy._bstimulator.Stimulator.trigger_stimulus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">trigger_stimulus</span></code></a></p></td>
+<td><p>Allows the stimulator to wait for a trigger event before executing a stimulation script.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.update_electrode_channel_map" title="br_stimpy._bstimulator.Stimulator.update_electrode_channel_map"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_electrode_channel_map</span></code></a></p></td>
+<td><p>Since not all electrodes are found on channel 1 this function allows the user to create a map key pair where the channel is an index into an array which holds the value of the electrode at that channel.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.wait" title="br_stimpy._bstimulator.Stimulator.wait"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wait</span></code></a></p></td>
+<td><p>This command can only be used within a stimulation script and is capable of adding a wait of up to 65,535 milliseconds.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.write_eeprom" title="br_stimpy._bstimulator.Stimulator.write_eeprom"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_eeprom</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.auto_stimulus">
+<span class="sig-name descname"><span class="pre">auto_stimulus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">electrode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">configID</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="br_stimpy._bstimulator.Config.html#br_stimpy._bstimulator.Config" title="br_stimpy._bstimulator.Config"><span class="pre">br_stimpy._bstimulator.Config</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="br_stimpy._bstimulator.ResultType.html#br_stimpy._bstimulator.ResultType" title="br_stimpy._bstimulator.ResultType"><span class="pre">br_stimpy._bstimulator.ResultType</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.auto_stimulus" title="Permalink to this definition"></a></dt>
+<dd><p>This command tells the stimulator when to send a stimulus to an electrode in a stimulation script. It can be used as many times as needed so long as the total number of commands does not exceed 128. It should also be used within beginningOfGroup and endOfGroup commands to allow for simultaneous stimulations.</p>
+<p>electrode: The electrode that will be stimulated Valid values are from 1 - 96
+configID: One of the fifteen stimulation waveforms that should be used</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.beginning_of_group">
+<span class="sig-name descname"><span class="pre">beginning_of_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="br_stimpy._bstimulator.ResultType.html#br_stimpy._bstimulator.ResultType" title="br_stimpy._bstimulator.ResultType"><span class="pre">br_stimpy._bstimulator.ResultType</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.beginning_of_group" title="Permalink to this definition"></a></dt>
+<dd><p>This command signifies that the following commands up to the endOfGroup command should all occur simultaneously. The only commands that are valid are the autoStimulus commands. You can only have as many stimulations as the number of current modules installed. Cant be called on the last of the 128 instructions since it needs to have a closing endOfGroup command.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.beginning_of_sequence">
+<span class="sig-name descname"><span class="pre">beginning_of_sequence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="br_stimpy._bstimulator.ResultType.html#br_stimpy._bstimulator.ResultType" title="br_stimpy._bstimulator.ResultType"><span class="pre">br_stimpy._bstimulator.ResultType</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.beginning_of_sequence" title="Permalink to this definition"></a></dt>
+<dd><p>This is the first command that must be called when creating a stimulation script. After calling this you are able to call wait, autoStimulus, beginningOfGroup, and endOfGroup commands. The stimulation script can have up to 128 commands, excluding beginningOfSequence and endOfSequence</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.configure_stimulus_pattern">
+<span class="sig-name descname"><span class="pre">configure_stimulus_pattern</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">configID</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="br_stimpy._bstimulator.Config.html#br_stimpy._bstimulator.Config" title="br_stimpy._bstimulator.Config"><span class="pre">br_stimpy._bstimulator.Config</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">afcf</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="br_stimpy._bstimulator.WFType.html#br_stimpy._bstimulator.WFType" title="br_stimpy._bstimulator.WFType"><span class="pre">br_stimpy._bstimulator.WFType</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pulses</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">amp1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">amp2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">width1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">width2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">interphase</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="br_stimpy._bstimulator.ResultType.html#br_stimpy._bstimulator.ResultType" title="br_stimpy._bstimulator.ResultType"><span class="pre">br_stimpy._bstimulator.ResultType</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.configure_stimulus_pattern" title="Permalink to this definition"></a></dt>
+<dd><p>Takes all of the parameters needed in order to create a custom biphasic stimulation waveform. The device is capable of handling 16 differnt waveforms, but waveform 0 is reserved and used for testing in getting measurements from electrodes and current modules. Micro and Macro stimulators have different ranges of valid values. Especially for the amplitude where micro stimulators are in the uA range with uA precision, Macro stimulators go from 100 uA to 10 mA with 100 uA precision. While the widths and interphases have quite a range, the user needs to somewhat understand how they interact with the frequency chosen. You dont want a stimulus waveform that is longer than the time between repeats.</p>
+<p>configID: The stimulation waveform that is being configured 1 - 15
+afcf: What polarity should the first phase be, Anodic or Cathodic first
+pulses: The number of stimulation pulses in waveform from 1 - 255
+amp1: The amplitude of the first phase, for Micro it is 1 - 215 uA, and for Macro it is 100 uA - 10 mA
+amp2: The amplitude of the first phase, for Micro it is 1 - 215 uA, and for Macro it is 100 uA - 10 mA
+width1: The width of the first phase in the stimulation 1 - 65,535 uS
+width2: The width of the second phase in the stimulation 1 - 65,535 uS
+frequency1: The stimulating frequency at which the biphasic pulses should repeat 4 - 5000 Hz
+interphase: The period of time between the first and second phases 53 - 65,535 uS</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.connect">
+<span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">stim_interface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="br_stimpy._bstimulator.InterfaceType.html#br_stimpy._bstimulator.InterfaceType" title="br_stimpy._bstimulator.InterfaceType"><span class="pre">br_stimpy._bstimulator.InterfaceType</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">capsule</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="br_stimpy._bstimulator.ResultType.html#br_stimpy._bstimulator.ResultType" title="br_stimpy._bstimulator.ResultType"><span class="pre">br_stimpy._bstimulator.ResultType</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.connect" title="Permalink to this definition"></a></dt>
+<dd><p>Tries to establish a connection with a CereStim 96 device that has been selected using setDevice().</p>
+<p>stim_interface: The type of interface that the object should try and connect over
+params: A void pointer to either an initialized BUsbParams structure or initialized BRs232Params structure</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.disable_module">
+<span class="sig-name descname"><span class="pre">disable_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="br_stimpy._bstimulator.ResultType.html#br_stimpy._bstimulator.ResultType" title="br_stimpy._bstimulator.ResultType"><span class="pre">br_stimpy._bstimulator.ResultType</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.disable_module" title="Permalink to this definition"></a></dt>
+<dd><p>Allows the user to disable different current modules that are installed in the CereStim. This is useful for testing and making sure that multiple current modules are all giving the same output values. The current module has to exist to be disabled.</p>
+<p>module: The current module to be disabled from 0 to 15</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.disable_stimulus_configuration">
+<span class="sig-name descname"><span class="pre">disable_stimulus_configuration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="br_stimpy._bstimulator.ResultType.html#br_stimpy._bstimulator.ResultType" title="br_stimpy._bstimulator.ResultType"><span class="pre">br_stimpy._bstimulator.ResultType</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.disable_stimulus_configuration" title="Permalink to this definition"></a></dt>
+<dd><p>Disables a stimulation waveform so that it is able to be reset</p>
+<p>config_id: The configuration to disable</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.disconnect">
+<span class="sig-name descname"><span class="pre">disconnect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="br_stimpy._bstimulator.ResultType.html#br_stimpy._bstimulator.ResultType" title="br_stimpy._bstimulator.ResultType"><span class="pre">br_stimpy._bstimulator.ResultType</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.disconnect" title="Permalink to this definition"></a></dt>
+<dd><p>Disconnects from a connected CereStim 96 device.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.enable_module">
+<span class="sig-name descname"><span class="pre">enable_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="br_stimpy._bstimulator.ResultType.html#br_stimpy._bstimulator.ResultType" title="br_stimpy._bstimulator.ResultType"><span class="pre">br_stimpy._bstimulator.ResultType</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.enable_module" title="Permalink to this definition"></a></dt>
+<dd><p>Allows the user to enable different current modules that have been disabled. This is useful for testing and making sure that multiple current modules are all giving the same output values.</p>
+<p>module: The current module to be enabled from 0 to 15</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.end_of_group">
+<span class="sig-name descname"><span class="pre">end_of_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="br_stimpy._bstimulator.ResultType.html#br_stimpy._bstimulator.ResultType" title="br_stimpy._bstimulator.ResultType"><span class="pre">br_stimpy._bstimulator.ResultType</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.end_of_group" title="Permalink to this definition"></a></dt>
+<dd><p>This command closes off a group of simultaneous stimulations. If beginningOfGroup is called during a sequence of commands, then there must be an endOfGroup otherwise the user will get a sequence error as a return value.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.end_of_sequence">
+<span class="sig-name descname"><span class="pre">end_of_sequence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="br_stimpy._bstimulator.ResultType.html#br_stimpy._bstimulator.ResultType" title="br_stimpy._bstimulator.ResultType"><span class="pre">br_stimpy._bstimulator.ResultType</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.end_of_sequence" title="Permalink to this definition"></a></dt>
+<dd><p>This is the last command that must be called when creating a stimulation script. It does not count towards the maximum of 128 commands.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.erase_eeprom">
+<span class="sig-name descname"><span class="pre">erase_eeprom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="br_stimpy._bstimulator.ResultType.html#br_stimpy._bstimulator.ResultType" title="br_stimpy._bstimulator.ResultType"><span class="pre">br_stimpy._bstimulator.ResultType</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.erase_eeprom" title="Permalink to this definition"></a></dt>
+<dd><p>Erases the complete EEProm on the the CereStim 96 motherboard, setting all values to 0xFF</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.get_interface">
+<span class="sig-name descname"><span class="pre">get_interface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="br_stimpy._bstimulator.InterfaceType.html#br_stimpy._bstimulator.InterfaceType" title="br_stimpy._bstimulator.InterfaceType"><span class="pre">br_stimpy._bstimulator.InterfaceType</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.get_interface" title="Permalink to this definition"></a></dt>
+<dd><p>Checks to see what interface is being used for the connection between the stimulator object and the physical CereStim 96 Device.</p>
+<p>Returns: The interface being used for the stimulator object</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.get_max_hard_charge">
+<span class="sig-name descname"><span class="pre">get_max_hard_charge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.get_max_hard_charge" title="Permalink to this definition"></a></dt>
+<dd><p>This value is based on the hardware of the particuliar model of the CereStim 96. Again the micro and macro versions of the stimulator have different values</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.get_max_hard_frequency">
+<span class="sig-name descname"><span class="pre">get_max_hard_frequency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.get_max_hard_frequency" title="Permalink to this definition"></a></dt>
+<dd><p>This value is based on the hardware of the particuliar model of the CereStim 96. Again the micro and macro versions of the stimulator have different values</p>
+<p>Returns: Maximum Stimulating Frequency in Hz</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.get_max_hard_interphase">
+<span class="sig-name descname"><span class="pre">get_max_hard_interphase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.get_max_hard_interphase" title="Permalink to this definition"></a></dt>
+<dd><p>This value is based on the hardware of the particuliar model of the CereStim 96</p>
+<p>Maximum interphase width in uS</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.get_max_hard_width">
+<span class="sig-name descname"><span class="pre">get_max_hard_width</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.get_max_hard_width" title="Permalink to this definition"></a></dt>
+<dd><p>This value is based on the hardware of the particuliar model of the CereStim 96.</p>
+<p>Returns: Maximum width of each phase in uS</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.get_min_hard_frequency">
+<span class="sig-name descname"><span class="pre">get_min_hard_frequency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.get_min_hard_frequency" title="Permalink to this definition"></a></dt>
+<dd><p>This value is based on the hardware of the particuliar model of the CereStim 96. Again the micro and macro versions of the stimulator have different values</p>
+<p>Returns: Minimum Stimulating Frequency in Hz</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.get_min_max_amplitude">
+<span class="sig-name descname"><span class="pre">get_min_max_amplitude</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.get_min_max_amplitude" title="Permalink to this definition"></a></dt>
+<dd><p>Since there are different models and version of the stimulator, such as the micro and macro versions, this will allow the user to get the min and max amplitudes that are allowed for stimulation. The upper two MSB are the maximum amplitude while the lower two LSB are the minimum amplitude.</p>
+<p>Returns: Min and Max Amplitude.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.get_module_firmware_version">
+<span class="sig-name descname"><span class="pre">get_module_firmware_version</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">[</span></span><span class="m"><span class="pre">16</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.get_module_firmware_version" title="Permalink to this definition"></a></dt>
+<dd><p>Each current module has its own microcontroller and has a firmware version. All current modules in a single stimulator should have the same firmware version. The MSB is the Major revision number and the LSB is the minor revision number. I.e. 0x0105 would be version 1.5</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.get_module_status">
+<span class="sig-name descname"><span class="pre">get_module_status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">[</span></span><span class="m"><span class="pre">16</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.get_module_status" title="Permalink to this definition"></a></dt>
+<dd><p>This tells the status of each current module, whether it is enabled, disabled, or not available.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.get_motherboard_firmware_version">
+<span class="sig-name descname"><span class="pre">get_motherboard_firmware_version</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.get_motherboard_firmware_version" title="Permalink to this definition"></a></dt>
+<dd><p>Retrieves the firmware revision of the microcontroller on the motherboard. The MSB is the Major revision number and the LSB is the minor revision number. I.e. 0x0500 would be version 5.0</p>
+<p>Returns: Firmware Version of the Motherboard</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.get_number_modules">
+<span class="sig-name descname"><span class="pre">get_number_modules</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.get_number_modules" title="Permalink to this definition"></a></dt>
+<dd><p>This value is based on the hardware of the particuliar model of the CereStim 96. Again the micro and macro versions of the stimulator have different values</p>
+<p>Returns: Number of Modules installed</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.get_protocol_version">
+<span class="sig-name descname"><span class="pre">get_protocol_version</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.get_protocol_version" title="Permalink to this definition"></a></dt>
+<dd><p>The protocol version that the motherboard uses to send and receive data from the current modules. The MSB is the Major revision number and the LSB is the minor revision number. I.e. 0x0105 would be version 1.5</p>
+<p>Returns: Protocol Version of the Motherboard</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.get_serial_number">
+<span class="sig-name descname"><span class="pre">get_serial_number</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.get_serial_number" title="Permalink to this definition"></a></dt>
+<dd><p>Retrieves the serial number that is programmed into the CereStim 96 device that is attached. The format of the 32 bit serial number is as follows 0xPPXXSSSS, where PP is the part number, XX is ignored, and SSSS is the serial number. The part number is a BPartNumbers enumeration.</p>
+<p>Returns: Part Number and Serial number of the CereStim 96</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.get_usb_address">
+<span class="sig-name descname"><span class="pre">get_usb_address</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.get_usb_address" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.group_stimulus">
+<span class="sig-name descname"><span class="pre">group_stimulus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">begin_seq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">play</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">times</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">number</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="br_stimpy._bstimulator.GroupStimulus.html#br_stimpy._bstimulator.GroupStimulus" title="br_stimpy._bstimulator.GroupStimulus"><span class="pre">br_stimpy._bstimulator.GroupStimulus</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="br_stimpy._bstimulator.ResultType.html#br_stimpy._bstimulator.ResultType" title="br_stimpy._bstimulator.ResultType"><span class="pre">br_stimpy._bstimulator.ResultType</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.group_stimulus" title="Permalink to this definition"></a></dt>
+<dd><p>There is a lot of overhead in sending commands over the USB to the CereStim 96. each function call averages 2mS. This function allows the user to create the stimulation parameters beforehand and in a single function call perform simultaneous stimulations based on different electrodes and configured waveforms.</p>
+<p>begin_seq: Boolean expression to tell the function that it is the beginning of a sequence
+play: Boolean expression to tell if the stimulator should begin stimulating immedieatly after this call
+times: The number of times to play the stimulation, is ignored if play = false
+number: The number of stimulus that will occur simultaneously.
+input: Pointer to an instantiated BGroupStimulus structure which has a pair of arrays with electrodes and waveforms</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.is_connected">
+<span class="sig-name descname"><span class="pre">is_connected</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.is_connected" title="Permalink to this definition"></a></dt>
+<dd><p>Lets the user know that the stimulator object is connected to a physical CereStim 96 device.</p>
+<p>Returns: a boolean result, 1 = TRUE, 0 = FALSE</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.is_device_locked">
+<span class="sig-name descname"><span class="pre">is_device_locked</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.is_device_locked" title="Permalink to this definition"></a></dt>
+<dd><p>If the detected number of current modules doesn’t match the hardware configuration or if the hardware configuration is not setup, the device will be locked down preventing any stimulation from occuring.</p>
+<p>Returns: true if locked false otherwise</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.is_safety_disabled">
+<span class="sig-name descname"><span class="pre">is_safety_disabled</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.is_safety_disabled" title="Permalink to this definition"></a></dt>
+<dd><p>For Internal validation and testing it is required to disable the safety limits in the firmware and API so that hardware limits can be observed and tested.</p>
+<p>Returns: true if disabled false otherwise</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.lib_version">
+<span class="sig-name descname"><span class="pre">lib_version</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="br_stimpy._bstimulator.Version.html#br_stimpy._bstimulator.Version" title="br_stimpy._bstimulator.Version"><span class="pre">br_stimpy._bstimulator.Version</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="br_stimpy._bstimulator.ResultType.html#br_stimpy._bstimulator.ResultType" title="br_stimpy._bstimulator.ResultType"><span class="pre">br_stimpy._bstimulator.ResultType</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.lib_version" title="Permalink to this definition"></a></dt>
+<dd><p>Takes a pointer to a BVersion structure and writes the libarary version to the structure.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.manual_stimulus">
+<span class="sig-name descname"><span class="pre">manual_stimulus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">electrode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">configID</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="br_stimpy._bstimulator.Config.html#br_stimpy._bstimulator.Config" title="br_stimpy._bstimulator.Config"><span class="pre">br_stimpy._bstimulator.Config</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="br_stimpy._bstimulator.ResultType.html#br_stimpy._bstimulator.ResultType" title="br_stimpy._bstimulator.ResultType"><span class="pre">br_stimpy._bstimulator.ResultType</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.manual_stimulus" title="Permalink to this definition"></a></dt>
+<dd><p>Allows the user to send a single stimulus pulse of one of the stimulation waveforms to a specified electrode.</p>
+<p>electrode: The electrode that should be stimulated Valid values are from 1 - 96
+configID: The stimulation waveform to use Valid values are from 1 - 15</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.max_output_voltage">
+<span class="sig-name descname"><span class="pre">max_output_voltage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="br_stimpy._bstimulator.MaxOutputVoltage.html#br_stimpy._bstimulator.MaxOutputVoltage" title="br_stimpy._bstimulator.MaxOutputVoltage"><span class="pre">br_stimpy._bstimulator.MaxOutputVoltage</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">rw</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">voltage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="br_stimpy._bstimulator.OCVolt.html#br_stimpy._bstimulator.OCVolt" title="br_stimpy._bstimulator.OCVolt"><span class="pre">br_stimpy._bstimulator.OCVolt</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="br_stimpy._bstimulator.ResultType.html#br_stimpy._bstimulator.ResultType" title="br_stimpy._bstimulator.ResultType"><span class="pre">br_stimpy._bstimulator.ResultType</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.max_output_voltage" title="Permalink to this definition"></a></dt>
+<dd><p>This will set the values of +VDD and -VSS on the stimulator which allows it to effectively limit the maximum output voltage that can be delivered during a stimulation. If the output current times the impedance of the electrode is greater than the max compliance voltage then it means the full current is not being deliverd to the electrode because it can not drive any more current.</p>
+<p>output: Pointer to a BMaxOutputVoltage structure that will contain the read value
+rw: Boolean expression for determining if you just want to read the output compliance voltage or update it with a new value Read = 0 and Write = 1
+voltage: The voltage level that is being set if writing, otherwise it is ignored</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.measure_output_voltage">
+<span class="sig-name descname"><span class="pre">measure_output_voltage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="br_stimpy._bstimulator.OutputMeasurement.html#br_stimpy._bstimulator.OutputMeasurement" title="br_stimpy._bstimulator.OutputMeasurement"><span class="pre">br_stimpy._bstimulator.OutputMeasurement</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">electrode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="br_stimpy._bstimulator.ResultType.html#br_stimpy._bstimulator.ResultType" title="br_stimpy._bstimulator.ResultType"><span class="pre">br_stimpy._bstimulator.ResultType</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.measure_output_voltage" title="Permalink to this definition"></a></dt>
+<dd><p>Sends a known stimulation configuration, 45 uA for micro and 9 mA for Macro, from a selected current module to a specific module. It is helpful for determining the impedance of the electrode.</p>
+<p>output: A pointer to a BOutpuMeasurment structure to store the returned measurement values
+module: The specific current module (0 - 15) that should send the stimulus The module must be enabled.
+electrode: The electrode to send the stimulation to Valid values are from 1 - 96</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.pause">
+<span class="sig-name descname"><span class="pre">pause</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="br_stimpy._bstimulator.ResultType.html#br_stimpy._bstimulator.ResultType" title="br_stimpy._bstimulator.ResultType"><span class="pre">br_stimpy._bstimulator.ResultType</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.pause" title="Permalink to this definition"></a></dt>
+<dd><p>This will pause a currently running stimulation script and keep track of the next command that needs to be executed so if it receives a play command it can pick up where it left off.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.play">
+<span class="sig-name descname"><span class="pre">play</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">times</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="br_stimpy._bstimulator.ResultType.html#br_stimpy._bstimulator.ResultType" title="br_stimpy._bstimulator.ResultType"><span class="pre">br_stimpy._bstimulator.ResultType</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.play" title="Permalink to this definition"></a></dt>
+<dd><p>Tells the stimulator the number of times that it should run the stimulation script. A zero passed in will tell it to run indefinately until it is either stopped or paused by the user. Other values include between 1 and 65,535 repetitions. Can not be called during a beginningOfSequence and endOfSequence command call.</p>
+<p>times: Number of times to execute the stimulation script 0 means indefinately</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.read_device_info">
+<span class="sig-name descname"><span class="pre">read_device_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="br_stimpy._bstimulator.DeviceInfo.html#br_stimpy._bstimulator.DeviceInfo" title="br_stimpy._bstimulator.DeviceInfo"><span class="pre">br_stimpy._bstimulator.DeviceInfo</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="br_stimpy._bstimulator.ResultType.html#br_stimpy._bstimulator.ResultType" title="br_stimpy._bstimulator.ResultType"><span class="pre">br_stimpy._bstimulator.ResultType</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.read_device_info" title="Permalink to this definition"></a></dt>
+<dd><p>This returns all the information about the CereStim 96 that is connected to. It will tell its part number, serial number, firmware versions for both the motherboard and for the current modules. It will also tell you the protocol that the motherboard is using with the current modules and the number of installed current modules.</p>
+<p>output: Pointer to a BDeviceInfo structure, the structure will be populated with the CereStim’s information</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.read_eeprom">
+<span class="sig-name descname"><span class="pre">read_eeprom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="br_stimpy._bstimulator.ReadEEPROMOutput.html#br_stimpy._bstimulator.ReadEEPROMOutput" title="br_stimpy._bstimulator.ReadEEPROMOutput"><span class="pre">br_stimpy._bstimulator.ReadEEPROMOutput</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="br_stimpy._bstimulator.ResultType.html#br_stimpy._bstimulator.ResultType" title="br_stimpy._bstimulator.ResultType"><span class="pre">br_stimpy._bstimulator.ResultType</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.read_eeprom" title="Permalink to this definition"></a></dt>
+<dd><p>Reads the CereStim 96 motherboards EEprom and returns all values</p>
+<p>output: Pointer to array of UINT8[256]</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.read_hardware_values">
+<span class="sig-name descname"><span class="pre">read_hardware_values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="br_stimpy._bstimulator.ReadHardwareValuesOutput.html#br_stimpy._bstimulator.ReadHardwareValuesOutput" title="br_stimpy._bstimulator.ReadHardwareValuesOutput"><span class="pre">br_stimpy._bstimulator.ReadHardwareValuesOutput</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="br_stimpy._bstimulator.ResultType.html#br_stimpy._bstimulator.ResultType" title="br_stimpy._bstimulator.ResultType"><span class="pre">br_stimpy._bstimulator.ResultType</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.read_hardware_values" title="Permalink to this definition"></a></dt>
+<dd><p>Reads the hardware values that are set based on the part number</p>
+<p>output: Structure containing the hardware values</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.read_sequence_status">
+<span class="sig-name descname"><span class="pre">read_sequence_status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="br_stimpy._bstimulator.SequenceStatus.html#br_stimpy._bstimulator.SequenceStatus" title="br_stimpy._bstimulator.SequenceStatus"><span class="pre">br_stimpy._bstimulator.SequenceStatus</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="br_stimpy._bstimulator.ResultType.html#br_stimpy._bstimulator.ResultType" title="br_stimpy._bstimulator.ResultType"><span class="pre">br_stimpy._bstimulator.ResultType</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.read_sequence_status" title="Permalink to this definition"></a></dt>
+<dd><p>Can be called anytime as it does not interrupt other functions from executing, but simply reads what state the stimulator is in.</p>
+<p>output: Pointer to a BSequenceStatus that gets populate with the value from the CereStim 96</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.read_stimulus_pattern">
+<span class="sig-name descname"><span class="pre">read_stimulus_pattern</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="br_stimpy._bstimulator.StimulusConfiguration.html#br_stimpy._bstimulator.StimulusConfiguration" title="br_stimpy._bstimulator.StimulusConfiguration"><span class="pre">br_stimpy._bstimulator.StimulusConfiguration</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">configID</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="br_stimpy._bstimulator.Config.html#br_stimpy._bstimulator.Config" title="br_stimpy._bstimulator.Config"><span class="pre">br_stimpy._bstimulator.Config</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="br_stimpy._bstimulator.ResultType.html#br_stimpy._bstimulator.ResultType" title="br_stimpy._bstimulator.ResultType"><span class="pre">br_stimpy._bstimulator.ResultType</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.read_stimulus_pattern" title="Permalink to this definition"></a></dt>
+<dd><p>Reads back all of the parameters associated with a specific stimulation waveform and stores it in the structure supplied by the user</p>
+<p>output: Pointer to a BStimulusConfiguration structure which contains all the parameters that consist in a stimulation waveform
+configID: The stimulation waveform that is being read back</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.reset_stimulator">
+<span class="sig-name descname"><span class="pre">reset_stimulator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="br_stimpy._bstimulator.ResultType.html#br_stimpy._bstimulator.ResultType" title="br_stimpy._bstimulator.ResultType"><span class="pre">br_stimpy._bstimulator.ResultType</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.reset_stimulator" title="Permalink to this definition"></a></dt>
+<dd><p>Administrative command that will call the reset interrupt vector on the uController User will need to call Connect after calling this.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.scan_for_devices">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">scan_for_devices</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="br_stimpy._bstimulator.vector_UINT32.html#br_stimpy._bstimulator.vector_UINT32" title="br_stimpy._bstimulator.vector_UINT32"><span class="pre">br_stimpy._bstimulator.vector_UINT32</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.scan_for_devices" title="Permalink to this definition"></a></dt>
+<dd><p>Scans all USB devices and builds up a list of serial numbers of the devices connected to the computer. In order to connect to a device, this function has to be invoked first, then a device needs to be selected through setDevice() and only then connect()</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.set_device">
+<span class="sig-name descname"><span class="pre">set_device</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="br_stimpy._bstimulator.ResultType.html#br_stimpy._bstimulator.ResultType" title="br_stimpy._bstimulator.ResultType"><span class="pre">br_stimpy._bstimulator.ResultType</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.set_device" title="Permalink to this definition"></a></dt>
+<dd><p>Using the index of the device in the serial number list obtained from scanForDevices(), set the device you want to connect.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.stimulus_max_values">
+<span class="sig-name descname"><span class="pre">stimulus_max_values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="br_stimpy._bstimulator.MaximumValues.html#br_stimpy._bstimulator.MaximumValues" title="br_stimpy._bstimulator.MaximumValues"><span class="pre">br_stimpy._bstimulator.MaximumValues</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">rw</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">voltage</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="br_stimpy._bstimulator.OCVolt.html#br_stimpy._bstimulator.OCVolt" title="br_stimpy._bstimulator.OCVolt"><span class="pre">br_stimpy._bstimulator.OCVolt</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">amplitude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">phase_charge</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">frequency</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="br_stimpy._bstimulator.ResultType.html#br_stimpy._bstimulator.ResultType" title="br_stimpy._bstimulator.ResultType"><span class="pre">br_stimpy._bstimulator.ResultType</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.stimulus_max_values" title="Permalink to this definition"></a></dt>
+<dd><p>Intended to be an administrative interface that can be password protected and only allow the lead researcher to make changes. It allows the user to set other determined upper limits for the stimulation parameters for whatever safety protocol they are requireing. Again micro and macro stimulators will have some different bounds for setting max values due to the different ranges each are able to achieve.</p>
+<p>output: Pointer to a BMaximumValues structure that will contain the current max values that are set
+rw: Boolean to determine if updating new max values or just reading the old Read = 0 and Write = 1
+voltage: The Max Compliance Voltage that can be set
+amplitude: The Max amplitude that can be used in a stimulation
+phase_charge: The Max charge per phase that will be allowed (Charge = Amplitude * Width)
+frequency: The Max frequency at which the stimulations can take place</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.stop">
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="br_stimpy._bstimulator.ResultType.html#br_stimpy._bstimulator.ResultType" title="br_stimpy._bstimulator.ResultType"><span class="pre">br_stimpy._bstimulator.ResultType</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.stop" title="Permalink to this definition"></a></dt>
+<dd><p>This will stop a currently running stimulation script and reset it so when played again it will begin from the first command. Can only be called while the stimulator has a status of stimulating or paused.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.stop_trigger_stimulus">
+<span class="sig-name descname"><span class="pre">stop_trigger_stimulus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="br_stimpy._bstimulator.ResultType.html#br_stimpy._bstimulator.ResultType" title="br_stimpy._bstimulator.ResultType"><span class="pre">br_stimpy._bstimulator.ResultType</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.stop_trigger_stimulus" title="Permalink to this definition"></a></dt>
+<dd><p>Changes the state of the stimulator so that it is no longer waiting for a trigger. Frees up the stimulator for other commands to be called.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.test_electrodes">
+<span class="sig-name descname"><span class="pre">test_electrodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="br_stimpy._bstimulator.TestElectrodes.html#br_stimpy._bstimulator.TestElectrodes" title="br_stimpy._bstimulator.TestElectrodes"><span class="pre">br_stimpy._bstimulator.TestElectrodes</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="br_stimpy._bstimulator.ResultType.html#br_stimpy._bstimulator.ResultType" title="br_stimpy._bstimulator.ResultType"><span class="pre">br_stimpy._bstimulator.ResultType</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.test_electrodes" title="Permalink to this definition"></a></dt>
+<dd><p>This is a diagnostic tool that can be used to help determine which electrodes are good and which ones are bad. The stimulator will send out a known stimulus configuration, (Config_0), and measure the voltage it returns. Off of these values the relative impedance calculated and returned.</p>
+<p>output: Pointer to a BTestElectrodes Structure which will contain all the information from all the channels.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.test_modules">
+<span class="sig-name descname"><span class="pre">test_modules</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="br_stimpy._bstimulator.TestModules.html#br_stimpy._bstimulator.TestModules" title="br_stimpy._bstimulator.TestModules"><span class="pre">br_stimpy._bstimulator.TestModules</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="br_stimpy._bstimulator.ResultType.html#br_stimpy._bstimulator.ResultType" title="br_stimpy._bstimulator.ResultType"><span class="pre">br_stimpy._bstimulator.ResultType</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.test_modules" title="Permalink to this definition"></a></dt>
+<dd><p>Used as a way to diagnose the current modules that reside in the stimulator to determine if there output voltage levels are okay and ensure that they continue to function at the right levels over time. A known stimulus is applied to a known load and the voltage is compared to what it should be.</p>
+<p>output: Pointer to a BTestModules structure which will contain the status of all the current modules</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.trigger_stimulus">
+<span class="sig-name descname"><span class="pre">trigger_stimulus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="br_stimpy._bstimulator.TriggerType.html#br_stimpy._bstimulator.TriggerType" title="br_stimpy._bstimulator.TriggerType"><span class="pre">br_stimpy._bstimulator.TriggerType</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="br_stimpy._bstimulator.ResultType.html#br_stimpy._bstimulator.ResultType" title="br_stimpy._bstimulator.ResultType"><span class="pre">br_stimpy._bstimulator.ResultType</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.trigger_stimulus" title="Permalink to this definition"></a></dt>
+<dd><p>Allows the stimulator to wait for a trigger event before executing a stimulation script. The stimulator has an external TTL Trigger input port that uses TTL logic levels to determine wheather the input is high or low. The stimulator can be set to fire on a rising edge, falling edge, or any edge transition. Once in trigger mode the stimulator is locked down from other function calls except for stopTriggerStimulus</p>
+<p>edge: The type of digital event to trigger the stimulation on</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.update_electrode_channel_map">
+<span class="sig-name descname"><span class="pre">update_electrode_channel_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="br_stimpy._bstimulator.ElectrodeChannelMap.html#br_stimpy._bstimulator.ElectrodeChannelMap" title="br_stimpy._bstimulator.ElectrodeChannelMap"><span class="pre">br_stimpy._bstimulator.ElectrodeChannelMap</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="br_stimpy._bstimulator.ResultType.html#br_stimpy._bstimulator.ResultType" title="br_stimpy._bstimulator.ResultType"><span class="pre">br_stimpy._bstimulator.ResultType</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.update_electrode_channel_map" title="Permalink to this definition"></a></dt>
+<dd><p>Since not all electrodes are found on channel 1 this function allows the user to create a map key pair where the channel is an index into an array which holds the value of the electrode at that channel.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.wait">
+<span class="sig-name descname"><span class="pre">wait</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">milliseconds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="br_stimpy._bstimulator.ResultType.html#br_stimpy._bstimulator.ResultType" title="br_stimpy._bstimulator.ResultType"><span class="pre">br_stimpy._bstimulator.ResultType</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.wait" title="Permalink to this definition"></a></dt>
+<dd><p>This command can only be used within a stimulation script and is capable of adding a wait of up to 65,535 milliseconds.</p>
+<p>milliseconds: The number of milliseconds to wait before executing the next command</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="br_stimpy._bstimulator.Stimulator.write_eeprom">
+<span class="sig-name descname"><span class="pre">write_eeprom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator" title="br_stimpy._bstimulator.Stimulator"><span class="pre">br_stimpy._bstimulator.Stimulator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">addr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="br_stimpy._bstimulator.ResultType.html#br_stimpy._bstimulator.ResultType" title="br_stimpy._bstimulator.ResultType"><span class="pre">br_stimpy._bstimulator.ResultType</span></a></span></span><a class="headerlink" href="#br_stimpy._bstimulator.Stimulator.write_eeprom" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; Copyright University of Pittsburgh Rehab Neural Engineering Labs, 2023
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">br_stimpy._bstimulator.Stimulator</a><ul>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator"><code class="docutils literal notranslate"><span class="pre">Stimulator</span></code></a><ul>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.auto_stimulus"><code class="docutils literal notranslate"><span class="pre">Stimulator.auto_stimulus()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.beginning_of_group"><code class="docutils literal notranslate"><span class="pre">Stimulator.beginning_of_group()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.beginning_of_sequence"><code class="docutils literal notranslate"><span class="pre">Stimulator.beginning_of_sequence()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.configure_stimulus_pattern"><code class="docutils literal notranslate"><span class="pre">Stimulator.configure_stimulus_pattern()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.connect"><code class="docutils literal notranslate"><span class="pre">Stimulator.connect()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.disable_module"><code class="docutils literal notranslate"><span class="pre">Stimulator.disable_module()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.disable_stimulus_configuration"><code class="docutils literal notranslate"><span class="pre">Stimulator.disable_stimulus_configuration()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.disconnect"><code class="docutils literal notranslate"><span class="pre">Stimulator.disconnect()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.enable_module"><code class="docutils literal notranslate"><span class="pre">Stimulator.enable_module()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.end_of_group"><code class="docutils literal notranslate"><span class="pre">Stimulator.end_of_group()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.end_of_sequence"><code class="docutils literal notranslate"><span class="pre">Stimulator.end_of_sequence()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.erase_eeprom"><code class="docutils literal notranslate"><span class="pre">Stimulator.erase_eeprom()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.get_interface"><code class="docutils literal notranslate"><span class="pre">Stimulator.get_interface()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.get_max_hard_charge"><code class="docutils literal notranslate"><span class="pre">Stimulator.get_max_hard_charge()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.get_max_hard_frequency"><code class="docutils literal notranslate"><span class="pre">Stimulator.get_max_hard_frequency()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.get_max_hard_interphase"><code class="docutils literal notranslate"><span class="pre">Stimulator.get_max_hard_interphase()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.get_max_hard_width"><code class="docutils literal notranslate"><span class="pre">Stimulator.get_max_hard_width()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.get_min_hard_frequency"><code class="docutils literal notranslate"><span class="pre">Stimulator.get_min_hard_frequency()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.get_min_max_amplitude"><code class="docutils literal notranslate"><span class="pre">Stimulator.get_min_max_amplitude()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.get_module_firmware_version"><code class="docutils literal notranslate"><span class="pre">Stimulator.get_module_firmware_version()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.get_module_status"><code class="docutils literal notranslate"><span class="pre">Stimulator.get_module_status()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.get_motherboard_firmware_version"><code class="docutils literal notranslate"><span class="pre">Stimulator.get_motherboard_firmware_version()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.get_number_modules"><code class="docutils literal notranslate"><span class="pre">Stimulator.get_number_modules()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.get_protocol_version"><code class="docutils literal notranslate"><span class="pre">Stimulator.get_protocol_version()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.get_serial_number"><code class="docutils literal notranslate"><span class="pre">Stimulator.get_serial_number()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.get_usb_address"><code class="docutils literal notranslate"><span class="pre">Stimulator.get_usb_address()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.group_stimulus"><code class="docutils literal notranslate"><span class="pre">Stimulator.group_stimulus()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.is_connected"><code class="docutils literal notranslate"><span class="pre">Stimulator.is_connected()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.is_device_locked"><code class="docutils literal notranslate"><span class="pre">Stimulator.is_device_locked()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.is_safety_disabled"><code class="docutils literal notranslate"><span class="pre">Stimulator.is_safety_disabled()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.lib_version"><code class="docutils literal notranslate"><span class="pre">Stimulator.lib_version()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.manual_stimulus"><code class="docutils literal notranslate"><span class="pre">Stimulator.manual_stimulus()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.max_output_voltage"><code class="docutils literal notranslate"><span class="pre">Stimulator.max_output_voltage()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.measure_output_voltage"><code class="docutils literal notranslate"><span class="pre">Stimulator.measure_output_voltage()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.pause"><code class="docutils literal notranslate"><span class="pre">Stimulator.pause()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.play"><code class="docutils literal notranslate"><span class="pre">Stimulator.play()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.read_device_info"><code class="docutils literal notranslate"><span class="pre">Stimulator.read_device_info()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.read_eeprom"><code class="docutils literal notranslate"><span class="pre">Stimulator.read_eeprom()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.read_hardware_values"><code class="docutils literal notranslate"><span class="pre">Stimulator.read_hardware_values()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.read_sequence_status"><code class="docutils literal notranslate"><span class="pre">Stimulator.read_sequence_status()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.read_stimulus_pattern"><code class="docutils literal notranslate"><span class="pre">Stimulator.read_stimulus_pattern()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.reset_stimulator"><code class="docutils literal notranslate"><span class="pre">Stimulator.reset_stimulator()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.scan_for_devices"><code class="docutils literal notranslate"><span class="pre">Stimulator.scan_for_devices()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.set_device"><code class="docutils literal notranslate"><span class="pre">Stimulator.set_device()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.stimulus_max_values"><code class="docutils literal notranslate"><span class="pre">Stimulator.stimulus_max_values()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.stop"><code class="docutils literal notranslate"><span class="pre">Stimulator.stop()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.stop_trigger_stimulus"><code class="docutils literal notranslate"><span class="pre">Stimulator.stop_trigger_stimulus()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.test_electrodes"><code class="docutils literal notranslate"><span class="pre">Stimulator.test_electrodes()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.test_modules"><code class="docutils literal notranslate"><span class="pre">Stimulator.test_modules()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.trigger_stimulus"><code class="docutils literal notranslate"><span class="pre">Stimulator.trigger_stimulus()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.update_electrode_channel_map"><code class="docutils literal notranslate"><span class="pre">Stimulator.update_electrode_channel_map()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.wait"><code class="docutils literal notranslate"><span class="pre">Stimulator.wait()</span></code></a></li>
+<li><a class="reference internal" href="#br_stimpy._bstimulator.Stimulator.write_eeprom"><code class="docutils literal notranslate"><span class="pre">Stimulator.write_eeprom()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/scripts/furo.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    </body>
+</html>

@@ -2,7 +2,7 @@
    :hidden:
 
    Home page <self>
-   API Reference <_autosummary/br_stimpy>
+   API Reference <_autosummary/br_stimpy.stimpy>
 ```
 
 # br_stimpy: python wrapper for the Blackrock Neurotech Cerestim API
@@ -57,8 +57,8 @@ stim_obj.disconnect()
 ```
 
 See additional examples in the examples directory. Or start with API
-documentation for the {py:mod}`br_stimpy.stimpy` module and
-{py:class}`br_stimpy.stimpy.Stimulator` class.
+documentation for the {py:class}`br_stimpy.stimpy.Stimulator` class within the
+{py:mod}`br_stimpy.stimpy` module.
 
 
 ## Maintainer
