@@ -2,19 +2,26 @@
    :hidden:
 
    Home page <self>
+   Source Code <https://github.com/pitt-rnel/br_stimpy>
    API Reference <_autosummary/br_stimpy.stimpy>
 ```
 
 # br_stimpy: python wrapper for the Blackrock Neurotech Cerestim API
-br_stimpy is an unofficial python wrapper for the [Blackrock
+[br_stimpy](https://github.com/pitt-rnel/br_stimpy) is an unofficial python wrapper for the [Blackrock
 Neurotech](https://blackrockneurotech.com) Cerestim API. br_stimpy was developed
-by Jeff Weiss at the University of Pittsburgh's [Rehab Neural Engineering
-Labs](https://rnel.pitt.edu). The author of this package is not affiliated with
-Blackrock Neurotech.
+by [Jeff Weiss](https://github.com/jmw182) at the University of Pittsburgh's [Rehab Neural Engineering
+Labs](https://rnel.pitt.edu). The author of this package is not affiliated with Blackrock Neurotech.
 
 ## Dependencies and Installation
-This package depends on the Blackrock Cerestim API (for C++),
-[pybind11](https://github.com/pybind/pybind11), and a C++ compiler.
+This package must be built from source using pip, and depends on the Blackrock
+Cerestim API (for C++), [pybind11](https://github.com/pybind/pybind11), and a
+C++ compiler (e.g. [Visual
+Studio](https://visualstudio.microsoft.com/vs/community/)).
+
+First this git repo must be cloned with, e.g. with:
+```sh
+git clone https://github.com/pitt-rnel/br_stimpy.git
+```
 
 The Blackrock Cerestim API can be downloaded from their website
 [here](https://blackrockneurotech.com/research/wp-content/software/CereStim-API.zip).
@@ -29,7 +36,7 @@ git submodule update --init
 ```
 
 Once these dependencies are met, the package can be built and installed with pip
-from the package directory by running:
+from the main package directory by running:
 
 ```sh
 pip install .
@@ -56,9 +63,9 @@ stim_obj.simple_stimulus(
 stim_obj.disconnect()
 ```
 
-See additional examples in the examples directory. Or start with API
-documentation for the {py:class}`br_stimpy.stimpy.Stimulator` class within the
-{py:mod}`br_stimpy.stimpy` module.
+See additional examples in the [examples](https://github.com/pitt-rnel/br_stimpy/tree/main/examples) 
+directory. Or start with API documentation for the {py:class}`br_stimpy.stimpy.Stimulator` class 
+within the {py:mod}`br_stimpy.stimpy` module.
 
 
 ## Maintainer
@@ -69,4 +76,5 @@ Maintained by [Jeff Weiss](https://github.com/jmw182) and
 The graphic included in this README is not intended to be an official logo or
 mascot for this package. The maintainers of this package do not claim any
 ownership over the copyright of this image or the character depicted within it.
-The authors of this package are not affiliated with Blackrock Neurotech.
+The authors of this package are not affiliated with Blackrock Neurotech and
+provide this open-source package without warranty.
