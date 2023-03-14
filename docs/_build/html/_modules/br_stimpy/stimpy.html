@@ -277,7 +277,7 @@
 
 <div class="viewcode-block" id="Stimulator"><a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator">[docs]</a><span class="k">class</span> <span class="nc">Stimulator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Simple python interface to Blackrock Cerestim 96</span>
-<span class="sd">    </span>
+
 <span class="sd">    Raises:</span>
 <span class="sd">            RuntimeError: Only 12 stimulator objects can be created at a time</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -783,7 +783,7 @@
 <span class="sd">        indefinitely until it is either stopped or paused by the user.</span>
 <span class="sd">        Other values include between 1 and 65,535 repetitions. Cannot</span>
 <span class="sd">        be called during a :py:func:`begin_sequence` and :py:func:`end_sequence` command call.</span>
-<span class="sd">        </span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            times: Number of times to execute the stimulation script.</span>
 <span class="sd">                0 means indefinitely.</span>
@@ -998,7 +998,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Read back all stim config patterns from stimulator</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            15 :py:class:`~br_stimpy._bstimulator.StimulusConfiguration` structures. </span>
+<span class="sd">            15 :py:class:`~br_stimpy._bstimulator.StimulusConfiguration` structures.</span>
 <span class="sd">            Values are None if configuration is inactive.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">patterns</span> <span class="o">=</span> <span class="p">{}</span>

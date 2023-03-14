@@ -237,13 +237,13 @@
 <span class="sd">        electrode:</span>
 <span class="sd">            List of electrodes to stimulate on, up to length</span>
 <span class="sd">            :py:const:`~br_stimpy.constants.MAX_MODULES`. Defaults to None.</span>
-<span class="sd">            </span>
+
 <span class="sd">        pattern:</span>
 <span class="sd">            List of pattern config IDs to match to electrodes above. Must be</span>
 <span class="sd">            same length as electrode list. Defaults to None.</span>
-<span class="sd">            </span>
+
 <span class="sd">    Raises:</span>
-<span class="sd">        ValueError: </span>
+<span class="sd">        ValueError:</span>
 <span class="sd">            Electrode and Pattern lists must be the same length and cannot be</span>
 <span class="sd">            longer than :py:const:`~br_stimpy.constants.MAX_MODULES`.</span>
 
@@ -252,7 +252,6 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">electrode</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">pattern</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">):</span>
-        
         <span class="k">if</span> <span class="n">electrode</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_number</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">electrode</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
