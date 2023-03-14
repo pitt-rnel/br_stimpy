@@ -216,22 +216,24 @@
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">GroupStimulusStruct</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">electrode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pattern</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/br_stimpy/group_stim_struct.html#GroupStimulusStruct"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#br_stimpy.stimpy.GroupStimulusStruct" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Group Stimulus Structure</p>
-<p>Structure to input to Stimulator.group_stimulus() function.</p>
-<p>Optionally accepts electrode and pattern ID lists as input.
-Constructor will check that electrode and pattern IDs are valid and
-not longer than MAX_MODULES. Will zero-pad lists to length
-MAX_MODULES. User cannot modify these lengths after object creation.</p>
+<p>Structure to input to <a class="reference internal" href="br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.group_stimulus" title="br_stimpy.stimpy.Stimulator.group_stimulus"><code class="xref py py-meth docutils literal notranslate"><span class="pre">group_stimulus()</span></code></a> function.</p>
+<p>Optionally accepts electrode and pattern ID lists as input. Constructor will
+check that electrode and pattern IDs are valid and not longer than
+<a class="reference internal" href="br_stimpy.constants.MAX_MODULES.html#br_stimpy.constants.MAX_MODULES" title="br_stimpy.constants.MAX_MODULES"><code class="xref py py-const docutils literal notranslate"><span class="pre">MAX_MODULES</span></code></a>. Will zero-pad lists to length
+<a class="reference internal" href="br_stimpy.constants.MAX_MODULES.html#br_stimpy.constants.MAX_MODULES" title="br_stimpy.constants.MAX_MODULES"><code class="xref py py-const docutils literal notranslate"><span class="pre">MAX_MODULES</span></code></a>. User cannot modify these
+lengths after object creation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>electrode</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]]) – List of electrodes to stimulate on, up to length
-MAX_MODULES. Defaults to None.</p></li>
-<li><p><strong>pattern</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]]) – List of pattern config IDs to match to electrodes above.
-Must be same length as electrode list. Defaults to None.</p></li>
+<a class="reference internal" href="br_stimpy.constants.MAX_MODULES.html#br_stimpy.constants.MAX_MODULES" title="br_stimpy.constants.MAX_MODULES"><code class="xref py py-const docutils literal notranslate"><span class="pre">MAX_MODULES</span></code></a>. Defaults to None.</p></li>
+<li><p><strong>pattern</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]]) – List of pattern config IDs to match to electrodes above. Must be
+same length as electrode list. Defaults to None.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.11)"><strong>ValueError</strong></a> – Electrode and Pattern lists must be the same length and cannot be longer than MAX_MODULES.</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.11)"><strong>ValueError</strong></a> – Electrode and Pattern lists must be the same length and cannot be
+    longer than <a class="reference internal" href="br_stimpy.constants.MAX_MODULES.html#br_stimpy.constants.MAX_MODULES" title="br_stimpy.constants.MAX_MODULES"><code class="xref py py-const docutils literal notranslate"><span class="pre">MAX_MODULES</span></code></a>.</p>
 </dd>
 </dl>
 <p class="rubric">Methods</p>

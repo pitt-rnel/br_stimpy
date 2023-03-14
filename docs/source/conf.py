@@ -44,6 +44,7 @@ extensions = [
     'sphinx.ext.viewcode', # Add a link to the Python source code for classes, functions etc.
     'sphinx_autodoc_typehints', # Automatically document param types (less noise in class signature)
     'sphinx.ext.intersphinx', # Link to other project's documentation (see mapping below)
+#    'sphinx.ext.linkcode', # link to github code, disabled b/c I prefer viewcode
 ]
 
 # Mappings for sphinx.ext.intersphinx. Projects have to have Sphinx-generated doc! (.inv file)
@@ -89,4 +90,12 @@ autosummary_generate = True # Turn on sphinx.ext.autosummary
 autosummary_imported_members = True
 add_module_names = False # Remove namespaces from class/method signatures
 
+# linkcode
+def linkcode_resolve(domain, info):
+    if domain != 'py':
+        return None
+    if not info['module']:
+        return None
+    filename = info['module'].replace('.', '/')
+    return "https://github.com/pitt-rnel/br_stimpy/blob/main/%s.py" % filename
 

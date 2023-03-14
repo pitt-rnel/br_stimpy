@@ -230,7 +230,7 @@
 <span class="sd">    )</span>
 <span class="sd">    stim_obj.disconnect()</span>
 
-<span class="sd">Note that this module imports constants from :py:mod:`br_stimpy.constants` in</span>
+<span class="sd">Note that this module imports constants from :py:mod:`~br_stimpy.constants` in</span>
 <span class="sd">addition to the classes imported or defined here.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="c1"># br_stimpy.stimpy</span>
@@ -250,7 +250,7 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Lookup docstr for a pybind11 enum value and output as string</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        enum_val: an enumeration value from the _bstimulator module</span>
+<span class="sd">        enum_val: an enumeration value from the :py:mod:`~br_stimpy.enums` module</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        docstr for the enum_val</span>
@@ -531,7 +531,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Scan for connected Cerestim devices</span>
 
 <span class="sd">        If only one Cerestim device is attached to PC, you can skip this step</span>
-<span class="sd">        and just call connect().</span>
+<span class="sd">        and just call :py:func:`connect`.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            list of serial numbers of the connected Cerestims</span>
@@ -543,12 +543,12 @@
 <div class="viewcode-block" id="Stimulator.connect"><a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.connect">[docs]</a>    <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">device_index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Connect to Cerestim.</span>
 
-<span class="sd">        If multiple devices are attached to PC, first call scan_for_devices</span>
+<span class="sd">        If multiple devices are attached to PC, first call :py:func:`scan_for_devices`</span>
 <span class="sd">        to view the list of serial numbers, then input the device_index you</span>
 <span class="sd">        would like to connect to.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            device_index (optional): Index of device from scan_for_devices.</span>
+<span class="sd">            device_index: (Optional) Index of device from :py:func:`scan_for_devices`.</span>
 <span class="sd">                Defaults to 0.</span>
 
 <span class="sd">        Raises:</span>
@@ -592,9 +592,9 @@
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Simplest method to manually command a stimulus pulse</span>
 
-<span class="sd">        Combines configure_stimulus_pattern() and manual_stimulus()</span>
+<span class="sd">        Combines :py:func:`configure_stimulus_pattern` and :py:func:`manual_stimulus`</span>
 <span class="sd">        into a single call. Note that the overhead of</span>
-<span class="sd">        configure_stimulus_pattern() limits how quickly this can run.</span>
+<span class="sd">        :py:func:`configure_stimulus_pattern` limits how quickly this can run.</span>
 <span class="sd">        This method is simple, but inefficient.</span>
 
 <span class="sd">        Args:</span>
@@ -637,9 +637,9 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Simplest method to manually command a group stimulus pulse</span>
 <span class="sd">        with identical parameters on all electrodes</span>
 
-<span class="sd">        Combines configure_stimulus_pattern() and group_stimulus()</span>
+<span class="sd">        Combines :py:func:`configure_stimulus_pattern` and :py:func:`group_stimulus`</span>
 <span class="sd">        into a single call. Note that the overhead of</span>
-<span class="sd">        configure_stimulus_pattern() limits how quickly this can run.</span>
+<span class="sd">        :py:func:`configure_stimulus_pattern` limits how quickly this can run.</span>
 <span class="sd">        This method is simple, but inefficient.</span>
 
 <span class="sd">        Args:</span>
@@ -693,10 +693,10 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Begin stim script</span>
 
 <span class="sd">        This is the first command that must be called when creating a</span>
-<span class="sd">        stimulation script. After calling this you are able to call wait(),</span>
-<span class="sd">        auto_stimulus(), begin_group(), and end_group() commands. The</span>
+<span class="sd">        stimulation script. After calling this you are able to call :py:func:`wait`,</span>
+<span class="sd">        :py:func:`auto_stimulus`, :py:func:`begin_group`, and :py:func:`end_group` commands. The</span>
 <span class="sd">        stimulation script can have up to 128 commands, excluding</span>
-<span class="sd">        begin_sequence() and end_sequence()</span>
+<span class="sd">        :py:func:`begin_sequence` and :py:func:`end_sequence`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">last_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">beginning_of_sequence</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_raise_if_error</span><span class="p">(</span><span class="s2">&quot;begin_sequence&quot;</span><span class="p">)</span></div>
@@ -715,8 +715,8 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Begin group stim</span>
 
 <span class="sd">        This command signifies that the following commands up to the</span>
-<span class="sd">        end_group() command should all occur simultaneously. The only</span>
-<span class="sd">        commands that are valid are the auto_stimulus() commands. You</span>
+<span class="sd">        :py:func:`end_group` command should all occur simultaneously. The only</span>
+<span class="sd">        commands that are valid are the :py:func:`auto_stimulus` commands. You</span>
 <span class="sd">        can only have as many stimulations as the number of current</span>
 <span class="sd">        modules installed. Can&#39;t be called on the last of the 128</span>
 <span class="sd">        instructions since it needs to have a closing end_group command.</span>
@@ -728,8 +728,8 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;End group stim</span>
 
 <span class="sd">        This command closes off a group of simultaneous stimulations.</span>
-<span class="sd">        If begin_group() is called during a sequence of commands, then</span>
-<span class="sd">        there must be an end_group() otherwise the user will get a</span>
+<span class="sd">        If :py:func:`begin_group` is called during a sequence of commands, then</span>
+<span class="sd">        there must be an :py:func:`end_group` otherwise the user will get a</span>
 <span class="sd">        sequence error as a return value.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">last_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">end_of_group</span><span class="p">()</span>
@@ -741,7 +741,7 @@
 <span class="sd">        This command tells the stimulator when to send a stimulus to an</span>
 <span class="sd">        electrode in a stimulation script. It can be used as many times</span>
 <span class="sd">        as needed so long as the total number of commands does not exceed</span>
-<span class="sd">        128. It should also be used within begin_group() and end_group()</span>
+<span class="sd">        128. It should also be used within :py:func:`begin_group` and :py:func:`end_group`</span>
 <span class="sd">        commands to allow for simultaneous stimulations.</span>
 
 <span class="sd">        Args:</span>
@@ -782,7 +782,7 @@
 <span class="sd">        stimulation script. A zero passed in will tell it to run</span>
 <span class="sd">        indefinitely until it is either stopped or paused by the user.</span>
 <span class="sd">        Other values include between 1 and 65,535 repetitions. Cannot</span>
-<span class="sd">        be called during a begin_sequence() and end_sequence() command call.</span>
+<span class="sd">        be called during a :py:func:`begin_sequence` and :py:func:`end_sequence` command call.</span>
 <span class="sd">        </span>
 <span class="sd">        Args:</span>
 <span class="sd">            times: Number of times to execute the stimulation script.</span>
@@ -975,16 +975,15 @@
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_bstimulator</span><span class="o">.</span><span class="n">StimulusConfiguration</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Read stim config pattern</span>
 
-<span class="sd">        Reads back all of the parameters associated with a specific</span>
-<span class="sd">        stimulation waveform and stores it in the structure supplied by</span>
-<span class="sd">        the user.</span>
+<span class="sd">        Reads back all of the parameters associated with a specific stimulation</span>
+<span class="sd">        waveform and stores it in the structure supplied by the user.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            configID: The stimulation waveform that is being read back</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            structure which contains all the parameters that consist in</span>
-<span class="sd">            a stimulation waveform</span>
+<span class="sd">            structure which contains all the parameters that consist in a</span>
+<span class="sd">            stimulation waveform</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">_ValidationFcns</span><span class="o">.</span><span class="n">validate_configID</span><span class="p">(</span><span class="n">configID</span><span class="p">)</span>
         <span class="n">output</span> <span class="o">=</span> <span class="n">_bstimulator</span><span class="o">.</span><span class="n">StimulusConfiguration</span><span class="p">()</span>
@@ -999,8 +998,8 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Read back all stim config patterns from stimulator</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            15 _bstimulator.StimulusConfiguration structures</span>
-<span class="sd">            Values are None if configuration is inactive</span>
+<span class="sd">            15 :py:class:`~br_stimpy._bstimulator.StimulusConfiguration` structures. </span>
+<span class="sd">            Values are None if configuration is inactive.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">patterns</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">configID</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">MAX_CONFIGURATIONS</span><span class="p">):</span>
@@ -1013,7 +1012,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pattern_cache</span></div>
 
 <div class="viewcode-block" id="Stimulator.read_stimulus_max_values"><a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.read_stimulus_max_values">[docs]</a>    <span class="k">def</span> <span class="nf">read_stimulus_max_values</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_bstimulator</span><span class="o">.</span><span class="n">MaximumValues</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Read maximum stimulus values set using set_stimulus_max_values()</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Read maximum stimulus values set using :py:func:`set_stimulus_max_values`</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            structure that will contain the current max values that are set</span>
@@ -1103,7 +1102,7 @@
 <span class="sd">        whether the input is high or low. The stimulator can be set to</span>
 <span class="sd">        fire on a rising edge, falling edge, or any edge transition.</span>
 <span class="sd">        Once in trigger mode the stimulator is locked down from other</span>
-<span class="sd">        function calls except for stop_trigger_stimulus()</span>
+<span class="sd">        function calls except for :py:func:`stop_trigger_stimulus`</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            edge: The type of digital event to trigger the stimulation on</span>
@@ -1162,7 +1161,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Stimulator Reset</span>
 
 <span class="sd">        Administrative command that will call the reset interrupt</span>
-<span class="sd">        vector on the uController. User will need to call connect()</span>
+<span class="sd">        vector on the uController. User will need to call :py:func:`connect`</span>
 <span class="sd">        after calling this.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">last_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">reset_stimulator</span><span class="p">()</span>
