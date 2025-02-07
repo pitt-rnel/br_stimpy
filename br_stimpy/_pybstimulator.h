@@ -1,9 +1,9 @@
 #ifndef _PYBSTIMULATOR_H_INCLUDED
 #define _PYBSTIMULATOR_H_INCLUDED
 
-#include "../extern/pybind11/include/pybind11/pybind11.h"
-#include "../extern/pybind11/include/pybind11/stl.h"
-#include "../extern/pybind11/include/pybind11/stl_bind.h"
+#include <pybind11/pybind11.h>
+#include <pybind11/stl.h>
+#include <pybind11/stl_bind.h>
 #include "../extern/CereStim-API/Binaries/BStimulator.h"
 #include <vector>
 #include <array>
