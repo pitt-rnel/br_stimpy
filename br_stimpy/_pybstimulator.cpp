@@ -292,7 +292,7 @@ PYBIND11_MODULE(_bstimulator, m) {
     py::enum_<BResult>(m, "ResultType",
         "A stimulator object creates a USB connection with the actual CereStim 96 and calls are made to it through the stimulator object. The stimulator object can return an "
         "error message (Software Error) or the CereStim 96 can return an error message (Hardware Error).")
-        .value("return_", BResult::BRETURN, "Software Error: Early returned warning.")
+        .value("return_early", BResult::BRETURN, "Software Error: Early returned warning.")
         .value("success", BResult::BSUCCESS, "Successful operation.")
         .value("not_implemented", BResult::BNOTIMPLEMENTED, "Software Error: Not implemented.")
         .value("unknown", BResult::BUNKNOWN, "Software Error: Unknown error.")
