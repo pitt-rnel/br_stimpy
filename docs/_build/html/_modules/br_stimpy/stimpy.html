@@ -1,15 +1,15 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html class="no-js" lang="en" data-content_root="../../">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
-    <!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
-        <title>br_stimpy.stimpy - br_stimpy 0.0.5 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
-    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
+        <title>br_stimpy.stimpy - br_stimpy 0.0.6 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=302659d7" />
     
     
 
@@ -68,7 +68,7 @@
   <symbol id="svg-sun" viewBox="0 0 24 24">
     <title>Light mode</title>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
       <circle cx="12" cy="12" r="5"></circle>
       <line x1="12" y1="1" x2="12" y2="3"></line>
       <line x1="12" y1="21" x2="12" y2="23"></line>
@@ -83,22 +83,63 @@
   <symbol id="svg-moon" viewBox="0 0 24 24">
     <title>Dark mode</title>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
       <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
     </svg>
   </symbol>
-  <symbol id="svg-sun-half" viewBox="0 0 24 24">
-    <title>Auto light/dark mode</title>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
-      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-      <circle cx="12" cy="12" r="9" />
-      <path d="M13 12h5" />
-      <path d="M13 15h4" />
-      <path d="M13 18h1" />
-      <path d="M13 9h4" />
-      <path d="M13 6h1" />
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
     </svg>
   </symbol>
 </svg>
@@ -112,6 +153,8 @@
   <div class="visually-hidden">Hide table of contents sidebar</div>
 </label>
 
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
 
 
 <div class="page">
@@ -123,13 +166,14 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">br_stimpy 0.0.5 documentation</div></a>
+      <a href="../../index.html"><div class="brand">br_stimpy 0.0.6 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
         <button class="theme-toggle">
           <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
-          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
           <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
@@ -149,7 +193,7 @@
     <img class="sidebar-logo" src="../../_static/stimpy.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">br_stimpy 0.0.5 documentation</span>
+  <span class="sidebar-brand-text">br_stimpy 0.0.6 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -159,7 +203,8 @@
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../index.html">   Home page</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../_autosummary/br_stimpy.stimpy.html">   API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pitt-rnel/br_stimpy">   Source Code</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../_autosummary/br_stimpy.stimpy.html">   API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of    API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../_autosummary/br_stimpy.stimpy.get_api_version.html">br_stimpy.stimpy.get_api_version</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../_autosummary/br_stimpy.stimpy.get_enum_docstr.html">br_stimpy.stimpy.get_enum_docstr</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../_autosummary/br_stimpy.stimpy.ElectrodeChannelMap.html">br_stimpy.stimpy.ElectrodeChannelMap</a></li>
@@ -196,7 +241,8 @@
           <div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
-              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
               <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
@@ -206,7 +252,7 @@
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
-        <article role="main">
+        <article role="main" id="furo-main-content">
           <h1>Source code for br_stimpy.stimpy</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;stimpy: a python package to interface with Blackrock Cerestim API.</span>
 
@@ -237,16 +283,18 @@
 <span class="c1"># Author: Jeff Weiss &lt;jeff.weiss@pitt.edu&gt;</span>
 <span class="c1"># May 2022</span>
 
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>  <span class="c1"># ensure forward compatibility</span>
-<span class="kn">from</span> <span class="nn">br_stimpy</span> <span class="kn">import</span> <span class="n">_bstimulator</span>
-<span class="kn">from</span> <span class="nn">br_stimpy.constants</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">br_stimpy.enums</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">br_stimpy._validation</span> <span class="kn">import</span> <span class="n">_ValidationFcns</span>
-<span class="kn">from</span> <span class="nn">br_stimpy.group_stim_struct</span> <span class="kn">import</span> <span class="n">GroupStimulusStruct</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Any</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>  <span class="c1"># ensure forward compatibility</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">br_stimpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">_bstimulator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">br_stimpy.constants</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">br_stimpy.enums</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">br_stimpy._validation</span><span class="w"> </span><span class="kn">import</span> <span class="n">_ValidationFcns</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">br_stimpy.group_stim_struct</span><span class="w"> </span><span class="kn">import</span> <span class="n">GroupStimulusStruct</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Union</span>
 
 
-<div class="viewcode-block" id="get_enum_docstr"><a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.get_enum_docstr.html#br_stimpy.stimpy.get_enum_docstr">[docs]</a><span class="k">def</span> <span class="nf">get_enum_docstr</span><span class="p">(</span><span class="n">enum_val</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<div class="viewcode-block" id="get_enum_docstr">
+<a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.get_enum_docstr.html#br_stimpy.stimpy.get_enum_docstr">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_enum_docstr</span><span class="p">(</span><span class="n">enum_val</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">OCVolt</span><span class="p">,</span> <span class="n">WFType</span><span class="p">,</span> <span class="n">TriggerType</span><span class="p">,</span> <span class="n">PartNumbers</span><span class="p">,</span> <span class="n">ModuleStatus</span><span class="p">,</span> <span class="n">SeqType</span><span class="p">,</span> <span class="n">ResultType</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Lookup docstr for a pybind11 enum value and output as string</span>
 
 <span class="sd">    Args:</span>
@@ -260,7 +308,10 @@
     <span class="k">return</span> <span class="n">doc_str</span></div>
 
 
-<div class="viewcode-block" id="get_api_version"><a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.get_api_version.html#br_stimpy.stimpy.get_api_version">[docs]</a><span class="k">def</span> <span class="nf">get_api_version</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">_bstimulator</span><span class="o">.</span><span class="n">Version</span><span class="p">:</span>
+
+<div class="viewcode-block" id="get_api_version">
+<a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.get_api_version.html#br_stimpy.stimpy.get_api_version">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_api_version</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">_bstimulator</span><span class="o">.</span><span class="n">Version</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get Cerestim API library version</span>
 
 <span class="sd">    Returns:</span>
@@ -275,7 +326,10 @@
     <span class="k">return</span> <span class="n">version_struct</span></div>
 
 
-<div class="viewcode-block" id="Stimulator"><a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator">[docs]</a><span class="k">class</span> <span class="nc">Stimulator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Stimulator">
+<a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Stimulator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Simple python interface to Blackrock Cerestim 96</span>
 
 <span class="sd">    Raises:</span>
@@ -295,7 +349,7 @@
     <span class="n">ModuleStatus</span> <span class="o">=</span> <span class="n">ModuleStatus</span>
     <span class="n">SeqType</span> <span class="o">=</span> <span class="n">SeqType</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">Stimulator</span><span class="o">.</span><span class="n">_stimulator_count</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="k">if</span> <span class="n">Stimulator</span><span class="o">.</span><span class="n">_stimulator_count</span> <span class="o">&gt;</span> <span class="n">MAX_STIMULATORS</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Max stimulator error&quot;</span><span class="p">)</span>
@@ -305,12 +359,12 @@
         <span class="p">)</span>  <span class="c1"># raw stimulator object</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">device_index</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">last_result</span><span class="p">:</span> <span class="n">ResultType</span> <span class="o">=</span> <span class="n">_bstimulator</span><span class="o">.</span><span class="n">success</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_pattern_cache</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">MAX_CONFIGURATIONS</span><span class="p">)}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pattern_cache</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_bstimulator</span><span class="o">.</span><span class="n">StimulusConfiguration</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">MAX_CONFIGURATIONS</span><span class="p">)}</span>
 
     <span class="c1"># Properties</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">api_version</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_bstimulator</span><span class="o">.</span><span class="n">Version</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">api_version</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_bstimulator</span><span class="o">.</span><span class="n">Version</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Cerestim API library version&quot;&quot;&quot;</span>
         <span class="n">version_struct</span> <span class="o">=</span> <span class="n">_bstimulator</span><span class="o">.</span><span class="n">Version</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">last_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">lib_version</span><span class="p">(</span><span class="n">version_struct</span><span class="p">)</span>
@@ -318,12 +372,12 @@
         <span class="k">return</span> <span class="n">version_struct</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">stimulus_patterns_cached</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">stimulus_patterns_cached</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Cached list of configured stimulus patterns&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pattern_cache</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">device_info</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">device_info</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Read device hardware and firmware info</span>
 
 <span class="sd">        This returns all the information about the CereStim 96 that is</span>
@@ -349,7 +403,7 @@
         <span class="k">return</span> <span class="n">output</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">sequence_status</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SeqType</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">sequence_status</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SeqType</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get stim sequence status</span>
 
 <span class="sd">        Can be read anytime as it does not interrupt other functions</span>
@@ -361,12 +415,12 @@
         <span class="k">return</span> <span class="n">SeqType</span><span class="p">(</span><span class="n">output</span><span class="o">.</span><span class="n">status</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">is_stim_sequence_playing</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_stim_sequence_playing</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if a stim sequence is actively playing&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sequence_status</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">SeqType</span><span class="o">.</span><span class="n">playing</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">is_connected</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_connected</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if stimulator is connected</span>
 
 <span class="sd">        Lets the user know that the Stimulator object is connected to a</span>
@@ -375,7 +429,7 @@
         <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">is_connected</span><span class="p">())</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">serial_number</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">serial_number</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get device serial number</span>
 
 <span class="sd">        Retrieves the serial number that is programmed into the</span>
@@ -384,7 +438,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert_raw_serial_num</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">get_serial_number</span><span class="p">())</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">motherboard_firmware_version</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">motherboard_firmware_version</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get main firmware version</span>
 
 <span class="sd">        Retrieves the firmware revision of the microcontroller on the</span>
@@ -395,7 +449,7 @@
         <span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">protocol_version</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">protocol_version</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get motherboard protocol version</span>
 
 <span class="sd">        The protocol version that the motherboard uses to send and</span>
@@ -404,7 +458,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert_raw_version</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">get_protocol_version</span><span class="p">())</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">min_max_amplitude</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">min_max_amplitude</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get hardware min and max amplitudes</span>
 
 <span class="sd">        Since there are different models and version of the stimulator,</span>
@@ -417,7 +471,7 @@
         <span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">module_firmware_version</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">module_firmware_version</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get firmware versions of current modules</span>
 
 <span class="sd">        Each current module has its own microcontroller and has a</span>
@@ -428,10 +482,10 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">fv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">get_module_firmware_version</span><span class="p">()</span>
         <span class="n">output</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_convert_raw_version</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">fv</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">output</span><span class="p">[:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_number_modules</span><span class="p">()]</span>
+        <span class="k">return</span> <span class="n">output</span><span class="p">[:</span> <span class="bp">self</span><span class="o">.</span><span class="n">number_modules</span><span class="p">]</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">module_status</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">ModuleStatus</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">module_status</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">ModuleStatus</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get status of each current module</span>
 
 <span class="sd">        This tells the status of each current module, whether it is</span>
@@ -439,15 +493,15 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">ms</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">get_module_status</span><span class="p">()</span>
         <span class="n">output</span> <span class="o">=</span> <span class="p">[</span><span class="n">ModuleStatus</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">ms</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">output</span><span class="p">[:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_number_modules</span><span class="p">()]</span>
+        <span class="k">return</span> <span class="n">output</span><span class="p">[:</span> <span class="bp">self</span><span class="o">.</span><span class="n">number_modules</span><span class="p">]</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">usb_address</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">usb_address</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Gets the USB address of the connected stimulator&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">get_usb_address</span><span class="p">()</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">max_hard_charge</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">max_hard_charge</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get hardware max charge per phase</span>
 
 <span class="sd">        This value is based on the hardware of the particular model of</span>
@@ -457,7 +511,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">get_max_hard_charge</span><span class="p">()</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">min_hard_frequency</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">min_hard_frequency</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get hardware minimum frequency in Hz</span>
 
 <span class="sd">        This value is based on the hardware of the particular model of</span>
@@ -467,7 +521,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">get_min_hard_frequency</span><span class="p">()</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">max_hard_frequency</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">max_hard_frequency</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get hardware maximum frequency in Hz</span>
 
 <span class="sd">        This value is based on the hardware of the particular model of</span>
@@ -477,7 +531,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">get_max_hard_frequency</span><span class="p">()</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">number_modules</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">number_modules</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get number of current modules installed</span>
 
 <span class="sd">        This value is based on the hardware of the particular model of</span>
@@ -487,7 +541,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">get_number_modules</span><span class="p">()</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">max_hard_width</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">max_hard_width</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get hardware maximum pulse width in us</span>
 
 <span class="sd">        This value is based on the hardware of the particuliar model of</span>
@@ -496,7 +550,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">get_max_hard_width</span><span class="p">()</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">max_hard_interphase</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">max_hard_interphase</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get hardware maximum interphase width in us</span>
 
 <span class="sd">        This value is based on the hardware of the particuliar model of</span>
@@ -505,7 +559,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">get_max_hard_interphase</span><span class="p">()</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">is_safety_disabled</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_safety_disabled</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if safety limits are disabled</span>
 
 <span class="sd">        For Internal validation and testing it is required to disable</span>
@@ -515,7 +569,7 @@
         <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">is_safety_disabled</span><span class="p">())</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">is_device_locked</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_device_locked</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if stimulator is locked</span>
 
 <span class="sd">        If the detected number of current modules doesn&#39;t match the</span>
@@ -526,8 +580,10 @@
         <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">is_device_locked</span><span class="p">())</span>
 
     <span class="c1"># public class method</span>
-<div class="viewcode-block" id="Stimulator.scan_for_devices"><a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.scan_for_devices">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">scan_for_devices</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<div class="viewcode-block" id="Stimulator.scan_for_devices">
+<a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.scan_for_devices">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">scan_for_devices</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Scan for connected Cerestim devices</span>
 
 <span class="sd">        If only one Cerestim device is attached to PC, you can skip this step</span>
@@ -539,8 +595,11 @@
         <span class="bp">cls</span><span class="o">.</span><span class="n">device_vector</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">_bstimulator</span><span class="o">.</span><span class="n">Stimulator</span><span class="o">.</span><span class="n">scan_for_devices</span><span class="p">())</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">device_vector</span></div>
 
+
     <span class="c1"># public instance methods</span>
-<div class="viewcode-block" id="Stimulator.connect"><a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.connect">[docs]</a>    <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">device_index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="Stimulator.connect">
+<a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.connect">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">device_index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Connect to Cerestim.</span>
 
 <span class="sd">        If multiple devices are attached to PC, first call :py:func:`scan_for_devices`</span>
@@ -558,7 +617,7 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">device_vector</span><span class="p">:</span>
             <span class="c1"># assume scan_for_devices has not been called yet if attribute is empty</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">scan_for_devices</span><span class="p">()</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device_vector</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="n">device_index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">device_vector</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device_vector</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="n">device_index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">last_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">set_device</span><span class="p">(</span><span class="n">device_index</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_raise_if_error</span><span class="p">(</span><span class="s2">&quot;set_device&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">last_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
@@ -573,12 +632,18 @@
         <span class="c1"># if successfully connected, initialize stimulus_patterns_cached</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">read_all_stimulus_patterns</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Stimulator.disconnect"><a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.disconnect">[docs]</a>    <span class="k">def</span> <span class="nf">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Stimulator.disconnect">
+<a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.disconnect">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Disconnect from Cerestim&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">last_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_raise_if_error</span><span class="p">(</span><span class="s2">&quot;disconnect&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Stimulator.simple_stimulus"><a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.simple_stimulus">[docs]</a>    <span class="k">def</span> <span class="nf">simple_stimulus</span><span class="p">(</span>
+
+<div class="viewcode-block" id="Stimulator.simple_stimulus">
+<a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.simple_stimulus">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">simple_stimulus</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">electrode</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">afcf</span><span class="p">:</span> <span class="n">WFType</span><span class="p">,</span>
@@ -622,7 +687,10 @@
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">manual_stimulus</span><span class="p">(</span><span class="n">electrode</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Stimulator.simple_stimulus_group"><a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.simple_stimulus_group">[docs]</a>    <span class="k">def</span> <span class="nf">simple_stimulus_group</span><span class="p">(</span>
+
+<div class="viewcode-block" id="Stimulator.simple_stimulus_group">
+<a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.simple_stimulus_group">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">simple_stimulus_group</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">electrodes</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
         <span class="n">afcf</span><span class="p">:</span> <span class="n">WFType</span><span class="p">,</span>
@@ -669,7 +737,10 @@
         <span class="n">gc</span> <span class="o">=</span> <span class="n">GroupStimulusStruct</span><span class="p">(</span><span class="n">electrodes</span><span class="p">,</span> <span class="n">patterns</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">group_stimulus</span><span class="p">(</span><span class="n">begin_seq</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">play</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">group_stim_struct</span><span class="o">=</span><span class="n">gc</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Stimulator.manual_stimulus"><a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.manual_stimulus">[docs]</a>    <span class="k">def</span> <span class="nf">manual_stimulus</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">electrode</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">configID</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Stimulator.manual_stimulus">
+<a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.manual_stimulus">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">manual_stimulus</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">electrode</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">configID</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Manually stimulate on one electrode</span>
 
 <span class="sd">        Allows the user to send a single stimulus pulse of one of the</span>
@@ -689,7 +760,10 @@
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_raise_if_error</span><span class="p">(</span><span class="s2">&quot;manual_stimulus&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Stimulator.begin_sequence"><a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.begin_sequence">[docs]</a>    <span class="k">def</span> <span class="nf">begin_sequence</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Stimulator.begin_sequence">
+<a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.begin_sequence">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">begin_sequence</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Begin stim script</span>
 
 <span class="sd">        This is the first command that must be called when creating a</span>
@@ -701,7 +775,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">last_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">beginning_of_sequence</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_raise_if_error</span><span class="p">(</span><span class="s2">&quot;begin_sequence&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Stimulator.end_sequence"><a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.end_sequence">[docs]</a>    <span class="k">def</span> <span class="nf">end_sequence</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Stimulator.end_sequence">
+<a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.end_sequence">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">end_sequence</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;End stim script</span>
 
 <span class="sd">        This is the last command that must be called when creating a</span>
@@ -711,7 +788,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">last_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">end_of_sequence</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_raise_if_error</span><span class="p">(</span><span class="s2">&quot;end_sequence&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Stimulator.begin_group"><a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.begin_group">[docs]</a>    <span class="k">def</span> <span class="nf">begin_group</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Stimulator.begin_group">
+<a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.begin_group">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">begin_group</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Begin group stim</span>
 
 <span class="sd">        This command signifies that the following commands up to the</span>
@@ -724,7 +804,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">last_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">beginning_of_group</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_raise_if_error</span><span class="p">(</span><span class="s2">&quot;begin_group&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Stimulator.end_group"><a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.end_group">[docs]</a>    <span class="k">def</span> <span class="nf">end_group</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Stimulator.end_group">
+<a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.end_group">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">end_group</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;End group stim</span>
 
 <span class="sd">        This command closes off a group of simultaneous stimulations.</span>
@@ -735,7 +818,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">last_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">end_of_group</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_raise_if_error</span><span class="p">(</span><span class="s2">&quot;end_group&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Stimulator.auto_stimulus"><a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.auto_stimulus">[docs]</a>    <span class="k">def</span> <span class="nf">auto_stimulus</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">electrode</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">configID</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Stimulator.auto_stimulus">
+<a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.auto_stimulus">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">auto_stimulus</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">electrode</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">configID</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Stimulate in stim script</span>
 
 <span class="sd">        This command tells the stimulator when to send a stimulus to an</span>
@@ -757,7 +843,10 @@
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_raise_if_error</span><span class="p">(</span><span class="s2">&quot;auto_stimulus&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Stimulator.wait"><a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.wait">[docs]</a>    <span class="k">def</span> <span class="nf">wait</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">milliseconds</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Stimulator.wait">
+<a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.wait">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">wait</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">milliseconds</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Wait between stim pulses</span>
 
 <span class="sd">        This command can only be used within a stimulation script and</span>
@@ -775,7 +864,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">last_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">milliseconds</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_raise_if_error</span><span class="p">(</span><span class="s2">&quot;wait&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Stimulator.play"><a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.play">[docs]</a>    <span class="k">def</span> <span class="nf">play</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">times</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Stimulator.play">
+<a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.play">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">play</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">times</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Play stim script</span>
 
 <span class="sd">        Tells the stimulator the number of times that it should run the</span>
@@ -796,7 +888,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">last_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="n">times</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_raise_if_error</span><span class="p">(</span><span class="s2">&quot;play&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Stimulator.stop"><a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.stop">[docs]</a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Stimulator.stop">
+<a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.stop">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Stop stim script execution</span>
 
 <span class="sd">        This will stop a currently running stimulation script and reset</span>
@@ -807,7 +902,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">last_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_raise_if_error</span><span class="p">(</span><span class="s2">&quot;stop&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Stimulator.pause"><a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.pause">[docs]</a>    <span class="k">def</span> <span class="nf">pause</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Stimulator.pause">
+<a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.pause">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">pause</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Pause stim script execution</span>
 
 <span class="sd">        This will pause a currently running stimulation script and keep</span>
@@ -817,7 +915,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">last_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">pause</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_raise_if_error</span><span class="p">(</span><span class="s2">&quot;pause&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Stimulator.read_max_output_voltage"><a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.read_max_output_voltage">[docs]</a>    <span class="k">def</span> <span class="nf">read_max_output_voltage</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Stimulator.read_max_output_voltage">
+<a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.read_max_output_voltage">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_max_output_voltage</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Read compliance voltage</span>
 
 <span class="sd">        This will read the values of +VDD and -VSS on the stimulator</span>
@@ -837,7 +938,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_raise_if_error</span><span class="p">(</span><span class="s2">&quot;max_output_voltage&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">output</span><span class="o">.</span><span class="n">milivolts</span></div>
 
-<div class="viewcode-block" id="Stimulator.set_max_output_voltage"><a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.set_max_output_voltage">[docs]</a>    <span class="k">def</span> <span class="nf">set_max_output_voltage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">oc_voltage</span><span class="p">:</span> <span class="n">OCVolt</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Stimulator.set_max_output_voltage">
+<a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.set_max_output_voltage">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_max_output_voltage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">oc_voltage</span><span class="p">:</span> <span class="n">OCVolt</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Set compliance voltage</span>
 
 <span class="sd">        This will set the values of +VDD and -VSS on the stimulator</span>
@@ -863,7 +967,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_raise_if_error</span><span class="p">(</span><span class="s2">&quot;max_output_voltage&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">output</span><span class="o">.</span><span class="n">milivolts</span></div>
 
-<div class="viewcode-block" id="Stimulator.enable_module"><a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.enable_module">[docs]</a>    <span class="k">def</span> <span class="nf">enable_module</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Stimulator.enable_module">
+<a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.enable_module">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">enable_module</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Enable current module</span>
 
 <span class="sd">        Allows the user to enable different current modules that have</span>
@@ -877,7 +984,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">last_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">enable_module</span><span class="p">(</span><span class="n">module</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_raise_if_error</span><span class="p">(</span><span class="s2">&quot;enable_module&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Stimulator.disable_module"><a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.disable_module">[docs]</a>    <span class="k">def</span> <span class="nf">disable_module</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Stimulator.disable_module">
+<a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.disable_module">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">disable_module</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Disable current module</span>
 
 <span class="sd">        Allows the user to disable different current modules that are</span>
@@ -892,7 +1002,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">last_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">disable_module</span><span class="p">(</span><span class="n">module</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_raise_if_error</span><span class="p">(</span><span class="s2">&quot;enable_module&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Stimulator.configure_stimulus_pattern"><a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.configure_stimulus_pattern">[docs]</a>    <span class="k">def</span> <span class="nf">configure_stimulus_pattern</span><span class="p">(</span>
+
+<div class="viewcode-block" id="Stimulator.configure_stimulus_pattern">
+<a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.configure_stimulus_pattern">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">configure_stimulus_pattern</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">configID</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">afcf</span><span class="p">:</span> <span class="n">WFType</span><span class="p">,</span>
@@ -960,7 +1073,7 @@
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_raise_if_error</span><span class="p">(</span><span class="s2">&quot;configure_stimulus_pattern&quot;</span><span class="p">)</span>
         <span class="n">pat</span> <span class="o">=</span> <span class="n">_bstimulator</span><span class="o">.</span><span class="n">StimulusConfiguration</span><span class="p">()</span>
-        <span class="n">pat</span><span class="o">.</span><span class="n">anodicFirst</span> <span class="o">=</span> <span class="n">afcf</span>
+        <span class="n">pat</span><span class="o">.</span><span class="n">anodicFirst</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">afcf</span><span class="p">)</span>
         <span class="n">pat</span><span class="o">.</span><span class="n">pulses</span> <span class="o">=</span> <span class="n">pulses</span>
         <span class="n">pat</span><span class="o">.</span><span class="n">amp1</span> <span class="o">=</span> <span class="n">amp1</span>
         <span class="n">pat</span><span class="o">.</span><span class="n">amp2</span> <span class="o">=</span> <span class="n">amp2</span>
@@ -970,7 +1083,10 @@
         <span class="n">pat</span><span class="o">.</span><span class="n">interphase</span> <span class="o">=</span> <span class="n">interphase</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_pattern_cache</span><span class="p">[</span><span class="n">configID</span><span class="p">]</span> <span class="o">=</span> <span class="n">pat</span></div>
 
-<div class="viewcode-block" id="Stimulator.read_stimulus_pattern"><a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.read_stimulus_pattern">[docs]</a>    <span class="k">def</span> <span class="nf">read_stimulus_pattern</span><span class="p">(</span>
+
+<div class="viewcode-block" id="Stimulator.read_stimulus_pattern">
+<a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.read_stimulus_pattern">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_stimulus_pattern</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">configID</span><span class="p">:</span> <span class="nb">int</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_bstimulator</span><span class="o">.</span><span class="n">StimulusConfiguration</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Read stim config pattern</span>
@@ -994,7 +1110,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_pattern_cache</span><span class="p">[</span><span class="n">configID</span><span class="p">]</span> <span class="o">=</span> <span class="n">output</span>
         <span class="k">return</span> <span class="n">output</span></div>
 
-<div class="viewcode-block" id="Stimulator.read_all_stimulus_patterns"><a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.read_all_stimulus_patterns">[docs]</a>    <span class="k">def</span> <span class="nf">read_all_stimulus_patterns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Stimulator.read_all_stimulus_patterns">
+<a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.read_all_stimulus_patterns">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_all_stimulus_patterns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_bstimulator</span><span class="o">.</span><span class="n">StimulusConfiguration</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Read back all stim config patterns from stimulator</span>
 
 <span class="sd">        Returns:</span>
@@ -1011,7 +1130,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_pattern_cache</span> <span class="o">=</span> <span class="n">patterns</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pattern_cache</span></div>
 
-<div class="viewcode-block" id="Stimulator.read_stimulus_max_values"><a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.read_stimulus_max_values">[docs]</a>    <span class="k">def</span> <span class="nf">read_stimulus_max_values</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_bstimulator</span><span class="o">.</span><span class="n">MaximumValues</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Stimulator.read_stimulus_max_values">
+<a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.read_stimulus_max_values">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_stimulus_max_values</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_bstimulator</span><span class="o">.</span><span class="n">MaximumValues</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Read maximum stimulus values set using :py:func:`set_stimulus_max_values`</span>
 
 <span class="sd">        Returns:</span>
@@ -1029,7 +1151,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_raise_if_error</span><span class="p">(</span><span class="s2">&quot;stimulus_max_values&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">output</span></div>
 
-<div class="viewcode-block" id="Stimulator.set_stimulus_max_values"><a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.set_stimulus_max_values">[docs]</a>    <span class="k">def</span> <span class="nf">set_stimulus_max_values</span><span class="p">(</span>
+
+<div class="viewcode-block" id="Stimulator.set_stimulus_max_values">
+<a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.set_stimulus_max_values">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_stimulus_max_values</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">voltage</span><span class="p">:</span> <span class="n">OCVolt</span><span class="p">,</span> <span class="n">amplitude</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">phaseCharge</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">frequency</span><span class="p">:</span> <span class="nb">int</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_bstimulator</span><span class="o">.</span><span class="n">MaximumValues</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Set max limits</span>
@@ -1059,7 +1184,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_raise_if_error</span><span class="p">(</span><span class="s2">&quot;stimulus_max_values&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">output</span></div>
 
-<div class="viewcode-block" id="Stimulator.group_stimulus"><a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.group_stimulus">[docs]</a>    <span class="k">def</span> <span class="nf">group_stimulus</span><span class="p">(</span>
+
+<div class="viewcode-block" id="Stimulator.group_stimulus">
+<a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.group_stimulus">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">group_stimulus</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">begin_seq</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
         <span class="n">play</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
@@ -1093,7 +1221,10 @@
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_raise_if_error</span><span class="p">(</span><span class="s2">&quot;group_stimulus&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Stimulator.trigger_stimulus"><a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.trigger_stimulus">[docs]</a>    <span class="k">def</span> <span class="nf">trigger_stimulus</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">edge</span><span class="p">:</span> <span class="n">TriggerType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Stimulator.trigger_stimulus">
+<a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.trigger_stimulus">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">trigger_stimulus</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">edge</span><span class="p">:</span> <span class="n">TriggerType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Start trigger mode</span>
 
 <span class="sd">        Allows the stimulator to wait for a trigger event before</span>
@@ -1110,7 +1241,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">last_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">trigger_stimulus</span><span class="p">(</span><span class="n">edge</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_raise_if_error</span><span class="p">(</span><span class="s2">&quot;trigger_stimulus&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Stimulator.stop_trigger_stimulus"><a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.stop_trigger_stimulus">[docs]</a>    <span class="k">def</span> <span class="nf">stop_trigger_stimulus</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Stimulator.stop_trigger_stimulus">
+<a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.stop_trigger_stimulus">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">stop_trigger_stimulus</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Stop trigger mode</span>
 
 <span class="sd">        Changes the state of the stimulator so that it is no longer</span>
@@ -1120,7 +1254,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">last_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">stop_trigger_stimulus</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_raise_if_error</span><span class="p">(</span><span class="s2">&quot;stop_trigger_stimulus&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Stimulator.update_electrode_channel_map"><a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.update_electrode_channel_map">[docs]</a>    <span class="k">def</span> <span class="nf">update_electrode_channel_map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">map</span><span class="p">:</span> <span class="n">ElectrodeChannelMap</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Stimulator.update_electrode_channel_map">
+<a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.update_electrode_channel_map">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_electrode_channel_map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">map</span><span class="p">:</span> <span class="n">ElectrodeChannelMap</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Set electrode map</span>
 
 <span class="sd">        Since not all electrodes are found on channel 1 this function</span>
@@ -1134,7 +1271,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">last_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">update_electrode_channel_map</span><span class="p">(</span><span class="nb">map</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_raise_if_error</span><span class="p">(</span><span class="s2">&quot;update_electrode_channel_map&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Stimulator.read_hardware_values"><a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.read_hardware_values">[docs]</a>    <span class="k">def</span> <span class="nf">read_hardware_values</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_bstimulator</span><span class="o">.</span><span class="n">ReadHardwareValuesOutput</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Stimulator.read_hardware_values">
+<a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.read_hardware_values">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read_hardware_values</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_bstimulator</span><span class="o">.</span><span class="n">ReadHardwareValuesOutput</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Reads the hardware values that are set based on the part number</span>
 
 <span class="sd">        Returns:</span>
@@ -1145,7 +1285,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_raise_if_error</span><span class="p">(</span><span class="s2">&quot;read_hardware_values&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">output</span></div>
 
-<div class="viewcode-block" id="Stimulator.disable_stimulus_configuration"><a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.disable_stimulus_configuration">[docs]</a>    <span class="k">def</span> <span class="nf">disable_stimulus_configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">configID</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Stimulator.disable_stimulus_configuration">
+<a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.disable_stimulus_configuration">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">disable_stimulus_configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">configID</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Disables a stimulation waveform so that it is able to be reset</span>
 
 <span class="sd">        Args:</span>
@@ -1157,7 +1300,10 @@
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_raise_if_error</span><span class="p">(</span><span class="s2">&quot;disable_stimulus_configuration&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Stimulator.reset_stimulator"><a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.reset_stimulator">[docs]</a>    <span class="k">def</span> <span class="nf">reset_stimulator</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Stimulator.reset_stimulator">
+<a class="viewcode-back" href="../../_autosummary/br_stimpy.stimpy.Stimulator.html#br_stimpy.stimpy.Stimulator.reset_stimulator">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reset_stimulator</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Stimulator Reset</span>
 
 <span class="sd">        Administrative command that will call the reset interrupt</span>
@@ -1167,8 +1313,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">last_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bstimulator_obj</span><span class="o">.</span><span class="n">reset_stimulator</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_raise_if_error</span><span class="p">(</span><span class="s2">&quot;reset_stimulator&quot;</span><span class="p">)</span></div>
 
+
     <span class="c1"># protected methods</span>
-    <span class="k">def</span> <span class="nf">_raise_if_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_raise_if_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Raise last error, if any&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_result</span> <span class="o">!=</span> <span class="n">_bstimulator</span><span class="o">.</span><span class="n">success</span><span class="p">:</span>
             <span class="n">last_err</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_result</span>
@@ -1178,12 +1325,12 @@
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="n">error_str</span><span class="p">)</span>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_convert_raw_version</span><span class="p">(</span><span class="n">raw_version</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_convert_raw_version</span><span class="p">(</span><span class="n">raw_version</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
         <span class="n">version</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;major&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">raw_version</span> <span class="o">&gt;&gt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span><span class="p">,</span> <span class="s2">&quot;minor&quot;</span><span class="p">:</span> <span class="n">raw_version</span> <span class="o">&amp;</span> <span class="mh">0xFF</span><span class="p">}</span>
         <span class="k">return</span> <span class="n">version</span>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_convert_raw_serial_num</span><span class="p">(</span><span class="n">raw_serial</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_convert_raw_serial_num</span><span class="p">(</span><span class="n">raw_serial</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">PartNumbers</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
         <span class="n">serial</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;part&quot;</span><span class="p">:</span> <span class="n">PartNumbers</span><span class="p">((</span><span class="n">raw_serial</span> <span class="o">&gt;&gt;</span> <span class="mi">24</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span><span class="p">),</span>
             <span class="s2">&quot;serial_no&quot;</span><span class="p">:</span> <span class="n">raw_serial</span> <span class="o">&amp;</span> <span class="mh">0xFFFF</span><span class="p">,</span>
@@ -1191,16 +1338,17 @@
         <span class="k">return</span> <span class="n">serial</span>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_convert_raw_min_max_amp</span><span class="p">(</span><span class="n">raw_amp</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_convert_raw_min_max_amp</span><span class="p">(</span><span class="n">raw_amp</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
         <span class="n">amp_limits</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;min_amp&quot;</span><span class="p">:</span> <span class="n">raw_amp</span> <span class="o">&amp;</span> <span class="mh">0xFFFF</span><span class="p">,</span> <span class="s2">&quot;max_amp&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">raw_amp</span> <span class="o">&gt;&gt;</span> <span class="mi">16</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFFFF</span><span class="p">}</span>
         <span class="k">return</span> <span class="n">amp_limits</span>
 
-    <span class="k">def</span> <span class="fm">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Stimulator destructor</span>
 
 <span class="sd">        Decrements _stimulator_count</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">Stimulator</span><span class="o">.</span><span class="n">_stimulator_count</span> <span class="o">-=</span> <span class="mi">1</span></div>
+
 
 
 <span class="c1"># end class Stimulator</span>
@@ -1216,7 +1364,7 @@
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; Copyright University of Pittsburgh Rehab Neural Engineering Labs, 2023
+                Copyright &#169; University of Pittsburgh Rehab Neural Engineering Labs, 2025
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             
@@ -1236,12 +1384,13 @@
       
     </aside>
   </div>
-</div><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
-    <script src="../../_static/scripts/furo.js"></script>
-    <script src="../../_static/clipboard.min.js"></script>
-    <script src="../../_static/copybutton.js"></script>
+</div><script src="../../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../../_static/documentation_options.js?v=1fd71caa"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/furo.js?v=5fa4622c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
     </body>
 </html>

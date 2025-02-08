@@ -208,7 +208,6 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="br_stimpy.stimpy.html">   API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of    API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="br_stimpy.stimpy.get_api_version.html">br_stimpy.stimpy.get_api_version</a></li>
 <li class="toctree-l2"><a class="reference internal" href="br_stimpy.stimpy.get_enum_docstr.html">br_stimpy.stimpy.get_enum_docstr</a></li>
-<li class="toctree-l2"><a class="reference internal" href="br_stimpy.stimpy.Any.html">br_stimpy.stimpy.Any</a></li>
 <li class="toctree-l2"><a class="reference internal" href="br_stimpy.stimpy.ElectrodeChannelMap.html">br_stimpy.stimpy.ElectrodeChannelMap</a></li>
 <li class="toctree-l2"><a class="reference internal" href="br_stimpy.stimpy.GroupStimulusStruct.html">br_stimpy.stimpy.GroupStimulusStruct</a></li>
 <li class="toctree-l2"><a class="reference internal" href="br_stimpy.stimpy.ModuleStatus.html">br_stimpy.stimpy.ModuleStatus</a></li>
@@ -270,7 +269,7 @@
 <p>A stimulator object creates a USB connection with the actual CereStim 96 and calls are made to it through the stimulator object. The stimulator object can return an error message (Software Error) or the CereStim 96 can return an error message (Hardware Error).</p>
 <p>Members:</p>
 <blockquote>
-<div><p><a href="#id1"><span class="problematic" id="id2">return_</span></a> : Software Error: Early returned warning.</p>
+<div><p>return_early : Software Error: Early returned warning.</p>
 <p>success : Successful operation.</p>
 <p>not_implemented : Software Error: Not implemented.</p>
 <p>unknown : Software Error: Unknown error.</p>
@@ -487,7 +486,7 @@
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_err</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">return_</span></code></p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">return_early</span></code></p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">sequence_error</span></code></p></td>
