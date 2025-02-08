@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" />
 
     <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
-        <title>br_stimpy._bstimulator.Version - br_stimpy 0.0.6 documentation</title>
+        <title>br_stimpy.group_stim_struct.Any - br_stimpy 0.0.6 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -241,7 +241,7 @@
         </a>
         <div class="content-icon-container">
           <div class="view-this-page">
-  <a class="muted-link" href="../_sources/_autosummary/br_stimpy._bstimulator.Version.rst.txt" title="View this page">
+  <a class="muted-link" href="../_sources/_autosummary/br_stimpy.group_stim_struct.Any.rst.txt" title="View this page">
     <svg><use href="#svg-eye"></use></svg>
     <span class="visually-hidden">View this page</span>
   </a>
@@ -261,14 +261,21 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="br-stimpy-bstimulator-version">
-<h1>br_stimpy._bstimulator.Version<a class="headerlink" href="#br-stimpy-bstimulator-version" title="Link to this heading"></a></h1>
+          <section id="br-stimpy-group-stim-struct-any">
+<h1>br_stimpy.group_stim_struct.Any<a class="headerlink" href="#br-stimpy-group-stim-struct-any" title="Link to this heading"></a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="br_stimpy._bstimulator.Version">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Version</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.Version" title="br_stimpy._bstimulator.Version"><span class="pre">br_stimpy._bstimulator.Version</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#br_stimpy._bstimulator.Version" title="Link to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
-<p>Gives the current version of the API that is being used.</p>
-<p>API Version.</p>
+<dt class="sig sig-object py" id="br_stimpy.group_stim_struct.Any">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Any</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/typing.html#Any"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#br_stimpy.group_stim_struct.Any" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Special type indicating an unconstrained type.</p>
+<ul class="simple">
+<li><p>Any is compatible with every type.</p></li>
+<li><p>Any assumed to have all methods.</p></li>
+<li><p>All values assumed to be instances of Any.</p></li>
+</ul>
+<p>Note that all the above statements are true from the point of view of
+static type checkers. At runtime, Any should not be used with instance
+checks.</p>
 <p class="rubric">Methods</p>
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
@@ -276,49 +283,6 @@
 </tbody>
 </table>
 </div>
-<p class="rubric">Attributes</p>
-<div class="table-wrapper autosummary longtable docutils container">
-<table class="autosummary longtable docutils align-default">
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Version.beta" title="br_stimpy._bstimulator.Version.beta"><code class="xref py py-obj docutils literal notranslate"><span class="pre">beta</span></code></a></p></td>
-<td><p>Whether the Version is Beta.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Version.major" title="br_stimpy._bstimulator.Version.major"><code class="xref py py-obj docutils literal notranslate"><span class="pre">major</span></code></a></p></td>
-<td><p>Major Version.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Version.minor" title="br_stimpy._bstimulator.Version.minor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">minor</span></code></a></p></td>
-<td><p>Minor Version.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.Version.release" title="br_stimpy._bstimulator.Version.release"><code class="xref py py-obj docutils literal notranslate"><span class="pre">release</span></code></a></p></td>
-<td><p>Wether the Version is Released.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<dl class="py property">
-<dt class="sig sig-object py" id="br_stimpy._bstimulator.Version.beta">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">beta</span></span><a class="headerlink" href="#br_stimpy._bstimulator.Version.beta" title="Link to this definition"></a></dt>
-<dd><p>Whether the Version is Beta.</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="br_stimpy._bstimulator.Version.major">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">major</span></span><a class="headerlink" href="#br_stimpy._bstimulator.Version.major" title="Link to this definition"></a></dt>
-<dd><p>Major Version.</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="br_stimpy._bstimulator.Version.minor">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">minor</span></span><a class="headerlink" href="#br_stimpy._bstimulator.Version.minor" title="Link to this definition"></a></dt>
-<dd><p>Minor Version.</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="br_stimpy._bstimulator.Version.release">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">release</span></span><a class="headerlink" href="#br_stimpy._bstimulator.Version.release" title="Link to this definition"></a></dt>
-<dd><p>Wether the Version is Released.</p>
-</dd></dl>
-
 </dd></dl>
 
 </section>
@@ -360,14 +324,8 @@
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">br_stimpy._bstimulator.Version</a><ul>
-<li><a class="reference internal" href="#br_stimpy._bstimulator.Version"><code class="docutils literal notranslate"><span class="pre">Version</span></code></a><ul>
-<li><a class="reference internal" href="#br_stimpy._bstimulator.Version.beta"><code class="docutils literal notranslate"><span class="pre">Version.beta</span></code></a></li>
-<li><a class="reference internal" href="#br_stimpy._bstimulator.Version.major"><code class="docutils literal notranslate"><span class="pre">Version.major</span></code></a></li>
-<li><a class="reference internal" href="#br_stimpy._bstimulator.Version.minor"><code class="docutils literal notranslate"><span class="pre">Version.minor</span></code></a></li>
-<li><a class="reference internal" href="#br_stimpy._bstimulator.Version.release"><code class="docutils literal notranslate"><span class="pre">Version.release</span></code></a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#">br_stimpy.group_stim_struct.Any</a><ul>
+<li><a class="reference internal" href="#br_stimpy.group_stim_struct.Any"><code class="docutils literal notranslate"><span class="pre">Any</span></code></a></li>
 </ul>
 </li>
 </ul>
