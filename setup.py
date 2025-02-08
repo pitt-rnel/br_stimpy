@@ -77,7 +77,7 @@ setup(
     url=about["__url__"],
     ext_modules=ext_modules,
     packages=["br_stimpy"],
-    package_data={"br_stimpy": [lib_glob_str, "*.h"]},
+    package_data={"br_stimpy": [lib_glob_str, "*.h", "py.typed"]},
     license=about["__license__"],
     # extras_require={"test": "pytest"},
     # Currently, build_ext only provides an optional "highest supported C++

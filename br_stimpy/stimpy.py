@@ -33,10 +33,10 @@ from br_stimpy.constants import *
 from br_stimpy.enums import *
 from br_stimpy._validation import _ValidationFcns
 from br_stimpy.group_stim_struct import GroupStimulusStruct
-from typing import List, Optional, Any
+from typing import List, Optional, Any, Dict, Union
 
 
-def get_enum_docstr(enum_val: Any) -> str:
+def get_enum_docstr(enum_val: Union[OCVolt, WFType, TriggerType, PartNumbers, ModuleStatus, SeqType, ResultType]) -> str:
     """Lookup docstr for a pybind11 enum value and output as string
 
     Args:
@@ -95,7 +95,7 @@ class Stimulator(object):
         )  # raw stimulator object
         self.device_index: Optional[List[int]] = None
         self.last_result: ResultType = _bstimulator.success
-        self._pattern_cache = {key: None for key in range(1, MAX_CONFIGURATIONS)}
+        self._pattern_cache: Dict[int, Optional[_bstimulator.StimulusConfiguration]] = {key: None for key in range(1, MAX_CONFIGURATIONS)}
 
     # Properties
 
@@ -218,7 +218,7 @@ class Stimulator(object):
         """
         fv = self._bstimulator_obj.get_module_firmware_version()
         output = [self._convert_raw_version(x) for x in fv]
-        return output[: self.get_number_modules()]
+        return output[: self.number_modules]
 
     @property
     def module_status(self) -> List[ModuleStatus]:
@@ -229,7 +229,7 @@ class Stimulator(object):
         """
         ms = self._bstimulator_obj.get_module_status()
         output = [ModuleStatus(x) for x in ms]
-        return output[: self.get_number_modules()]
+        return output[: self.number_modules]
 
     @property
     def usb_address(self) -> int:
@@ -348,7 +348,7 @@ class Stimulator(object):
         if not self.device_vector:
             # assume scan_for_devices has not been called yet if attribute is empty
             self.scan_for_devices()
-        if len(self.device_vector) >= (device_index + 1):
+        if self.device_vector and len(self.device_vector) >= (device_index + 1):
             self.last_result = self._bstimulator_obj.set_device(device_index)
             self._raise_if_error("set_device")
             self.last_result = self._bstimulator_obj.connect(
@@ -750,7 +750,7 @@ class Stimulator(object):
         )
         self._raise_if_error("configure_stimulus_pattern")
         pat = _bstimulator.StimulusConfiguration()
-        pat.anodicFirst = afcf
+        pat.anodicFirst = int(afcf)
         pat.pulses = pulses
         pat.amp1 = amp1
         pat.amp2 = amp2
@@ -784,7 +784,7 @@ class Stimulator(object):
         self._pattern_cache[configID] = output
         return output
 
-    def read_all_stimulus_patterns(self) -> dict:
+    def read_all_stimulus_patterns(self) -> Dict[int, Optional[_bstimulator.StimulusConfiguration]]:
         """Read back all stim config patterns from stimulator
 
         Returns:
@@ -968,12 +968,12 @@ class Stimulator(object):
             raise RuntimeError(error_str)
 
     @staticmethod
-    def _convert_raw_version(raw_version: int) -> dict:
+    def _convert_raw_version(raw_version: int) -> Dict[str, int]:
         version = {"major": (raw_version >> 8) & 0xFF, "minor": raw_version & 0xFF}
         return version
 
     @staticmethod
-    def _convert_raw_serial_num(raw_serial: int) -> dict:
+    def _convert_raw_serial_num(raw_serial: int) -> Dict[str, Union[PartNumbers, int]]:
         serial = {
             "part": PartNumbers((raw_serial >> 24) & 0xFF),
             "serial_no": raw_serial & 0xFFFF,
@@ -981,7 +981,7 @@ class Stimulator(object):
         return serial
 
     @staticmethod
-    def _convert_raw_min_max_amp(raw_amp: int) -> dict:
+    def _convert_raw_min_max_amp(raw_amp: int) -> Dict[str, int]:
         amp_limits = {"min_amp": raw_amp & 0xFFFF, "max_amp": (raw_amp >> 16) & 0xFFFF}
         return amp_limits
 

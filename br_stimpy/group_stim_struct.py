@@ -46,11 +46,13 @@ class GroupStimulusStruct(object):
             self._number = len(electrode)
         else:
             self._number = 0
+            electrode = []
 
         if pattern:
             num_pat = len(pattern)
         else:
             num_pat = 0
+            pattern = []
 
         if num_pat != self._number:
             raise ValueError(f"Electrode and Pattern lists must be the same length")

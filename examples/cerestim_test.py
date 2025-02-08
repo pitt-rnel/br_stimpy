@@ -38,7 +38,7 @@ print(f"Device Protocol Version:  {pv['major']}.{pv['minor']}")
 
 print("Device Module Status:")
 for (i, ms) in enumerate(device_info["module_status"]):
-    if ms == True:
+    if bool(ms) == True:
         mv = device_info["module_version"][i]
         print(f"Module {i + 1}: {ms.name} - Version {mv['major']}.{mv['minor']}")
     else:
