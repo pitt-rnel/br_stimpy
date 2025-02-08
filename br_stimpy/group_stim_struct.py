@@ -9,7 +9,7 @@ Defines a class for use with stimpy.Stimulator.group_stimulus()
 from __future__ import annotations  # ensure forward compatibility
 from br_stimpy.constants import *
 from br_stimpy._validation import _ValidationFcns
-from typing import List, Optional, Any
+from typing import List, Optional
 
 
 class GroupStimulusStruct(object):

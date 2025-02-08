@@ -33,7 +33,7 @@ from br_stimpy.constants import *
 from br_stimpy.enums import *
 from br_stimpy._validation import _ValidationFcns
 from br_stimpy.group_stim_struct import GroupStimulusStruct
-from typing import List, Optional, Any, Dict, Union
+from typing import List, Optional, Dict, Union
 
 
 def get_enum_docstr(enum_val: Union[OCVolt, WFType, TriggerType, PartNumbers, ModuleStatus, SeqType, ResultType]) -> str:

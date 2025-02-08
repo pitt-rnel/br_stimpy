@@ -709,7 +709,7 @@ class ResultType:
     
     Members:
     
-      return_ : Software Error: Early returned warning.
+      return_early : Software Error: Early returned warning.
     
       success : Successful operation.
     
@@ -875,7 +875,7 @@ class ResultType:
     phase_great_max: typing.ClassVar[ResultType]  # value = <ResultType.phase_great_max: -123>
     phase_not_balanced: typing.ClassVar[ResultType]  # value = <ResultType.phase_not_balanced: -122>
     read_err: typing.ClassVar[ResultType]  # value = <ResultType.read_err: -18>
-    return_: typing.ClassVar[ResultType]  # value = <ResultType.return_: 1>
+    return_early: typing.ClassVar[ResultType]  # value = <ResultType.return_: 1>
     sequence_error: typing.ClassVar[ResultType]  # value = <ResultType.sequence_error: -102>
     stim_attached: typing.ClassVar[ResultType]  # value = <ResultType.stim_attached: -11>
     stim_detached: typing.ClassVar[ResultType]  # value = <ResultType.stim_detached: -12>
