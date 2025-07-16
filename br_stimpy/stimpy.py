@@ -127,7 +127,7 @@ class Stimulator(object):
         self.last_result = self._bstimulator_obj.read_device_info(dev_info)
         self._raise_if_error("read_device_info")
 
-        output = dict = {
+        return {
             "serial_no": self._convert_raw_serial_num(dev_info.serial_no),
             "mainboard_version": self._convert_raw_version(dev_info.mainboard_version),
             "protocol_version": self._convert_raw_version(dev_info.protocol_version),
@@ -136,7 +136,6 @@ class Stimulator(object):
                 self._convert_raw_version(x) for x in dev_info.module_version
             ],
         }
-        return output
 
     @property
     def sequence_status(self) -> SeqType:
