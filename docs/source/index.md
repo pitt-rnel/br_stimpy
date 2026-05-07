@@ -24,9 +24,9 @@ git clone https://github.com/pitt-rnel/br_stimpy.git
 ```
 
 The Blackrock Cerestim API can be downloaded from their website
-[here](https://blackrockneurotech.com/research/wp-content/software/CereStim-API.zip).
-The SDK should be unzipped into the `extern/` directory (such that the binary
-and header files are located in `extern/Cerestim-API/Binaries`).
+[here](https://blackrockneurotech.com/wp-content/uploads/CereStim-API-5.3.0-1.zip).
+The SDK should be unzipped into the `extern/Cerestim-API/Binaries` directory (such that both the binary and
+header files are located in `extern/Cerestim-API/Binaries`).
 
 Pybind11 is included as a git submodule and can be initialized in the source
 tree by running:
