@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" />
 
     <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
-        <title>br_stimpy._bstimulator.InterfaceType - br_stimpy 0.0.6 documentation</title>
+        <title>br_stimpy._bstimulator.InterfaceType - br_stimpy 0.0.7 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -167,7 +167,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">br_stimpy 0.0.6 documentation</div></a>
+      <a href="../index.html"><div class="brand">br_stimpy 0.0.7 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -194,7 +194,7 @@
     <img class="sidebar-logo" src="../_static/stimpy.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">br_stimpy 0.0.6 documentation</span>
+  <span class="sidebar-brand-text">br_stimpy 0.0.7 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -264,14 +264,13 @@
 <h1>br_stimpy._bstimulator.InterfaceType<a class="headerlink" href="#br-stimpy-bstimulator-interfacetype" title="Link to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="br_stimpy._bstimulator.InterfaceType">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">InterfaceType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.InterfaceType" title="br_stimpy._bstimulator.InterfaceType"><span class="pre">br_stimpy._bstimulator.InterfaceType</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#br_stimpy._bstimulator.InterfaceType" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">InterfaceType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#br_stimpy._bstimulator.InterfaceType" title="br_stimpy._bstimulator.InterfaceType"><span class="pre">br_stimpy._bstimulator.InterfaceType</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.SupportsInt" title="(in Python v3.14)"><span class="pre">SupportsInt</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.SupportsIndex" title="(in Python v3.14)"><span class="pre">SupportsIndex</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#br_stimpy._bstimulator.InterfaceType" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
 <p>The Stimulator was originally designed to be communicated via USB or RS232, and will be functional on multiple platforms. The RS232 interface no longer exists. Default type should generally be used.</p>
 <p>Members:</p>
 <blockquote>
-<div><p>interface_default : Default interface (windows USB)</p>
-<p>interface_wusb : Windows USB interface.</p>
-<p>interface_cpusb : Experimental cross-platform USB interface.</p>
+<div><p>interface_default : Default interface (USB)</p>
+<p>interface_cpusb : Cross-platform USB interface.</p>
 <p>interface_count : Number of Interfaces, always the last one.</p>
 </div></blockquote>
 <p class="rubric">Methods</p>
@@ -294,13 +293,10 @@
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">interface_default</span></code></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">interface_wusb</span></code></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.InterfaceType.name" title="br_stimpy._bstimulator.InterfaceType.name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#br_stimpy._bstimulator.InterfaceType.name" title="br_stimpy._bstimulator.InterfaceType.name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">value</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">value</span></code></p></td>
 <td><p></p></td>
 </tr>
 </tbody>
@@ -326,7 +322,7 @@
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; University of Pittsburgh Rehab Neural Engineering Labs, 2025
+                Copyright &#169; Jeff Weiss &amp; University of Pittsburgh Rehab Neural Engineering Labs, 2026
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             
@@ -370,7 +366,7 @@
   </div>
 </div><script src="../_static/jquery.js?v=5d32c60e"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-    <script src="../_static/documentation_options.js?v=1fd71caa"></script>
+    <script src="../_static/documentation_options.js?v=bbaf98b3"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/furo.js?v=5fa4622c"></script>
