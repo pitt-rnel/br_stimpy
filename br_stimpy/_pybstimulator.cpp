@@ -56,21 +56,22 @@ std::array<UINT16, MAXMODULES> get_module_version(BDeviceInfo *device_info){ //g
     return out;
 }
 
-Matrix<INT16, MAXCHANNELS, NUMBER_VOLT_MEAS> get_test_electrodes_meas(BTestElectrodes *test_electrodes){
-    Matrix<INT16, MAXCHANNELS, NUMBER_VOLT_MEAS> out;
-    for (int i=0; i< MAXCHANNELS; i++){
-        for (int j=0; j< NUMBER_VOLT_MEAS; j++){
-            out[i][j] = test_electrodes->electrodes[i][j];
-        }
-    }
-    return out;
-}
+// Removed in API v5.3
+// Matrix<INT16, MAXCHANNELS, NUMBER_VOLT_MEAS> get_test_electrodes_meas(BTestElectrodes *test_electrodes){
+//     Matrix<INT16, MAXCHANNELS, NUMBER_VOLT_MEAS> out;
+//     for (int i=0; i< MAXCHANNELS; i++){
+//         for (int j=0; j< NUMBER_VOLT_MEAS; j++){
+//             out[i][j] = test_electrodes->electrodes[i][j];
+//         }
+//     }
+//     return out;
+// }
 
-std::array<UINT32, MAXCHANNELS> get_test_electrodes_imp(BTestElectrodes *test_electrodes){ //getter to convert array to vector
-    std::array<UINT32, MAXCHANNELS> out;
-    std::copy(std::begin(test_electrodes->impedance), std::end(test_electrodes->impedance), out.begin());
-    return out;
-}
+// std::array<UINT32, MAXCHANNELS> get_test_electrodes_imp(BTestElectrodes *test_electrodes){ //getter to convert array to vector
+//     std::array<UINT32, MAXCHANNELS> out;
+//     std::copy(std::begin(test_electrodes->impedance), std::end(test_electrodes->impedance), out.begin());
+//     return out;
+// }
 
 Matrix<INT16, MAXMODULES, NUMBER_VOLT_MEAS> get_modules_mv(BTestModules *testModules){
     Matrix<INT16, MAXMODULES, NUMBER_VOLT_MEAS> out;
@@ -163,14 +164,16 @@ PYBIND11_MODULE(_bstimulator, m) {
     py::enum_<BInterfaceType> interface_type(m, "InterfaceType",
         "The Stimulator was originally designed to be communicated via USB or RS232, and will be functional on multiple platforms. "
         "The RS232 interface no longer exists. Default type should generally be used.");
-    interface_type.value("interface_default", BInterfaceType::BINTERFACE_DEFAULT, "Default interface (windows USB)")
-        .value("interface_wusb",  BInterfaceType::BINTERFACE_WUSB, "Windows USB interface.");
+    interface_type.value("interface_default", BInterfaceType::BINTERFACE_DEFAULT, "Default interface (USB)")
 #ifdef _WIN32 // __if_exists keyword is in windows but is not standard c++, not in gcc
-    __if_exists(BInterfaceType::BINTERFACE_CPUSB) { // experimental cross-platform USB interface, not in standard header
-        interface_type.value("interface_cpusb",  BInterfaceType::BINTERFACE_CPUSB, "Experimental cross-platform USB interface."); 
+    __if_exists(BInterfaceType::BINTERFACE_WUSB) { // Windows USB interface, removed in v5.3
+        .value("interface_wusb",  BInterfaceType::BINTERFACE_WUSB, "Windows USB interface.");
+    };
+    __if_exists(BInterfaceType::BINTERFACE_CPUSB) { // cross-platform USB interface, not in v5.2
+        interface_type.value("interface_cpusb",  BInterfaceType::BINTERFACE_CPUSB, "Cross-platform USB interface."); 
     };
 #else
-    interface_type.value("interface_cpusb",  BInterfaceType::BINTERFACE_CPUSB, "Experimental cross-platform USB interface.");
+    interface_type.value("interface_cpusb",  BInterfaceType::BINTERFACE_CPUSB, "Cross-platform USB interface.");
 #endif    
     interface_type.value("interface_count",  BInterfaceType::BINTERFACE_COUNT, "Number of Interfaces, always the last one.")
         .export_values();
@@ -443,13 +446,14 @@ PYBIND11_MODULE(_bstimulator, m) {
         .def_readwrite("frequency", &BMaximumValues::frequency, "Frequency (Hz)");
     maximum_values.doc() = "The stimulator has an administrative interface that allows the primary researcher to set additional safety levels depending on there stimulation protocols and parameters.";
 
-    py::class_<BTestElectrodes> test_electrodes(m, "TestElectrodes");
-    test_electrodes.def(py::init<>(), "Electrode Diagnostics.")
-        .def_property_readonly("electrodes", &get_test_electrodes_meas, "5 voltage measurements for all 96 channels reported in millivolts")
-        .def_property_readonly("impedance", &get_test_electrodes_imp, "Real part of Impedance of each electrode reported in Ohms.");
-    test_electrodes.doc() = "The stimulator allows for diagnosising the status of the electrodes attached to it. A known stimulus is sent to each electrode and the voltage "
-        "is recorded for the five data points during a stimulation, i.e. before the first phase, during the first phase, between the two phases, during the second phase and "
-        "after the second phase. These voltage levels are then used along with the known stimulation to calculate the impedance of each electrode. A 1 kHz frequency is used for the stimulation.";
+    // Removed in API v5.3
+    // py::class_<BTestElectrodes> test_electrodes(m, "TestElectrodes");
+    // test_electrodes.def(py::init<>(), "Electrode Diagnostics.")
+    //     .def_property_readonly("electrodes", &get_test_electrodes_meas, "5 voltage measurements for all 96 channels reported in millivolts")
+    //     .def_property_readonly("impedance", &get_test_electrodes_imp, "Real part of Impedance of each electrode reported in Ohms.");
+    // test_electrodes.doc() = "The stimulator allows for diagnosising the status of the electrodes attached to it. A known stimulus is sent to each electrode and the voltage "
+    //     "is recorded for the five data points during a stimulation, i.e. before the first phase, during the first phase, between the two phases, during the second phase and "
+    //     "after the second phase. These voltage levels are then used along with the known stimulation to calculate the impedance of each electrode. A 1 kHz frequency is used for the stimulation.";
 
     py::class_<BTestModules> test_modules(m, "TestModules");
     test_modules.def(py::init<>(), "Module Diagnostics.")
@@ -616,10 +620,11 @@ PYBIND11_MODULE(_bstimulator, m) {
         .def("stop_trigger_stimulus", &BStimulator::stopTriggerStimulus, "Changes the state of the stimulator so that it is no longer waiting for a trigger. Frees up the stimulator for other commands to be called.")
         .def("update_electrode_channel_map", &BStimulator::updateElectrodeChannelMap, "input"_a,
             "Since not all electrodes are found on channel 1 this function allows the user to create a map key pair where the channel is an index into an array which holds the value of the electrode at that channel.")
-        .def("test_electrodes", &BStimulator::testElectrodes, "output"_a,
-            "This is a diagnostic tool that can be used to help determine which electrodes are good and which ones are bad. The stimulator will send out a known stimulus configuration, "
-            "(Config_0), and measure the voltage it returns. Off of these values the relative impedance calculated and returned.\n\n"
-            "output: Pointer to a BTestElectrodes Structure which will contain all the information from all the channels.")
+        // Removed in API v5.3
+        // .def("test_electrodes", &BStimulator::testElectrodes, "output"_a,
+        //     "This is a diagnostic tool that can be used to help determine which electrodes are good and which ones are bad. The stimulator will send out a known stimulus configuration, "
+        //     "(Config_0), and measure the voltage it returns. Off of these values the relative impedance calculated and returned.\n\n"
+        //     "output: Pointer to a BTestElectrodes Structure which will contain all the information from all the channels.")
         .def("test_modules", &BStimulator::testModules, "output"_a,
             "Used as a way to diagnose the current modules that reside in the stimulator to determine if there output voltage levels are okay and ensure that they continue to function at the "
             "right levels over time. A known stimulus is applied to a known load and the voltage is compared to what it should be.\n\n"
