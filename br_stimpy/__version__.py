@@ -1,8 +1,10 @@
 __title__ = "br_stimpy"
 __description__ = "br_stimpy: python bindings to Blackrock Neurotech Cerestim API"
 __url__ = "https://github.com/pitt-rnel/br_stimpy"
-__version__ = "0.0.6"
+__version__ = "0.0.7"
 __author__ = "Jeff Weiss"
 __author_email__ = "jeff.weiss@pitt.edu"
 __license__ = "MIT"
-__copyright__ = "University of Pittsburgh Rehab Neural Engineering Labs, 2025"
+__copyright__ = (
+    "Jeff Weiss & University of Pittsburgh Rehab Neural Engineering Labs, 2026"
+)
